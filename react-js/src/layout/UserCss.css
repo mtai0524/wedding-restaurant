@@ -1,0 +1,95 @@
+.custom-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.custom-search-input {
+    
+    margin: 0; /* Xóa margin để đảm bảo thanh search nằm ngang hàng */
+}
+
+.custom-search-button {
+    margin-left: 10px; /* Tạo khoảng cách giữa input và button */
+}
+
+.custom-card {
+    width: 20rem;
+    margin: 20px;
+    position: relative;
+}
+
+.card-button {
+    padding: 6px 12px;
+    margin: 20px 5px 5px 0; /* Điều chỉnh margin-right thành 0 */
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #ff6b6b;
+    cursor: pointer;
+}
+
+.button-container {
+    left: -10px;
+    display: flex;
+    justify-content: right;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+
+
+
+/* CustomNav.css */
+
+.custom-nav-link a{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 15px;
+    text-align: center;
+    color: #4e4e4e;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.custom-nav-link a:hover {
+    color: #ec9494;
+}
+
+.custom-nav-link a:active {
+    color: #ec9494;
+}
+
+.custom-search-input {
+    margin-right: 10px;
+
+    border: 2px solid #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.custom-search-input:focus {
+    outline: none;
+    border-color: #131212;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.custom-search-button {
+    
+    background-color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: black;
+    border: solid 2px black;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.custom-search-button:hover {
+    background-color: #111111;
+    color: rgb(255, 255, 255);
+    border: solid 2px black;
+}
