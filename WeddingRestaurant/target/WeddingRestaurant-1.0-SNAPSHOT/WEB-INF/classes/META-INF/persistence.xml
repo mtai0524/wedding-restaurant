@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence           http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <persistence-unit name="com.mt_WeddingRestaurant_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.mt.pojo.Services</class>
+    <class>com.mt.pojo.BookingMenus</class>
+    <class>com.mt.pojo.Menus</class>
+    <class>com.mt.pojo.Feedbacks</class>
+    <class>com.mt.pojo.Users</class>
+    <class>com.mt.pojo.Branches</class>
+    <class>com.mt.pojo.EventHalls</class>
+    <class>com.mt.pojo.BookingServices</class>
+    <class>com.mt.pojo.Bookings</class>
+    <class>com.mt.pojo.RevenueQuarterly</class>
+    <class>com.mt.pojo.Invoices</class>
+    <class>com.mt.pojo.Employees</class>
+    <class>com.mt.pojo.Payments</class>
+    <class>com.mt.pojo.RevenueYearly</class>
+    <class>com.mt.pojo.RevenueMonthly</class>
+    <class>com.mt.pojo.User</class>
+    <class>com.mt.pojo.Category</class>
+    <class>com.mt.pojo.SaleOrder</class>
+    <class>com.mt.pojo.Tag</class>
+    <class>com.mt.pojo.Product</class>
+    <class>com.mt.pojo.OrderDetail</class>
+    <class>com.mt.pojo.ProdTag</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/restaurant_db?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="Tai12345."/>
+    </properties>
+  </persistence-unit>
+</persistence>

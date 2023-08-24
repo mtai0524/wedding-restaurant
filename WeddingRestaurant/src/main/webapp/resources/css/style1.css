@@ -1,0 +1,27 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Aug 17, 2023, 9:27:59 PM
+    Author     : minh tai
+*/
+.card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: 300px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+}
+.card-header {
+    font-weight: bold;
+}
+.card-description {
+    margin-top: 10px;
+}
+.card-price {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
