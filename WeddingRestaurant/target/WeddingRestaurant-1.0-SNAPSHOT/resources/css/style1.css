@@ -6,6 +6,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : Aug 17, 2023, 9:27:59 PM
     Author     : minh tai
 */
+
+
 .card {
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -25,3 +27,4 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     font-size: 18px;
     font-weight: bold;
 }
+

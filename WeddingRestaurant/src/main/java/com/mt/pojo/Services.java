@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Services.findByServiceId", query = "SELECT s FROM Services s WHERE s.serviceId = :serviceId"),
     @NamedQuery(name = "Services.findByServiceName", query = "SELECT s FROM Services s WHERE s.serviceName = :serviceName"),
     @NamedQuery(name = "Services.findByDescription", query = "SELECT s FROM Services s WHERE s.description = :description"),
-    @NamedQuery(name = "Services.findByServicePrice", query = "SELECT s FROM Services s WHERE s.servicePrice = :servicePrice")})
+    @NamedQuery(name = "Services.findByServicePrice", query = "SELECT s FROM Services s WHERE s.servicePrice = :servicePrice"),
+    @NamedQuery(name = "Services.findByServiceImg", query = "SELECT s FROM Services s WHERE s.serviceImg = :serviceImg")})
 public class Services implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,6 +55,9 @@ public class Services implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "service_price")
     private BigDecimal servicePrice;
+    @Size(max = 100)
+    @Column(name = "service_img")
+    private String serviceImg;
     @OneToMany(mappedBy = "serviceId")
     private Set<BookingServices> bookingServicesSet;
 
@@ -99,6 +103,14 @@ public class Services implements Serializable {
 
     public void setServicePrice(BigDecimal servicePrice) {
         this.servicePrice = servicePrice;
+    }
+
+    public String getServiceImg() {
+        return serviceImg;
+    }
+
+    public void setServiceImg(String serviceImg) {
+        this.serviceImg = serviceImg;
     }
 
     @XmlTransient

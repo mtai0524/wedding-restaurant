@@ -9,16 +9,19 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -32,38 +35,50 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByUserId", query = "SELECT u FROM Users u WHERE u.userId = :userId"),
     @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
-    @NamedQuery(name = "Users.findByRole", query = "SELECT u FROM Users u WHERE u.role = :role")})
+    @NamedQuery(name = "Users.findByRole", query = "SELECT u FROM Users u WHERE u.role = :role"),
+    @NamedQuery(name = "Users.findByAvatar", query = "SELECT u FROM Users u WHERE u.avatar = :avatar")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "user_id")
     private Integer userId;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "username")
     private String username;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "role")
     private String role;
-    @Lob
+    @Size(max = 1000)
     @Column(name = "avatar")
-    private byte[] avatar;
+    private String avatar;
     @OneToMany(mappedBy = "userId")
     private Set<Feedbacks> feedbacksSet;
     @OneToMany(mappedBy = "userId")
     private Set<Bookings> bookingsSet;
 
+    @Transient
+    private MultipartFile file;
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+    
     public Users() {
     }
 
@@ -110,11 +125,11 @@ public class Users implements Serializable {
         this.role = role;
     }
 
-    public byte[] getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(byte[] avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 

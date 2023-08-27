@@ -21,6 +21,15 @@
                 <div class="card-price">${service.servicePrice}</div>
             </div>
         </c:forEach>
-    </body>
+
+<!--        <c:url value="/upload" var="action" />
+    <form:form action="${action}"
+               method="POST" modelAttribute="user"
+               enctype="multipart/form-data">
+        <form:input id="imageId" path="avatar" type="file" />
+        <input type="submit" value="upload" />
+    </form:form>-->
+
+</body>
 </html>
 

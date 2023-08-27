@@ -95,6 +95,8 @@
                     <a href="<c:url value="/service"/>" class="nav-item nav-link">Service</a>
                     <a href="<c:url value="/menu"/>" class="nav-item nav-link">Menu</a>
                     <a href="<c:url value="/branch"/>" class="nav-item nav-link">Branch</a>
+                    <a href="<c:url value="/user"/>" class="nav-item nav-link">User</a>
+                    <a href="<c:url value="/order"/>" class="nav-item nav-link">Order</a>
 
                     <a href="project.html" class="nav-item nav-link">Project</a>
                     <div class="nav-item dropdown">

@@ -4,11 +4,14 @@
  */
 package com.mt.configs;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -24,7 +27,9 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan(basePackages = {
-    "com.mt.controllers"
+    "com.mt.controllers",
+    "com.mt.service",
+    "com.mt.repository"
 })
 public class WebAppContextConfig implements WebMvcConfigurer{
 
@@ -44,6 +49,13 @@ public class WebAppContextConfig implements WebMvcConfigurer{
         return r;
     }
 
+    @Bean
+    public CommonsMultipartResolver multipartResolver(){
+         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+         resolver.setDefaultEncoding("UTF-8");
+         return resolver;
+    }
+    
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/**")
@@ -65,6 +77,14 @@ public class WebAppContextConfig implements WebMvcConfigurer{
                 .addResourceLocations("/resources/lib/isotope");
     }
     
-    
-    
+    @Bean
+    public Cloudinary cloudinary() {
+        Cloudinary cloudinary
+                = new Cloudinary(ObjectUtils.asMap(
+                        "cloud_name", "dl3hvap4a",
+                        "api_key", "834354428788744",
+                        "api_secret", "lv7zI6VPru0YhHwUPQsru318SOE",
+                        "secure", true));
+        return cloudinary;
+    }
 }

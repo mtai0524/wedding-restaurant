@@ -1,0 +1,134 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Aug 24, 2023, 9:02:16 PM
+    Author     : minh tai
+*/
+
+.my-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f4f4f4;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"]
+{
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+.form-group select{
+    margin-bottom: 20px;
+
+    width: 100%;
+    padding: 19px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+.form-group input[type="file"] {
+    margin-bottom: 20px;
+
+    padding: 20px; /* Adjust padding for file input */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding-bottom: 40px;
+}
+
+.form-group .btn {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.register-page {
+    justify-content: center;
+    display: flex;
+    height: 100vh;
+    align-items: center;
+}
+
+.register-form-register {
+    box-shadow: 0px 0px 21px rgb(0 0 0 /20%);
+    width: 520px;
+    padding: 48px;
+    background: #fff;
+    border-radius: 10px;
+}
+
+h1.title {
+    color: black;
+}
+
+label.form-label {
+    color: black;
+}
+
+
+input.form-control {
+    background-color: whitesmoke;
+    padding: 6px 12px;
+    width: 100%;
+    height: 20px;
+    display: block;
+    color-scheme: auto;
+}
+
+.mb-2 {
+    margin-bottom: 16px;
+    
+}
+
+.custom-input {
+    border-radius: 20px; /* Điều chỉnh giá trị để thay đổi độ cong của viền bo tròn */
+    background-color: #ffffff; /* Màu nền trắng */
+    padding: 10px 15px; /* Khoảng cách giữa viền và nội dung */
+    border: 1px solid #ced4da; /* Viền mảnh */
+    outline: none; /* Loại bỏ đường viền khi trường đang trong trạng thái focus */
+}
+
+h1{
+    color: yellow;
+    background-color: white;
+}
+
+.user-cards {
+    margin-left: 20px;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.user-card {
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 5%;
+    margin-right: 10px;
+}
