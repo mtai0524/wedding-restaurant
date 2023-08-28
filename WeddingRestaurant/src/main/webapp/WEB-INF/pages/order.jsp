@@ -16,13 +16,24 @@
     </head>
     <body>
         <h1>Order</h1>
-        <form>
-            <select name="selectedBranch">
-                <c:forEach items="${branch}" var="branch">
+        
+        
+        <form method="post"">
+            <select>
+                <c:forEach items="${branch}" var="branch" >
                     <option value="${branch.branchName}">${branch.branchName}</option>
                 </c:forEach>
             </select>
         </form>
+        
+        <ul>
+            <c:forEach items="${branch}" var = "i">
+                <li>${i.branchName}</li>
+                <li>${i.address}</li>
+                <li>${i.phone}</li>
+            </c:forEach>
+        </ul>
+        
         
     </body>
 </html>

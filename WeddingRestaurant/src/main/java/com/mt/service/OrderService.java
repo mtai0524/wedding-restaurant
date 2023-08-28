@@ -11,6 +11,6 @@ import java.util.List;
  *
  * @author minh tai
  */
-public interface OrderService {
+public interface OrderService { 
     List<Branches> getBranches();
 }

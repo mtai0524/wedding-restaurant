@@ -61,6 +61,7 @@
                         <p>Username: ${i.username}</p>
                         <p>Password: ${i.password}</p>
                         <p>Role: ${i.role}</p>
+                        <a href="<c:url value='/delete/${i.userId}'/>" class="btn btn-danger">Delete</a>
                     </div>
                 </li>
             </c:forEach>

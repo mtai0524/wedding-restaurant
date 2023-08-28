@@ -29,5 +29,20 @@ public class UserServiceImpl implements UserService{
     public String add(Users user) {
         return this.userRepo.add(user);
     }
+
+    @Override
+    public void delete(Integer intgr) {
+        return;
+    }
+
+    @Override
+    public Users getProductById(int id) {
+        return this.userRepo.getProductById(id);
+    }
+
+    @Override
+    public void deleteProduct(int id) {
+        userRepo.deleteProduct(id);
+    }
     
 }

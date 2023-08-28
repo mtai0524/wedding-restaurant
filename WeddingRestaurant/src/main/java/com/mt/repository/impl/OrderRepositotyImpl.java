@@ -32,5 +32,4 @@ public class OrderRepositotyImpl implements OrderRepositoty{
         List<Branches> listBranches = q.getResultList();
         return listBranches;
     }
-    
 }

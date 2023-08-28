@@ -21,8 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -33,6 +36,8 @@ public class UserController {
     @Autowired
     private UserService userService;
     
+    @Autowired
+    LocalSessionFactoryBean f;
     
     @GetMapping("/user")
     public String user(Model model){
@@ -44,5 +49,11 @@ public class UserController {
     public String add(@ModelAttribute(value = "user") Users user) {
         userService.add(user);
         return "redirect:/";
+    }
+    
+        @RequestMapping(value = "/delete/{userId}", method = RequestMethod.GET)
+        public String deleteUser(@PathVariable("userId") Integer userId) {
+            userService.deleteProduct(userId);
+            return "redirect:/user";
     }
 }

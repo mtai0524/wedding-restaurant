@@ -3,12 +3,17 @@ package com.mt.repository.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.mt.pojo.Branches;
 import com.mt.pojo.Users;
+import static com.mt.pojo.Users_.userId;
 import com.mt.repository.UserRepository;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
+import static jdk.nashorn.internal.runtime.Debug.id;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -36,9 +41,14 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public List<Users> getUsers() {
-        Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createQuery("FROM Users");
-        return q.getResultList();
+        CriteriaQuery<Users> query = factory.getObject().getCurrentSession().getCriteriaBuilder().createQuery(Users.class);
+        
+        query.from(Users.class);
+        return factory.getObject().getCurrentSession().createQuery(query).getResultList();
+        
+//        Session s = this.factory.getObject().getCurrentSession();
+//        Query q = s.createQuery("FROM Users");
+//        return q.getResultList();
     }
 
     @Override
@@ -57,7 +67,7 @@ public class UserRepositoryImpl implements UserRepository{
 
             // Lưu đối tượng Users vào cơ sở dữ liệu
             Session session = factory.getObject().getCurrentSession();
-            session.persist(user);
+            session.save(user);
 
             return "redirect:/";
         } catch (IOException ex) {
@@ -65,4 +75,40 @@ public class UserRepositoryImpl implements UserRepository{
         }
         return "user";
     }
+    private String extractPublicIdFromImageUrl(String imageUrl) {
+        // Tách public_id từ URL hình ảnh Cloudinary
+        // Ví dụ: https://res.cloudinary.com/demo/image/upload/v1362144099/sample.jpg
+        // public_id: sample
+        String[] parts = imageUrl.split("/");
+        String lastPart = parts[parts.length - 1];
+        String publicId = lastPart.substring(0, lastPart.lastIndexOf("."));
+        return publicId;
+    }
+    @Override
+    public void delete(Integer userId) {
+        Users user = this.factory.getObject().getCurrentSession().get(Users.class, userId);
+        if (user != null) {
+            factory.getObject().getCurrentSession().delete(user);
+        }
+    }
+    
+    
+    @Override
+    public Users getProductById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(Users.class, id);
+    }
+
+  
+
+    @Override
+    public void deleteProduct(int id) {
+        Session session = factory.getObject().getCurrentSession();
+        Users user = session.get(Users.class, id);
+        if (user != null) {
+            session.delete(user);
+        }
+    }
+    
+    
 }
