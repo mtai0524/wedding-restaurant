@@ -13,6 +13,7 @@ com\mt\pojo\Services_.class
 com\mt\repository\OrderRepositoty.class
 com\mt\pojo\Payments_.class
 com\mt\service\OrderService.class
+com\mt\controllers\User.class
 com\mt\pojo\Bookings.class
 com\mt\pojo\EventHalls.class
 com\mt\pojo\BookingServices.class

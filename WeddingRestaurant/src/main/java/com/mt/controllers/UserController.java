@@ -33,27 +33,44 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class UserController {
+
     @Autowired
     private UserService userService;
-    
+
     @Autowired
     LocalSessionFactoryBean f;
-    
+
     @GetMapping("/user")
-    public String user(Model model){
-        model.addAttribute("user",new Users());
+    public String user(Model model) {
+        model.addAttribute("user", new Users());
         model.addAttribute("users", userService.getUsers());
         return "user";
     }
+
     @PostMapping("/user")
     public String add(@ModelAttribute(value = "user") Users user) {
         userService.add(user);
         return "redirect:/";
     }
+
+//    @RequestMapping(value = "/delete/{userId}", method = RequestMethod.GET)
+    @GetMapping("/delete/{userId}")
+    public String deleteUser(@PathVariable("userId") Integer userId) {
+        userService.deleteProduct(userId);
+        return "index";
+    }
+
+    @GetMapping("/edit/{userId}")
+    public String editUser(@PathVariable("userId") Integer userId, Model model) {
+        Users user1 = userService.getProductById(userId);
+        model.addAttribute("users",user1 );
+//        userService.updateUser(user);
+        return "userInfo";
+    }
     
-        @RequestMapping(value = "/delete/{userId}", method = RequestMethod.GET)
-        public String deleteUser(@PathVariable("userId") Integer userId) {
-            userService.deleteProduct(userId);
-            return "redirect:/user";
+    @PostMapping("/edit/{userId}")
+    public String editUserPost(@ModelAttribute(value = "users") Users user) {
+        userService.updateUser(user);
+        return "redirect:/";
     }
 }

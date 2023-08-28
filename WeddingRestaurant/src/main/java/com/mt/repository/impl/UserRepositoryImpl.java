@@ -109,6 +109,32 @@ public class UserRepositoryImpl implements UserRepository{
             session.delete(user);
         }
     }
-    
+
+    @Override
+    public Users updateUser(Users user) {
+      
+        try {
+            // Tải lên hình ảnh lên Cloudinary
+            Map<String, Object> uploadResult = this.cloudinary.uploader().upload(user.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+
+            // Lấy địa chỉ URL của hình ảnh từ kết quả tải lên
+            String imageUrl = (String) uploadResult.get("secure_url");
+//            user.setUsername("dashduksh");
+//            user.setRole("ccccc");
+//            user.setPassword("cc");
+//            // Gán địa chỉ URL vào đối tượng Users
+            user.setAvatar(imageUrl);
+
+            // Lưu đối tượng Users vào cơ sở dữ liệu
+            Session session = factory.getObject().getCurrentSession();
+            session.update(user);
+
+            return user;
+
+        } catch (IOException ex) {
+            System.err.println("Có lỗi xảy ra: " + ex.getMessage());
+        }
+        return null;
+    }
     
 }

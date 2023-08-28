@@ -18,4 +18,5 @@ public interface UserRepository {
     void delete(Integer userId);
     public Users getProductById(int id);
     public void deleteProduct(int id);
+    public Users updateUser(Users user);
 }
