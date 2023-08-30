@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Spinner } from 'react-bootstrap';
+import Apis, { endpoint } from '../configs/Apis';
 
 export const Header = () => {
     const [users, setUsers] = useState(null);
     const loadUsers = async () => {
         // let res =  await fetch("https://localhost:7121/api/ApiUser");
-        let res = await fetch("http://localhost:8080/WeddingRestaurant/api/users");
-        let data = await res.json();
+        // let res = await fetch("http://localhost:8080/WeddingRestaurant/api/users");
+        // let data = await res.json();
 
-        setUsers(data);
+        let res = await Apis.get(endpoint['users']);
+
+        setUsers(res.data);
     }
     useEffect(() => {
         loadUsers();
