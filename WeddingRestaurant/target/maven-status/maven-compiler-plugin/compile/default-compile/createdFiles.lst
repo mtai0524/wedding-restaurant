@@ -12,6 +12,7 @@ com\mt\repository\impl\OrderRepositotyImpl.class
 com\mt\pojo\Payments.class
 com\mt\pojo\Services_.class
 com\mt\repository\OrderRepositoty.class
+com\mt\pojo\SearchForm.class
 com\mt\pojo\Payments_.class
 com\mt\service\OrderService.class
 com\mt\pojo\Bookings.class

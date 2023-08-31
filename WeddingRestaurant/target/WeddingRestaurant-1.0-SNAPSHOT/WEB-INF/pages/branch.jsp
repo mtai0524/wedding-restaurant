@@ -32,7 +32,6 @@
                                         </div>
                                         <div class="card-footer">
                                             <c:url value='/order/${branch.branchId}' var="orderUrl" />
-                                           
                                             <a href="${orderUrl}" class="text-white" style="text-decoration: none; color: white ;background-color: green; padding: 10px 10px; border-radius: 4px;">Chọn chi nhánh</a>
                                         </div>
                                     </div>

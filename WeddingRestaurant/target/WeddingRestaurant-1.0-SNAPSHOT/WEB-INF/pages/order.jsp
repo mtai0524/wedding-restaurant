@@ -22,41 +22,45 @@
                 <h1>Bạn đã chọn chi nhánh ${branch.branchName}</h1>
             </c:forEach>
         </ul>
-        <!--        <ul>
-        <c:forEach items="${halls}" var="h" >
-            <li>${h.hallId}</li>
-            <li>${h.hallName}</li>
-            <li>${h.capacity}</li>
-        </c:forEach>
-    </ul>-->
-
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <c:url value="/order" var="action" />
-                    <!--<form:form method="post" action="${action}" modelAttribute="branches" enctype="multipart/form-data" class="my-form">-->
-                        <div class="row">
-                            <c:forEach items="${halls}" var="hall" >
-                                <div class="col-md-6">
-                                    <div class="card mb-3">
-                                        <!--<img src="${branch.img}" alt="Branch Image" width="100%" height="200px">-->
-                                        <div class="card-header">Tên sảnh: ${hall.hallName}</div>
-                                        <div class="card-body">
-                                            <p class="card-text">Số bàn: ${hall.capacity}</p>
-                                        </div>
-                                        <!--                                        <div class="card-footer">
-                                        <c:url value='/order/${branch.branchId}' var="orderUrl" />
-
-                                        <a href="${orderUrl}" class="text-white" style="text-decoration: none; color: white ;background-color: green; padding: 10px 10px; border-radius: 4px;">Chọn chi nhánh</a>
-                                    </div>-->
-                                    </div>
+        <c:url value="/search" var="action" />
+    <form:form method="post" action="${action}" modelAttribute="searchForm">
+        <label for="searchType">Chọn loại tìm kiếm:</label>
+        <select id="searchType" name="searchType">
+            <option value="branch">Chi nhánh</option>
+            <option value="hall">Sảnh</option>
+            <option value="food">Món ăn</option>
+            <option value="service">Dịch vụ</option>
+        </select>
+        <input type="text" name="keyword" placeholder="Từ khóa tìm kiếm">
+        <button type="submit">Tìm kiếm</button>
+    </form:form>
+    <br/>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <c:url value="/order" var="action" />
+                <!--<form:form method="post" action="${action}" modelAttribute="branches" enctype="multipart/form-data" class="my-form">-->
+                <div class="row">
+                    <c:forEach items="${halls}" var="hall" >
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!--<img src="${branch.img}" alt="Branch Image" width="100%" height="200px">-->
+                                <div class="card-header">Tên sảnh: ${hall.hallName}</div>
+                                <div class="card-body">
+                                    <p class="card-text">Số bàn: ${hall.capacity}</p>
                                 </div>
-                            </c:forEach>
+                                    <%--<c:url value='/order/${branch.branchId}' var="orderUrl" />--%>
+                                    <a href="${orderUrl}" class="text-white" style="text-align: center; display: block; background-color: black; padding: 10px 10px;  text-decoration: none; color: white;">Chọn sảnh</a>
+                            </div>
                         </div>
-                    <!--</form:form>-->
+                    </c:forEach>
                 </div>
+                <!--</form:form>-->
             </div>
         </div>
+    </div>
 
-    </body>
+
+
+</body>
 </html>

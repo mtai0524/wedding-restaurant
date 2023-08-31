@@ -92,13 +92,11 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <a href="<c:url value="/"/>" class="nav-item nav-link">Home</a>
+                    <a href="<c:url value="/branch"/>" class="nav-item nav-link">Branch</a>
                     <a href="<c:url value="/service"/>" class="nav-item nav-link">Service</a>
                     <a href="<c:url value="/menu"/>" class="nav-item nav-link">Menu</a>
-                    <a href="<c:url value="/branch"/>" class="nav-item nav-link">Branch</a>
                     <a href="<c:url value="/user"/>" class="nav-item nav-link">User</a>
-                    <a href="<c:url value="/order"/>" class="nav-item nav-link">Order</a>
 
-                    <a href="project.html" class="nav-item nav-link">Project</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu fade-up m-0">
@@ -109,7 +107,6 @@
                             <a href="404.html" class="dropdown-item">404 Page</a>
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div>
                 <div class="container">
                     <form class="d-flex">
