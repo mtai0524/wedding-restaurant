@@ -34,6 +34,16 @@
             </c:forEach>
         </ul>
         
+        <h1>BRANCH NAME</h1>
         
+        <h1>${branchId}</h1>
+        
+        <ul>
+            <c:forEach items="${halls}" var="h" >
+                <li>${h.hallId}</li>
+                <li>${h.hallName}</li>
+                <li>${h.capacity}</li>
+            </c:forEach>
+        </ul>
     </body>
 </html>

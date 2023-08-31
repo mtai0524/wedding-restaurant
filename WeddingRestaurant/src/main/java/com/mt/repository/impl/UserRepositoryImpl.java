@@ -75,15 +75,7 @@ public class UserRepositoryImpl implements UserRepository{
         }
         return "user";
     }
-    private String extractPublicIdFromImageUrl(String imageUrl) {
-        // Tách public_id từ URL hình ảnh Cloudinary
-        // Ví dụ: https://res.cloudinary.com/demo/image/upload/v1362144099/sample.jpg
-        // public_id: sample
-        String[] parts = imageUrl.split("/");
-        String lastPart = parts[parts.length - 1];
-        String publicId = lastPart.substring(0, lastPart.lastIndexOf("."));
-        return publicId;
-    }
+
     @Override
     public void delete(Integer userId) {
         Users user = this.factory.getObject().getCurrentSession().get(Users.class, userId);
@@ -98,8 +90,6 @@ public class UserRepositoryImpl implements UserRepository{
         Session s = this.factory.getObject().getCurrentSession();
         return s.get(Users.class, id);
     }
-
-  
 
     @Override
     public void deleteProduct(int id) {

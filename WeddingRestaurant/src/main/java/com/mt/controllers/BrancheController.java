@@ -4,6 +4,10 @@
  */
 package com.mt.controllers;
 
+import com.mt.pojo.Branches;
+import com.mt.pojo.EventHalls;
+import com.mt.pojo.Users;
+import java.util.List;
 import javax.persistence.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,18 +15,23 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
  * @author minh tai
  */
+@Transactional
 @Controller
 public class BrancheController {
     @Autowired
     LocalSessionFactoryBean factory;
 
-    @Transactional
     @RequestMapping("/branch")
     public String index(Model model) {
         Session s = factory.getObject().getCurrentSession();
@@ -31,4 +40,29 @@ public class BrancheController {
 
         return "branch";
     }
+    
+    
+    @GetMapping("/order/{branchId}")
+    public String getHall(@PathVariable("branchId") Integer branchId ,Model model) {
+        int id = branchId;
+        model.addAttribute("branchId", id);
+     
+        String hql = "FROM EventHalls h WHERE h.branchId.branchId = :branchId";
+
+        List<EventHalls> halls = factory.getObject().getCurrentSession()
+                .createQuery(hql, EventHalls.class)
+                .setParameter("branchId", id)
+                .getResultList();
+
+        model.addAttribute("halls", halls);
+        
+        
+        return "order";
+    }
+    
+    @PostMapping("/order/{branchId}")
+    public String getHallByBranchIdPost(@ModelAttribute(value = "branches") Branches branch, Model model) {
+        return "redirect:/";
+    }
+
 }

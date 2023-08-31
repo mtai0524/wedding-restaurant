@@ -4,6 +4,7 @@
  */
 package com.mt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -63,8 +64,10 @@ public class Users implements Serializable {
     @Size(max = 1000)
     @Column(name = "avatar")
     private String avatar;
+    @JsonIgnore
     @OneToMany(mappedBy = "userId")
     private Set<Feedbacks> feedbacksSet;
+    @JsonIgnore
     @OneToMany(mappedBy = "userId")
     private Set<Bookings> bookingsSet;
 

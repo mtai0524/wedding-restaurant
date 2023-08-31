@@ -25,7 +25,7 @@
                     <form:form method="post" action="${action}" modelAttribute="users" enctype="multipart/form-data" class="my-form">
                         <div class="form-group">
                             <label for="username">Username:</label>
-                            <form:input path="username" id="username" class="form-control" />
+                            <form:input path="username" id="username" class="form-control" /> // path để lấy user.userName
                         </div>
                         <div class="form-group">
                             <label for="password">Password:</label>
@@ -49,7 +49,6 @@
                 </div>
             </div>
         </div>
-
 </div>
 
 </body>
