@@ -4,6 +4,7 @@
  */
 package com.mt.controllers;
 
+import com.mt.pojo.Branches;
 import com.mt.pojo.EventHalls;
 import com.mt.service.OrderService;
 import java.util.List;
@@ -41,6 +42,30 @@ public class OrderController {
         return "order";
     }
     
+    
+    @GetMapping("/order/{branchId}")
+    public String getHall(@PathVariable("branchId") Integer branchId, Model model) {
+        int id = branchId;
+        model.addAttribute("branchId", id);
+
+        String hql = "FROM EventHalls h WHERE h.branchId.branchId = :branchId";
+
+        List<EventHalls> halls = factory.getObject().getCurrentSession()
+                .createQuery(hql, EventHalls.class)
+                .setParameter("branchId", id)
+                .getResultList();
+
+        // get branches by id
+        hql = "FROM Branches b WHERE b.branchId= :branchId";
+        List<Branches> branches = factory.getObject().getCurrentSession()
+                .createQuery(hql, Branches.class)
+                .setParameter("branchId", id)
+                .getResultList();
+        model.addAttribute("halls", halls);
+        model.addAttribute("branches", branches);
+
+        return "order";
+    }
     
 //    @GetMapping("/order/{branchId}")
 //    public String getHall(@RequestParam("branchId") Integer branchId, Model model) {

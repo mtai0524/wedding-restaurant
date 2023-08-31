@@ -36,6 +36,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Branches.findByPhone", query = "SELECT b FROM Branches b WHERE b.phone = :phone")})
 public class Branches implements Serializable {
 
+    @Size(max = 255)
+    @Column(name = "img")
+    private String img;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -150,6 +154,14 @@ public class Branches implements Serializable {
     @Override
     public String toString() {
         return "com.mt.pojo.Branches[ branchId=" + branchId + " ]";
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
     
 }

@@ -15,18 +15,34 @@
     </head>
     <body>
         <h1>Branches list</h1>
-        <c:url value="/order" var="action" />
-        <form:form method="post" action="${action}" modelAttribute="branches" enctype="multipart/form-data" class="my-form">
-            <c:forEach items="${branches}" var="branch">
-                <div class="card">
-                    <div class="card-header">${branch.branchName}</div>
-                    <div class="card-description">${branch.address}</div>
-                    <div class="card-price">${branch.phone}</div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <c:url value="/order" var="action" />
+                    <form:form method="post" action="${action}" modelAttribute="branches" enctype="multipart/form-data" class="my-form">
+                        <div class="row">
+                            <c:forEach items="${branches}" var="branch" >
+                                <div class="col-md-6">
+                                    <div class="card mb-3">
+                                        <img src="${branch.img}" alt="Branch Image" width="100%" height="200px">
+                                        <div class="card-header">Tên chi nhánh: ${branch.branchName}</div>
+                                        <div class="card-body">
+                                            <p class="card-text">Địa chỉ: ${branch.address}</p>
+                                            <p class="card-text">Số điện thoại: ${branch.phone}</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <c:url value='/order/${branch.branchId}' var="orderUrl" />
+                                           
+                                            <a href="${orderUrl}" class="text-white" style="text-decoration: none; color: white ;background-color: green; padding: 10px 10px; border-radius: 4px;">Chọn chi nhánh</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </form:form>
                 </div>
-                <a href="<c:url value='/order/${branch.branchId}'/>" class="btn btn-primary">Chọn chi nhánh</a>
-            </c:forEach>
-            
-        </form:form>
+            </div>
+        </div>
 
-</body>
+    </body>
 </html>

@@ -7,12 +7,13 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.12.v20230209-rNA", date="2023-08-31T16:46:58")
+@Generated(value="EclipseLink-2.7.12.v20230209-rNA", date="2023-08-31T19:10:07")
 @StaticMetamodel(Branches.class)
 public class Branches_ { 
 
     public static volatile SingularAttribute<Branches, Integer> branchId;
     public static volatile SetAttribute<Branches, EventHalls> eventHallsSet;
+    public static volatile SingularAttribute<Branches, String> img;
     public static volatile SingularAttribute<Branches, String> address;
     public static volatile SetAttribute<Branches, Employees> employeesSet;
     public static volatile SingularAttribute<Branches, String> phone;

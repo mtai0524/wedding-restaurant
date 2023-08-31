@@ -42,23 +42,7 @@ public class BrancheController {
     }
     
     
-    @GetMapping("/order/{branchId}")
-    public String getHall(@PathVariable("branchId") Integer branchId ,Model model) {
-        int id = branchId;
-        model.addAttribute("branchId", id);
-     
-        String hql = "FROM EventHalls h WHERE h.branchId.branchId = :branchId";
-
-        List<EventHalls> halls = factory.getObject().getCurrentSession()
-                .createQuery(hql, EventHalls.class)
-                .setParameter("branchId", id)
-                .getResultList();
-
-        model.addAttribute("halls", halls);
-        
-        
-        return "order";
-    }
+    
     
     @PostMapping("/order/{branchId}")
     public String getHallByBranchIdPost(@ModelAttribute(value = "branches") Branches branch, Model model) {
