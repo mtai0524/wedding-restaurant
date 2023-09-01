@@ -6,6 +6,7 @@ package com.mt.controllers;
 
 import com.mt.pojo.Branches;
 import com.mt.pojo.EventHalls;
+import com.mt.pojo.Menus;
 import com.mt.pojo.SearchForm;
 import com.mt.service.OrderService;
 import java.util.List;
@@ -66,22 +67,28 @@ public class OrderController {
                 .getResultList();
         model.addAttribute("halls", halls);
         model.addAttribute("branches", branches);
-
+        model.addAttribute("sendBranchId", branchId);
+        
         return "order";
     }
     
-//    @GetMapping("/order/{branchId}")
-//    public String getHall(@RequestParam("branchId") Integer branchId, Model model) {
-//        String hql = "FROM EventHalls h WHERE h.branchId = :branchId";
-//
-//        List<EventHalls> halls = factory.getObject().getCurrentSession()
-//                .createQuery(hql, EventHalls.class)
-//                .setParameter("branchId", branchId)
-//                .getResultList();
-//
-//        model.addAttribute("hall", halls);
-//        return "order";
-//    }
+    @GetMapping("/order/{branchId}/hall/{hallId}")
+    public String getOrderWithHall(@PathVariable("branchId") Integer branchId, @PathVariable("hallId") Integer hallId, Model model) {
+        int id = hallId;
+        String hql = "FROM EventHalls e WHERE e.hallId= :hallId";
+        List<EventHalls> evenHall = factory.getObject().getCurrentSession()
+                .createQuery(hql, EventHalls.class)
+                .setParameter("hallId", id)
+                .getResultList();
+        model.addAttribute("hallById", evenHall);
+        
+        // lấy menu
+        Session s = factory.getObject().getCurrentSession();
+        Query q = s.createQuery("FROM Menus");
+        model.addAttribute("listMenu", q.getResultList());
+        
+        return "order";
+    }
     
     
     @PostMapping("/search")
@@ -116,4 +123,29 @@ public class OrderController {
 
         return "searchResults";
     }
+    
+    
+    @PostMapping("/order/{branchId}/hall/{hallId}")
+    public String selectMenus(@RequestParam(value = "selectedMenuIds", required = false) Integer[] selectedMenuIds) {
+        if (selectedMenuIds != null) {
+            for (Integer menuId : selectedMenuIds) {
+                String hql = "FROM Menus m WHERE m.menuId = :menuId";
+                Menus menu=  factory.getObject().getCurrentSession()
+                        .createQuery(hql, Menus.class)
+                        .setParameter("menuId", menuId)
+                        .uniqueResult();
+                if (menu != null) {
+                    
+                    hql = "UPDATE Menus m SET m.choose = :choose WHERE m.menuId = :menuId";
+                    factory.getObject().getCurrentSession()
+                            .createQuery(hql)
+                            .setParameter("choose", 1)
+                            .setParameter("menuId", menuId)
+                            .executeUpdate();
+                }
+            }
+        }
+        return "order"; // Chuyển hướng về trang danh sách món ăn
+    }
+    
 }

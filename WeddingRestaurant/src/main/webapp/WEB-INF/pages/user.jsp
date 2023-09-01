@@ -25,10 +25,10 @@
                     <form:form method="post" action="${action}" modelAttribute="user" enctype="multipart/form-data" class="my-form">
                         <div class="form-group">
                             <label for="username">Username:</label>
-                            <input type="text" id="username" name="username" class="form-control" />
+                            <input type="text" id="username" name="username" class="form-control" required="true" />
 
                             <label for="password">Password:</label>
-                            <input type="text" id="password" name="password" class="form-control" />
+                            <input type="text" id="password" name="password" class="form-control" required="true"/>
 
                             <label for="role">Vai trò:</label>
                             <select id="role" name="role" class="form-control">
@@ -38,7 +38,7 @@
                             </select>
 
                             <label for="file">Hình ảnh:</label>
-                            <input type="file" id="file" name="file" class="form-control" />
+                            <input type="file" id="file" name="file" class="form-control" required="true"/>
                         </div>
 
                         <div class="form-group">

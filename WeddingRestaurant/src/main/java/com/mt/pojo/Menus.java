@@ -37,6 +37,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Menus.findByMenuPrice", query = "SELECT m FROM Menus m WHERE m.menuPrice = :menuPrice")})
 public class Menus implements Serializable {
 
+    @Column(name = "choose")
+    private Integer choose;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -133,6 +136,14 @@ public class Menus implements Serializable {
     @Override
     public String toString() {
         return "com.mt.pojo.Menus[ menuId=" + menuId + " ]";
+    }
+
+    public Integer getChoose() {
+        return choose;
+    }
+
+    public void setChoose(Integer choose) {
+        this.choose = choose;
     }
     
 }

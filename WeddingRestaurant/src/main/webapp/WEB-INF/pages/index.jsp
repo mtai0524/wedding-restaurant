@@ -24,7 +24,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet"> 
-
+        <link rel="stylesheet" href="/path/to/sweetalert2.min.css">
         <!-- Icon Font Stylesheet -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -228,6 +228,7 @@
         <script src="lib/lightbox/js/lightbox.min.js"></script>
 
         <!-- Template Javascript -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script src="js/main.js"></script>
         <script src="<c:url value="/js/main.js" />"></script>
         <script src="<c:url value="/lib/easing/easing.min.js" />"></script>

@@ -12,6 +12,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Bạn đã chọn sảnh: ${hallId}</h1>
+        <ul>
+            <c:forEach items="${hallById}" var = "hall">
+                <h1>Bạn đã chọn sảnh ${hall.hallName}</h1>
+            </c:forEach>
+        </ul>
     </body>
 </html>

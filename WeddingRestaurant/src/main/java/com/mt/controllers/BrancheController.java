@@ -41,12 +41,8 @@ public class BrancheController {
         return "branch";
     }
     
-    
-    
-    
     @PostMapping("/order/{branchId}")
     public String getHallByBranchIdPost(@ModelAttribute(value = "branches") Branches branch, Model model) {
         return "redirect:/";
     }
-
 }

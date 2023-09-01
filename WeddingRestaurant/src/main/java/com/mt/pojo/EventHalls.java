@@ -40,6 +40,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "EventHalls.findByPriceWeekend", query = "SELECT e FROM EventHalls e WHERE e.priceWeekend = :priceWeekend")})
 public class EventHalls implements Serializable {
 
+    @Size(max = 255)
+    @Column(name = "img_hall")
+    private String imgHall;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -176,6 +180,14 @@ public class EventHalls implements Serializable {
     @Override
     public String toString() {
         return "com.mt.pojo.EventHalls[ hallId=" + hallId + " ]";
+    }
+
+    public String getImgHall() {
+        return imgHall;
+    }
+
+    public void setImgHall(String imgHall) {
+        this.imgHall = imgHall;
     }
     
 }

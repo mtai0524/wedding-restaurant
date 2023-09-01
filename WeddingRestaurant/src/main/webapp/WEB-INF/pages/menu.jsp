@@ -22,13 +22,10 @@
             </tr>
             <c:forEach items="${menus}" var="menu">
                 <tr>
-
-                    
                     <td>${menu.menuId}</td>
                     <td>${menu.menuName}</td>
                     <td>${menu.description}</td>
                     <td>${menu.menuPrice}</td>
-                    
                 </tr>
             </c:forEach>
         </table>

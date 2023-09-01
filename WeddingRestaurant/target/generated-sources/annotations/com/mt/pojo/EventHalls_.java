@@ -8,10 +8,11 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.12.v20230209-rNA", date="2023-08-31T19:54:43")
+@Generated(value="EclipseLink-2.7.12.v20230209-rNA", date="2023-09-01T21:48:47")
 @StaticMetamodel(EventHalls.class)
 public class EventHalls_ { 
 
+    public static volatile SingularAttribute<EventHalls, String> imgHall;
     public static volatile SingularAttribute<EventHalls, Branches> branchId;
     public static volatile SingularAttribute<EventHalls, BigDecimal> priceAfternoon;
     public static volatile SingularAttribute<EventHalls, Integer> hallId;
