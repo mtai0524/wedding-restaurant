@@ -33,6 +33,8 @@ public class ApiUserController {
             this.userService.getUsers(),
             HttpStatus.OK);
     }
+    
+    
 //    @GetMapping("/api/users")
 //    @CrossOrigin
 //    public ResponseEntity<List<Users>> list(@RequestParam Map<String, String> params) {

@@ -6,6 +6,7 @@ package com.mt.controllers;
 
 import com.mt.pojo.Branches;
 import com.mt.pojo.EventHalls;
+import com.mt.pojo.MenuSelectionForm;
 import com.mt.pojo.Menus;
 import com.mt.pojo.SearchForm;
 import com.mt.service.OrderService;
@@ -68,6 +69,7 @@ public class OrderController {
         model.addAttribute("halls", halls);
         model.addAttribute("branches", branches);
         model.addAttribute("sendBranchId", branchId);
+        model.addAttribute("menus", new Menus());
         
         return "order";
     }
@@ -86,7 +88,8 @@ public class OrderController {
         Session s = factory.getObject().getCurrentSession();
         Query q = s.createQuery("FROM Menus");
         model.addAttribute("listMenu", q.getResultList());
-        
+        model.addAttribute("menus", new Menus());
+
         return "order";
     }
     
@@ -123,29 +126,43 @@ public class OrderController {
 
         return "searchResults";
     }
-    
-    
     @PostMapping("/order/{branchId}/hall/{hallId}")
-    public String selectMenus(@RequestParam(value = "selectedMenuIds", required = false) Integer[] selectedMenuIds) {
-        if (selectedMenuIds != null) {
-            for (Integer menuId : selectedMenuIds) {
-                String hql = "FROM Menus m WHERE m.menuId = :menuId";
-                Menus menu=  factory.getObject().getCurrentSession()
-                        .createQuery(hql, Menus.class)
-                        .setParameter("menuId", menuId)
-                        .uniqueResult();
-                if (menu != null) {
-                    
-                    hql = "UPDATE Menus m SET m.choose = :choose WHERE m.menuId = :menuId";
-                    factory.getObject().getCurrentSession()
-                            .createQuery(hql)
-                            .setParameter("choose", 1)
-                            .setParameter("menuId", menuId)
-                            .executeUpdate();
-                }
-            }
+    public String selectMenus(@ModelAttribute("menuSelectionForm") MenuSelectionForm menuSelectionForm) {
+        Integer[] selectedMenuIds = menuSelectionForm.getSelectedMenuIds();
+         for (Integer menuId : selectedMenuIds) {
+             System.out.println(menuId.toString());
         }
+        // Sử dụng selectedMenuIds ở đây để xử lý dữ liệu
         return "order"; // Chuyển hướng về trang danh sách món ăn
     }
+
+
+    @ModelAttribute("menuSelectionForm")
+    public MenuSelectionForm getMenuSelectionForm() {
+        return new MenuSelectionForm();
+    }
+    
+//    @PostMapping("/order/{branchId}/hall/{hallId}")
+//    public String selectMenus(@RequestParam(value = "selectedMenuIds", required = false) Integer[] selectedMenuIds) {
+//        if (selectedMenuIds != null) {
+//            for (Integer menuId : selectedMenuIds) {
+//                String hql = "FROM Menus m WHERE m.menuId = :menuId";
+//                Menus menu=  factory.getObject().getCurrentSession()
+//                        .createQuery(hql, Menus.class)
+//                        .setParameter("menuId", menuId)
+//                        .uniqueResult();
+//                if (menu != null) { 
+//                    
+//                    hql = "UPDATE Menus m SET m.choose = :choose WHERE m.menuId = :menuId";
+//                    factory.getObject().getCurrentSession()
+//                            .createQuery(hql)
+//                            .setParameter("choose", 1)
+//                            .setParameter("menuId", menuId)
+//                            .executeUpdate();
+//                }
+//            }
+//        }
+//        return "order"; // Chuyển hướng về trang danh sách món ăn
+//    }
     
 }

@@ -6,6 +6,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -41,34 +43,69 @@
                 </c:forEach>
             </div>
         </div>
-        
-        <c:url value="/order" var="action" />
-        <form method="post" action="${action}" modelAttribute="hall">
+
+
+        <c:url value="/order/${branchId}/hall/${hallId}" var="action" />
+
+        <form:form method="post" action="${action}" modelAttribute="menuSelectionForm">
             <div class="container">
                 <div class="row justify-content-center">
                     <c:forEach items="${listMenu}" var="menu">
                         <div class="col-md-6">
                             <div class="card mb-3">
+                                <!-- ... Hiển thị thông tin của menu ... -->
                                 <div class="card-header">Id: ${menu.menuId}</div>
                                 <div class="card-body">
                                     <p class="card-text">Tên món ăn: ${menu.menuName}</p>
                                     <p class="card-text">Giá món ăn: ${menu.menuPrice}</p>
                                     <p class="card-text">Mô tả: ${menu.description}</p>
                                 </div>
-                                <!-- Thêm checkbox để chọn món -->
                                 <div class="card-footer text-center">
-                                    <label>
-                                        <input type="checkbox" name="selectedMenus" value="${menu.menuId}">
-                                        Chọn món
-                                    </label>
+                                    <form:checkbox path="selectedMenuIds" value="${menu.menuId}" onclick="handleCheckboxChange(this)" />
                                 </div>
                             </div>
                         </div>
                     </c:forEach>
                 </div>
             </div>
-            <button type="submit" class="btn btn-dark btn-block">Xác nhận</button>
-        </form>
+            <button onClick="showSweetAlert()" type="submit" class="btn btn-dark btn-block">Xác nhận</button>
+        </form:form>
+
+            <script>
+                function handleCheckboxChange(checkbox) {
+                    if (checkbox.checked) {
+                        showSweetAlert();
+                    } else {
+                        doSomethingElse();
+                    }
+                }
+
+                function showSweetAlert() {
+                    // Đoạn mã hiển thị SweetAlert khi checkbox được tích chọn
+                    Swal.fire({
+                        
+                        position: 'center',
+                    icon: 'success',
+                    title: 'Chọn món thành công',
+                    timer: 2000, 
+                    showConfirmButton: false,
+                    showCloseButton: false,
+                        
+                    });
+                }
+
+                function doSomethingElse() {
+                    Swal.fire({
+                        timer: 2000, 
+                        title: 'Thông báo!',
+                        text: 'Đã hủy món',
+                        icon: 'error',
+                        showConfirmButton: false,
+                    showCloseButton: false,
+                    });
+                }
+            </script>
+
 
         <script>
             function showSweetAlert() {
@@ -85,17 +122,17 @@
 
 
         <c:url value="/search" var="action" />
-<!--    <form:form method="post" action="${action}" modelAttribute="searchForm">
-        <label for="searchType">Chọn loại tìm kiếm:</label>
-        <select id="searchType" name="searchType">
-            <option value="branch">Chi nhánh</option>
-            <option value="hall">Sảnh</option>
-            <option value="food">Món ăn</option>
-            <option value="service">Dịch vụ</option>
-        </select>
-        <input type="text" name="keyword" placeholder="Từ khóa tìm kiếm">
-        <button type="submit">Tìm kiếm</button>
-    </form:form>-->
+        <!--    <form:form method="post" action="${action}" modelAttribute="searchForm">
+                <label for="searchType">Chọn loại tìm kiếm:</label>
+                <select id="searchType" name="searchType">
+                    <option value="branch">Chi nhánh</option>
+                    <option value="hall">Sảnh</option>
+                    <option value="food">Món ăn</option>
+                    <option value="service">Dịch vụ</option>
+                </select>
+                <input type="text" name="keyword" placeholder="Từ khóa tìm kiếm">
+                <button type="submit">Tìm kiếm</button>
+        </form:form>-->
         <br/>
         <div class="container">
             <div class="row justify-content-center">

@@ -20,6 +20,7 @@ com\mt\pojo\EventHalls.class
 com\mt\pojo\BookingServices.class
 com\mt\pojo\RevenueQuarterly_.class
 com\mt\pojo\Employees.class
+com\mt\pojo\MenuSelectionForm.class
 com\mt\pojo\RevenueYearly_.class
 com\mt\service\UserService.class
 com\mt\service\impl\UserServiceImpl.class

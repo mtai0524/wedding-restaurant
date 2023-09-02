@@ -37,6 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Menus.findByMenuPrice", query = "SELECT m FROM Menus m WHERE m.menuPrice = :menuPrice")})
 public class Menus implements Serializable {
 
+    
     @Column(name = "choose")
     private Integer choose;
 
