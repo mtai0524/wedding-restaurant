@@ -24,6 +24,7 @@
     <class>com.mt.pojo.Product</class>
     <class>com.mt.pojo.OrderDetail</class>
     <class>com.mt.pojo.ProdTag</class>
+    <class>com.mt.pojo.Bill</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/restaurant_db?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

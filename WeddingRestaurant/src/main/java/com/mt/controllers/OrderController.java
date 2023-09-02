@@ -4,11 +4,14 @@
  */
 package com.mt.controllers;
 
+import com.mt.pojo.Bill;
+import com.mt.pojo.BookingMenus;
 import com.mt.pojo.Branches;
 import com.mt.pojo.EventHalls;
 import com.mt.pojo.MenuSelectionForm;
 import com.mt.pojo.Menus;
 import com.mt.pojo.SearchForm;
+import com.mt.pojo.Services;
 import com.mt.service.OrderService;
 import java.util.List;
 import javax.persistence.Query;
@@ -70,12 +73,14 @@ public class OrderController {
         model.addAttribute("branches", branches);
         model.addAttribute("sendBranchId", branchId);
         model.addAttribute("menus", new Menus());
+        model.addAttribute("services", new Services());
         
         return "order";
     }
     
-    @GetMapping("/order/{branchId}/hall/{hallId}")
+    @GetMapping("/order/{branchId}/hall/{hallId}/menu")
     public String getOrderWithHall(@PathVariable("branchId") Integer branchId, @PathVariable("hallId") Integer hallId, Model model) {
+        int idBrand = branchId;
         int id = hallId;
         String hql = "FROM EventHalls e WHERE e.hallId= :hallId";
         List<EventHalls> evenHall = factory.getObject().getCurrentSession()
@@ -89,51 +94,74 @@ public class OrderController {
         Query q = s.createQuery("FROM Menus");
         model.addAttribute("listMenu", q.getResultList());
         model.addAttribute("menus", new Menus());
+        model.addAttribute("services", new Services());
+        boolean shouldShowButton = true;
+        boolean showTextListMenu = true; // Thay đổi giá trị điều kiện tùy theo logic của bạn
 
+        model.addAttribute("shouldShowButton", shouldShowButton);
+        model.addAttribute("showTextListMenu", showTextListMenu);
+        model.addAttribute("sendHallId", id);
+        model.addAttribute("idBrand", idBrand); // id branch trang trước không tồn tại khi qua URL khác => phải gửi lại
         return "order";
     }
     
     
-    @PostMapping("/search")
-    public String search(@ModelAttribute("searchForm") SearchForm searchForm, Model model) {
-        String searchType = searchForm.getSearchType();
-        String searchKeyword = searchForm.getKeyword(); // Từ khóa tìm kiếm
-
-        if ("branch".equals(searchType)) {
-            String hql = "FROM Branches b WHERE b.branchName LIKE :keyword";
-
-            List<Branches> branches = factory.getObject().getCurrentSession()
-                    .createQuery(hql, Branches.class)
-                    .setParameter("keyword", "%" + searchKeyword + "%")
-                    .getResultList();
-
-            model.addAttribute("results", branches);
-
-            return "searchResults";
-        } else if ("hall".equals(searchType)) {
-            String hql = "FROM EventHalls h WHERE h.hallName LIKE :keyword";
-
-            List<EventHalls> halls = factory.getObject().getCurrentSession()
-                    .createQuery(hql, EventHalls.class)
-                    .setParameter("keyword", "%" + searchKeyword + "%")
-                    .getResultList();
-
-            model.addAttribute("results", halls);
-
-            return "searchResults";
-        }
-        // ... Xử lý tìm kiếm cho các loại khác
-
-        return "searchResults";
-    }
-    @PostMapping("/order/{branchId}/hall/{hallId}")
-    public String selectMenus(@ModelAttribute("menuSelectionForm") MenuSelectionForm menuSelectionForm) {
+//    @PostMapping("/search")
+//    public String search(@ModelAttribute("searchForm") SearchForm searchForm, Model model) {
+//        String searchType = searchForm.getSearchType();
+//        String searchKeyword = searchForm.getKeyword(); // Từ khóa tìm kiếm
+//
+//        if ("branch".equals(searchType)) {
+//            String hql = "FROM Branches b WHERE b.branchName LIKE :keyword";
+//
+//            List<Branches> branches = factory.getObject().getCurrentSession()
+//                    .createQuery(hql, Branches.class)
+//                    .setParameter("keyword", "%" + searchKeyword + "%")
+//                    .getResultList();
+//
+//            model.addAttribute("results", branches);
+//
+//            return "searchResults";
+//        } else if ("hall".equals(searchType)) {
+//            String hql = "FROM EventHalls h WHERE h.hallName LIKE :keyword";
+//
+//            List<EventHalls> halls = factory.getObject().getCurrentSession()
+//                    .createQuery(hql, EventHalls.class)
+//                    .setParameter("keyword", "%" + searchKeyword + "%")
+//                    .getResultList();
+//
+//            model.addAttribute("results", halls);
+//
+//            return "searchResults";
+//        }
+//        // ... Xử lý tìm kiếm cho các loại khác
+//
+//        return "searchResults";
+//    }
+    @PostMapping("/order/{branchId}/hall/{hallId}/menu/service")
+    public String selectMenus(@ModelAttribute("menuSelectionForm") MenuSelectionForm menuSelectionForm, Model model) {
         Integer[] selectedMenuIds = menuSelectionForm.getSelectedMenuIds();
-         for (Integer menuId : selectedMenuIds) {
-             System.out.println(menuId.toString());
+        
+        String hql = "FROM Menus m WHERE m.menuId = :menuId";
+         for (Integer id : selectedMenuIds) {
+             System.out.println(id.toString());
+             Menus menu = factory.getObject().getCurrentSession()
+                     .createQuery(hql, Menus.class)
+                     .setParameter("menuId", id)
+                     .uniqueResult();
+             Bill bill = new Bill();
+             bill.setMenuId(id);
+             Session session = factory.getObject().getCurrentSession();
+             session.save(bill);
+             // Thiết lập menuId cho đối tượng BookingMenus
+//             hql = "INSERT INTO BookingMenus (menuId) SELECT :menuId";
+//             Query query = factory.getObject().getCurrentSession().createQuery(hql);
+//             query.setParameter("menuId", id); // Thay thế :menuId bằng giá trị thực tế
+//             int rowCount = query.executeUpdate();
+//             // Lưu đối tượng BookingMenus vào cơ sở dữ liệu
         }
-        // Sử dụng selectedMenuIds ở đây để xử lý dữ liệu
-        return "order"; // Chuyển hướng về trang danh sách món ăn
+//        return "order"; // Chuyển hướng về trang danh sách món ăn
+        return "redirect:/order/{branchId}/hall/{hallId}/menu/service";
     }
 
 
@@ -164,5 +192,22 @@ public class OrderController {
 //        }
 //        return "order"; // Chuyển hướng về trang danh sách món ăn
 //    }
+ 
     
+    @GetMapping("/order/{branchId}/hall/{hallId}/menu/service")
+    public String getOrderWithServices(@PathVariable("branchId") Integer branchId, @PathVariable("hallId") Integer hallId, Model model) {
+        int id = hallId;
+        String hql = "FROM EventHalls e WHERE e.hallId= :hallId";
+        List<EventHalls> evenHall = factory.getObject().getCurrentSession()
+                .createQuery(hql, EventHalls.class)
+                .setParameter("hallId", id)
+                .getResultList();
+        model.addAttribute("hallById", evenHall);
+
+        Session s = factory.getObject().getCurrentSession();
+        Query q = s.createQuery("FROM Services");
+        model.addAttribute("listServices", q.getResultList());
+       
+        return "order";
+    }
 }

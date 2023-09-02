@@ -43,13 +43,45 @@
                 </c:forEach>
             </div>
         </div>
+        
 
+        
+        <c:url value="/order/${idBrand}/hall/${hallId}/menu/service" var="action" />
 
-        <c:url value="/order/${branchId}/hall/${hallId}" var="action" />
+            <div class="container">
+                <div class="row justify-content-center">
+       
+                    <c:forEach items="${listServices}" var="service">
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <!-- ... Hiển thị thông tin của menu ... -->
+                                <div class="card-header">Id: ${service.serviceId}</div>
+                                <div class="card-body">
+                                    <p class="card-text">Tên dịch vụ: ${service.serviceName}</p>
+                                    <p class="card-text">Giá dịch vụ: ${service.servicePrice} VND</p>
+                                    <p class="card-text">Mô tả: ${service.description}</p>
+                                </div>
+                          
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+            </div>
+
+        
+        
+        
+        
+        
+        
+        <c:url value="/order/${branchId}/hall/${hallId}/menu/service" var="action" />
 
         <form:form method="post" action="${action}" modelAttribute="menuSelectionForm">
             <div class="container">
                 <div class="row justify-content-center">
+                    <c:if test="${shouldShowButton}">
+                        <h1>Danh sách thực đơn</h1>
+                    </c:if>
                     <c:forEach items="${listMenu}" var="menu">
                         <div class="col-md-6">
                             <div class="card mb-3">
@@ -66,9 +98,14 @@
                             </div>
                         </div>
                     </c:forEach>
+                    <c:if test="${shouldShowButton}">
+<!--                        <c:url value='/order/${idBrand}' var="orderUrl" />
+                        <a href="${orderUrl}/hall/${sendHallId}/menu/service" class="text-white" style="text-decoration: none; color: white; background-color: black; padding: 10px 10px; border-radius: 4px;text-align: center">Chọn dịch vụ</a>-->
+                        <button onClick="showSweetAlert()" type="submit" class="btn btn-dark btn-block">Xác nhận món ăn</button>
+                    </c:if>
                 </div>
             </div>
-            <button onClick="showSweetAlert()" type="submit" class="btn btn-dark btn-block">Xác nhận</button>
+            
         </form:form>
 
             <script>
@@ -107,20 +144,6 @@
             </script>
 
 
-        <script>
-            function showSweetAlert() {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Chọn món thành công',
-                    timer: 2000, // Thời gian đợi trước khi chuyển hướng (3 giây)
-                    showConfirmButton: false,
-                    showCloseButton: false,
-                });
-            }
-        </script>
-
-
         <c:url value="/search" var="action" />
         <!--    <form:form method="post" action="${action}" modelAttribute="searchForm">
                 <label for="searchType">Chọn loại tìm kiếm:</label>
@@ -150,7 +173,7 @@
                                             <p class="card-text">Số bàn: ${hall.capacity}</p>
                                         </div>
                                         <c:url value='/order/${sendBranchId}' var="orderUrl" />
-                                        <a href="${orderUrl}/hall/${hall.hallId}" class="text-white" style="text-decoration: none; color: white; background-color: black; padding: 10px 10px; border-radius: 4px;text-align: center">Chọn sảnh</a>
+                                        <a href="${orderUrl}/hall/${hall.hallId}/menu" class="text-white" style="text-decoration: none; color: white; background-color: black; padding: 10px 10px; border-radius: 4px;text-align: center">Chọn sảnh</a>
                                     </div>
                                 </div>
                             </c:forEach>
