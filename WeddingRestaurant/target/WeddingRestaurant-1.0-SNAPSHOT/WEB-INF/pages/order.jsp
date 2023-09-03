@@ -15,12 +15,35 @@
         <title>JSP Page</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+        
+        <style>
+            .branch-link {
+                display: inline-block;
+                position: relative;
+            }
+
+            .branch-link a {
+                background-color: red;
+                text-decoration: none;
+                color: #333; /* Màu chữ của liên kết */
+            }
+
+            .branch-link a::after {
+                content: "\f08e"; /* Mã Unicode của biểu tượng font-awesome */
+                font-family: 'Font Awesome 5 Free'; /* Thay thế bằng font-awesome của bạn */
+                margin-left: 5px; /* Khoảng cách giữa văn bản và biểu tượng */
+            }
+        </style>
+        
     </head>
     <body>
-        <h1>Order</h1>
+        
         <ul>
-            <c:forEach items="${branches}" var = "branch">
-                <h1>Bạn đã chọn chi nhánh ${branch.branchName}</h1>
+            <c:forEach items="${branches}" var="branch">
+                <h1 class="branch-link">
+                    Bạn đã chọn chi nhánh ${branch.branchName}
+                    <a href="bill">Xem bill</a> <!-- Liên kết đến /bill -->
+                </h1>
             </c:forEach>
         </ul>
 
@@ -41,32 +64,32 @@
                 </c:forEach>
             </div>
         </div>
-        
 
-        
+
+
         <c:url value="/order/${idBrand}/hall/${hallId}/menu/service" var="action" />
 
-            <div class="container">
-                <div class="row justify-content-center">
-                    <c:if test="${showTxtListService}">
-                        <h1>Danh sách dịch vụ</h1>
-                    </c:if>
-                    <c:forEach items="${listServices}" var="service">
-                        <div class="col-md-6">
-                            <div class="card mb-3">
-                                <!-- ... Hiển thị thông tin của menu ... -->
-                                <div class="card-header">Id: ${service.serviceId}</div>
-                                <div class="card-body">
-                                    <p class="card-text">Tên dịch vụ: ${service.serviceName}</p>
-                                    <p class="card-text">Giá dịch vụ: ${service.servicePrice} VND</p>
-                                    <p class="card-text">Mô tả: ${service.description}</p>
-                                </div>
-                          
+        <div class="container">
+            <div class="row justify-content-center">
+                <c:if test="${showTxtListService}">
+                    <h1>Danh sách dịch vụ</h1>
+                </c:if>
+                <c:forEach items="${listServices}" var="service">
+                    <div class="col-md-6">
+                        <div class="card mb-3">
+                            <!-- ... Hiển thị thông tin của menu ... -->
+                            <div class="card-header">Id: ${service.serviceId}</div>
+                            <div class="card-body">
+                                <p class="card-text">Tên dịch vụ: ${service.serviceName}</p>
+                                <p class="card-text">Giá dịch vụ: ${service.servicePrice} VND</p>
+                                <p class="card-text">Mô tả: ${service.description}</p>
                             </div>
+
                         </div>
-                    </c:forEach>
-                </div>
+                    </div>
+                </c:forEach>
             </div>
+        </div>
         <ul class="list-group">
             <c:forEach items="${listMenuBill}" var="menu">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -75,10 +98,12 @@
                     <div class="text-center">${menu.menuPrice}</div>
                 </li>
             </c:forEach>
+            <c:if test="${showBtnExportPdf}">
                 <a href="<c:url value='/export/pdf'/>" class="btn btn-primary">Xuất PDF</a>
+            </c:if>
         </ul>
 
-        
+
         <c:url value="/order/${branchId}/hall/${hallId}/menu/service" var="action" />
 
         <form:form method="post" action="${action}" modelAttribute="menuSelectionForm">
@@ -104,52 +129,52 @@
                         </div>
                     </c:forEach>
                     <c:if test="${shouldShowButton}">
-<!--                        <c:url value='/order/${idBrand}' var="orderUrl" />
-                        <a href="${orderUrl}/hall/${sendHallId}/menu/service" class="text-white" style="text-decoration: none; color: white; background-color: black; padding: 10px 10px; border-radius: 4px;text-align: center">Chọn dịch vụ</a>-->
-                        <button onClick="showSweetAlert()" type="submit" class="btn btn-dark btn-block">Xác nhận món ăn</button>
+                        <!--                        <c:url value='/order/${idBrand}' var="orderUrl" />
+                                                <a href="${orderUrl}/hall/${sendHallId}/menu/service" class="text-white" style="text-decoration: none; color: white; background-color: black; padding: 10px 10px; border-radius: 4px;text-align: center">Chọn dịch vụ</a>-->
+                        <button type="submit" class="btn btn-dark btn-block">Xác nhận các món ăn</button>
                     </c:if>
-                        
-                        
+
+
 
                 </div>
             </div>
-            
+
         </form:form>
 
-            <script>
-                function handleCheckboxChange(checkbox) {
-                    if (checkbox.checked) {
-                        showSweetAlert();
-                    } else {
-                        doSomethingElse();
-                    }
+        <script>
+            function handleCheckboxChange(checkbox) {
+                if (checkbox.checked) {
+                    showSweetAlert();
+                } else {
+                    doSomethingElse();
                 }
+            }
 
-                function showSweetAlert() {
-                    // Đoạn mã hiển thị SweetAlert khi checkbox được tích chọn
-                    Swal.fire({
-                        
-                        position: 'center',
+            function showSweetAlert() {
+                // Đoạn mã hiển thị SweetAlert khi checkbox được tích chọn
+                Swal.fire({
+
+                    position: 'center',
                     icon: 'success',
                     title: 'Chọn món thành công',
-                    timer: 2000, 
+                    timer: 2000,
                     showConfirmButton: false,
                     showCloseButton: false,
-                        
-                    });
-                }
 
-                function doSomethingElse() {
-                    Swal.fire({
-                        timer: 2000, 
-                        title: 'Thông báo!',
-                        text: 'Đã hủy món',
-                        icon: 'error',
-                        showConfirmButton: false,
+                });
+            }
+
+            function doSomethingElse() {
+                Swal.fire({
+                    timer: 2000,
+                    title: 'Thông báo!',
+                    text: 'Đã hủy món',
+                    icon: 'error',
+                    showConfirmButton: false,
                     showCloseButton: false,
-                    });
-                }
-            </script>
+                });
+            }
+        </script>
 
 
         <c:url value="/search" var="action" />

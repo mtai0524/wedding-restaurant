@@ -11,6 +11,7 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -25,8 +26,11 @@ import com.mt.pojo.SearchForm;
 import com.mt.pojo.Services;
 import com.mt.service.OrderService;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -65,8 +69,6 @@ public class OrderController {
     @ModelAttribute
     public void commAttr(Model model) {
         model.addAttribute("branch", orderService.getBranches());
-
-
     }
     @Autowired
     private LocalSessionFactoryBean factory;
@@ -166,17 +168,11 @@ public class OrderController {
 //        return "searchResults";
 //    }
 
-
-    
     
     @PostMapping("/order/{branchId}/hall/{hallId}/menu/service")
     public String selectMenus(@ModelAttribute("menuSelectionForm") MenuSelectionForm menuSelectionForm, Model model) {
         Integer[] selectedMenuIds = menuSelectionForm.getSelectedMenuIds();
-        
-//        Bill bill = new Bill();
-//        bill.setMenuId(id);
-//        Session session = factory.getObject().getCurrentSession();
-//        session.save(bill);
+
         String hql = "FROM Menus m WHERE m.menuId = :menuId";
         for (Integer id : selectedMenuIds) {
             Menus menu = factory.getObject().getCurrentSession()
@@ -189,16 +185,10 @@ public class OrderController {
             
             Session session = factory.getObject().getCurrentSession();
             session.save(bookingMenu);
-            
         }
-        
-        
-
 //        return "order"; // Chuyển hướng về trang danh sách món ăn
         return "redirect:/order/{branchId}/hall/{hallId}/menu/service";
     }
-
-    
     
     @ModelAttribute("menuSelectionForm")
     public MenuSelectionForm getMenuSelectionForm() {
@@ -227,7 +217,6 @@ public class OrderController {
 //        }
 //        return "order"; // Chuyển hướng về trang danh sách món ăn
 //    }
- 
     
     @GetMapping("/order/bill")
     public String handleBill(Model model){
@@ -235,6 +224,8 @@ public class OrderController {
         String hql = "SELECT bm.menuId FROM BookingMenus bm";
         List<Menus> listMenuBill = currentSession.createQuery(hql, Menus.class).getResultList();
         model.addAttribute("listMenuBill", listMenuBill);
+        boolean showBtnExportPdf = true;
+        model.addAttribute("showBtnExportPdf", showBtnExportPdf);
         return "order";
     }
     
@@ -251,8 +242,6 @@ public class OrderController {
         Session s = factory.getObject().getCurrentSession();
         Query q = s.createQuery("FROM Services");
         model.addAttribute("listServices", q.getResultList());
-        
-        
         
         boolean showTextListService = true; // Thay đổi giá trị điều kiện tùy theo logic của bạn
 
@@ -272,44 +261,61 @@ public class OrderController {
 
         try {
             // Khởi tạo PdfWriter để viết PDF vào HttpServletResponse
-            PdfWriter.getInstance(document, response.getOutputStream());
+            PdfWriter pdfWriter = PdfWriter.getInstance(document, response.getOutputStream());
+            pdfWriter.setFullCompression();
+
+            // Mở tài liệu PDF
             document.open();
+
             // Tạo một bảng để hiển thị danh sách menu
-            PdfPTable table = new PdfPTable(3); // 3 cột: Tên món ăn, Mô tả và Giá món ăn
-
+            PdfPTable table = new PdfPTable(4); // 4 cột: Số thứ tự, Tên món ăn, Mô tả và Giá món ăn
+            table.setWidthPercentage(100);
+            float sttWidth = 5f; // Độ rộng mong muốn (30f là ví dụ)
+            table.setWidths(new float[]{sttWidth, 10f, 10f, 10f}); // 1f là độ rộng của các cột còn lại
             // Thêm tiêu đề
-            PdfPCell cell = new PdfPCell(new Paragraph("Danh sách menu"));
-            cell.setColspan(3);
-            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(cell);
+            PdfPCell titleCell = new PdfPCell(new Paragraph("Wedding Restaurant", new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD)));
+            titleCell.setColspan(4);
+            titleCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            titleCell.setBorder(Rectangle.NO_BORDER);
+            table.addCell(titleCell);
 
-            // Thêm tiêu đề cột
-            table.addCell("Tên món ăn");
-            table.addCell("Mô tả");
-            table.addCell("Giá món ăn");
+            PdfPCell dateCell = new PdfPCell(new Paragraph("Ngay in hoa don: " + getCurrentDate(), new Font(Font.FontFamily.HELVETICA, 12)));
+            dateCell.setColspan(3);
+            dateCell.setHorizontalAlignment(Element.ALIGN_LEFT);
+            dateCell.setBorder(Rectangle.NO_BORDER);
+            table.addCell(dateCell);
 
+            PdfPCell timeCell = new PdfPCell(new Paragraph("Gio in hoa don: " + getCurrentTime(), new Font(Font.FontFamily.HELVETICA, 12)));
+            timeCell.setColspan(1);
+            timeCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            timeCell.setBorder(Rectangle.NO_BORDER);
+            table.addCell(timeCell);
+
+
+            table.addCell("Stt");
+            table.addCell("Ten mon an");
+            table.addCell("Mo ta");
+            table.addCell("Gia mon an");
+            int order = 1; // Số thứ tự ban đầu
             // Thêm danh sách menu vào bảng
             for (Menus menu : menuList) {
+                
+                table.addCell(String.valueOf(order));
                 table.addCell(menu.getMenuName());
                 table.addCell(menu.getDescription());
                 table.addCell(menu.getMenuPrice().toString() + " VND");
+                order++;
             }
-            
-            // Tính toán tổng số tiền và định dạng nó thành một chuỗi văn bản
+
             BigDecimal totalAmount = calculateTotalAmount(menuList); // Hàm tính tổng số tiền
-   
-
-            String totalAmountText = "Tổng tiền: " + totalAmount.toString() + " VND";
-
-// Tạo một ô để hiển thị tổng số tiền
-            PdfPCell totalAmountCell = new PdfPCell(new Phrase(totalAmountText));
-            totalAmountCell.setColspan(3); // Chỉnh số cột (3 cột) để ô này chiếm cả bảng
+            String totalAmountText = "Tong tien thanh toan: " + totalAmount.toString() + " VND";
+            PdfPCell totalAmountCell = new PdfPCell(new Phrase(totalAmountText, new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD)));
+            totalAmountCell.setColspan(4); // Chỉnh số cột (4 cột) để ô này chiếm cả bảng
             totalAmountCell.setHorizontalAlignment(Element.ALIGN_RIGHT); // Căn giữa ngang
-
-// Thêm ô tổng số tiền vào bảng
+            totalAmountCell.setBorder(Rectangle.NO_BORDER);
             table.addCell(totalAmountCell);
-            
-            // Thêm bảng vào tài liệu
+
+
             document.add(table);
         } catch (Exception e) {
             e.printStackTrace();
@@ -322,6 +328,15 @@ public class OrderController {
         response.setContentType("application/pdf");
 
         return null;
+    }
+
+    private String getCurrentDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return sdf.format(new Date());
+    }
+    private String getCurrentTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        return sdf.format(new Date());
     }
 
     private BigDecimal calculateTotalAmount(List<Menus> menuList) {

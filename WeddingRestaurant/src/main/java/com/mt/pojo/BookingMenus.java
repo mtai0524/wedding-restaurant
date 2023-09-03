@@ -44,7 +44,7 @@ public class BookingMenus implements Serializable {
     @JoinColumn(name = "menu_id", referencedColumnName = "menu_id")
     @ManyToOne
     private Menus menuId;
-
+   
     public BookingMenus() {
     }
 
