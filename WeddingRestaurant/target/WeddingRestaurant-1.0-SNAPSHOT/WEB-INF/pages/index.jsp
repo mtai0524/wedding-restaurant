@@ -51,34 +51,6 @@
         <!-- Spinner End -->
 
 
-        <!-- Topbar Start -->
-        <div class="container-fluid bg-light p-0">
-            <div class="row gx-0 d-none d-lg-flex">
-                <div class="col-lg-7 px-5 text-start">
-                    <div class="h-100 d-inline-flex align-items-center py-3 me-4">
-                        <small class="fa fa-map-marker-alt text-primary me-2"></small>
-                        <small>123 Street, New York, USA</small>
-                    </div>
-                    <div class="h-100 d-inline-flex align-items-center py-3">
-                        <small class="far fa-clock text-primary me-2"></small>
-                        <small>Mon - Fri : 09.00 AM - 09.00 PM</small>
-                    </div>
-                </div>
-                <div class="col-lg-5 px-5 text-end">
-                    <div class="h-100 d-inline-flex align-items-center py-3 me-4">
-                        <small class="fa fa-phone-alt text-primary me-2"></small>
-                        <small>+012 345 6789</small>
-                    </div>
-                    <div class="h-100 d-inline-flex align-items-center">
-                        <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                        <a class="btn btn-sm-square bg-white text-primary me-0" href=""><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Topbar End -->
         
         
         <!-- Navbar Start -->
@@ -116,44 +88,159 @@
                 </div>
             </div>
         </nav>
+                    
+                    <!-- Carousel Start -->
+                    <div class="container-fluid p-0 pb-5">
+                        <div class="owl-carousel header-carousel position-relative">
+                            <div class="owl-carousel-item position-relative">
+                                <img class="img-fluid" src="<c:url value="/img/carousel-1.jpg"></c:url>" alt="">
+                                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(53, 53, 53, .7);">
+                                    <div class="container">
+                                        <div class="row justify-content-center">
+                                            <div class="col-12 col-lg-8 text-center">
+                                                <h5 class="text-white text-uppercase mb-3 animated slideInDown">Welcome To WooDY</h5>
+                                                <h1 class="display-3 text-white animated slideInDown mb-4">Best Carpenter & Craftsman Services</h1>
+                                                <p class="fs-5 fw-medium text-white mb-4 pb-2">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
+                                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Free Quote</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    <!-- Carousel End -->
         
-        <h1>Hello World!</h1>
-        <h1>Hello World! ${msg}</h1>
+                    <!-- Feature Start -->
+                    <div class="container-xxl py-5">
+                        <div class="container">
+                            <div class="row g-5">
+                                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <div class="d-flex align-items-center justify-content-center bg-light" style="width: 60px; height: 60px;">
+                                            <i class="fa fa-user-check fa-2x text-primary"></i>
+                                        </div>
+                                        <h1 class="display-1 text-light mb-0">01</h1>
+                                    </div>
+                                    <h5>Creative Designers</h5>
+                                </div>
+                                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <div class="d-flex align-items-center justify-content-center bg-light" style="width: 60px; height: 60px;">
+                                            <i class="fa fa-check fa-2x text-primary"></i>
+                                        </div>
+                                        <h1 class="display-1 text-light mb-0">02</h1>
+                                    </div>
+                                    <h5>Quality Products</h5>
+                                </div>
+                                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <div class="d-flex align-items-center justify-content-center bg-light" style="width: 60px; height: 60px;">
+                                            <i class="fa fa-drafting-compass fa-2x text-primary"></i>
+                                        </div>
+                                        <h1 class="display-1 text-light mb-0">03</h1>
+                                    </div>
+                                    <h5>Free Consultation</h5>
+                                </div>
+                                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <div class="d-flex align-items-center justify-content-center bg-light" style="width: 60px; height: 60px;">
+                                            <i class="fa fa-headphones fa-2x text-primary"></i>
+                                        </div>
+                                        <h1 class="display-1 text-light mb-0">04</h1>
+                                    </div>
+                                    <h5>Customer Support</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Feature Start -->
         
-        
-        
-        <section class = "container">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        
+                    <!-- Service Start -->
+                    <div class="container-xxl py-5">
+                        <div class="container">
+                            <div class="section-title text-center">
+                                <h1 class="display-5 mb-5">Our Services</h1>
+                            </div>
+                            <div class="row g-4">
+                                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                                    <div class="service-item">
+                                        <div class="overflow-hidden">
+                                            <img class="img-fluid" src="<c:url value="/img/service-1.jpg"></c:url>"alt="">
+                                        </div>
+                                        <div class="p-4 text-center border border-5 border-light border-top-0">
+                                            <h4 class="mb-3">General Carpentry</h4>
+                                            <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
+                                            <a class="fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+                                    <div class="service-item">
+                                        <div class="overflow-hidden">
+                                            <img class="img-fluid" src="<c:url value="/img/service-2.jpg"></c:url>"alt="">
+                                        </div>
+                                        <div class="p-4 text-center border border-5 border-light border-top-0">
+                                            <h4 class="mb-3">Furniture Manufacturing</h4>
+                                            <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
+                                            <a class="fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
+                                    <div class="service-item">
+                                        <div class="overflow-hidden">
+                                            <img class="img-fluid" src="<c:url value="/img/service-3.jpg"></c:url>"alt="">
+                                        </div>
+                                        <div class="p-4 text-center border border-5 border-light border-top-0">
+                                            <h4 class="mb-3">Furniture Remodeling</h4>
+                                            <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
+                                            <a class="fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                                    <div class="service-item">
+                                        <div class="overflow-hidden">
+                                            <img class="img-fluid" src="<c:url value="/img/service-4.jpg"></c:url>"alt="">
+                                        </div>
+                                        <div class="p-4 text-center border border-5 border-light border-top-0">
+                                            <h4 class="mb-3">Wooden Floor</h4>
+                                            <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
+                                            <a class="fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+                                    <div class="service-item">
+                                        <div class="overflow-hidden">
+                                            <img class="img-fluid" src="<c:url value="/img/service-5.jpg"></c:url>"alt="">
+                                        </div>
+                                        <div class="p-4 text-center border border-5 border-light border-top-0">
+                                            <h4 class="mb-3">Wooden Furniture</h4>
+                                            <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
+                                            <a class="fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
+                                    <div class="service-item">
+                                        <div class="overflow-hidden">
+                                            <img class="img-fluid" src="<c:url value="/img/service-6.jpg"></c:url>"alt="">
+                                        </div>
+                                        <div class="p-4 text-center border border-5 border-light border-top-0">
+                                            <h4 class="mb-3">Custom Work</h4>
+                                            <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
+                                            <a class="fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Service End -->
         
         <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-light footer mt-5 pt-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container-fluid bg-dark text-light footer mt-5 pt-5 wow fadeIn fixed-footer" data-wow-delay="0.1s">
             <div class="container py-5">
                 <div class="row g-5">
                     <div class="col-lg-3 col-md-6">
@@ -190,19 +277,6 @@
                         <div class="position-relative mx-auto" style="max-width: 400px;">
                             <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
                             <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="copyright">
-                    <div class="row">
-                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
-                        </div>
-                        <div class="col-md-6 text-center text-md-end">
-                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
                         </div>
                     </div>
                 </div>

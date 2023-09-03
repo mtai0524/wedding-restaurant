@@ -34,8 +34,8 @@
                         <div class="card mb-3">
                             <img src="${h.imgHall}" alt="Hall Image" width="100%" height="200px">
                             <div class="card-header">Id: ${h.hallId}</div>
-                            <div class="card-header">Tên sảnh: ${h.hallName}</div>
                             <div class="card-body">
+                                <p class="card-text">Tên sảnh: ${h.hallName}</p>
                                 <p class="card-text">Số bàn: ${h.capacity}</p>
                             </div>
                         </div>
@@ -50,7 +50,9 @@
 
             <div class="container">
                 <div class="row justify-content-center">
-       
+                    <c:if test="${showTxtListService}">
+                        <h1>Danh sách dịch vụ</h1>
+                    </c:if>
                     <c:forEach items="${listServices}" var="service">
                         <div class="col-md-6">
                             <div class="card mb-3">
@@ -68,10 +70,6 @@
                 </div>
             </div>
 
-        
-        
-        
-        
         
         
         <c:url value="/order/${branchId}/hall/${hallId}/menu/service" var="action" />

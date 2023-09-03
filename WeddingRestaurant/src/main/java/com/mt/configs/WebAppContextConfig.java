@@ -75,6 +75,9 @@ public class WebAppContextConfig implements WebMvcConfigurer{
         
         registry.addResourceHandler("/lib/isotope**")
                 .addResourceLocations("/resources/lib/isotope");
+        
+        registry.addResourceHandler("/img/**")
+                .addResourceLocations("/resources/img/"); //vị trí thật sự
     }
     
     @Bean

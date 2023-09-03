@@ -138,6 +138,10 @@ public class OrderController {
 //
 //        return "searchResults";
 //    }
+
+
+    
+    
     @PostMapping("/order/{branchId}/hall/{hallId}/menu/service")
     public String selectMenus(@ModelAttribute("menuSelectionForm") MenuSelectionForm menuSelectionForm, Model model) {
         Integer[] selectedMenuIds = menuSelectionForm.getSelectedMenuIds();
@@ -208,6 +212,10 @@ public class OrderController {
         Query q = s.createQuery("FROM Services");
         model.addAttribute("listServices", q.getResultList());
        
+        
+        boolean showTextListService = true; // Thay đổi giá trị điều kiện tùy theo logic của bạn
+
+        model.addAttribute("showTxtListService", showTextListService);
         return "order";
     }
 }
