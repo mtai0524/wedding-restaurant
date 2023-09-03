@@ -7,6 +7,7 @@ com\mt\pojo\Branches.class
 com\mt\pojo\Users.class
 com\mt\controllers\ApiUserController.class
 com\mt\repository\impl\UserRepositoryImpl.class
+com\mt\formatters\BookingMenusFormatter.class
 com\mt\controllers\MenuController.class
 com\mt\repository\impl\OrderRepositotyImpl.class
 com\mt\pojo\Payments.class
@@ -49,6 +50,7 @@ com\mt\pojo\BookingMenus.class
 com\mt\controllers\ServiceController.class
 com\mt\controllers\IndexController.class
 com\mt\pojo\Feedbacks.class
+com\mt\formatters\MenusFormatter.class
 com\mt\controllers\BrancheController.class
 com\mt\pojo\Menus.class
 com\mt\repository\UserRepository.class

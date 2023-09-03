@@ -6,7 +6,15 @@
     --light: #F5F5F5;
     --dark: #353535;
 }
-
+.list-group-item::before {
+    content: "";
+    border-bottom: 1px solid #ccc;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    z-index: -1;
+}
 .fw-medium {
     font-weight: 500 !important;
 }

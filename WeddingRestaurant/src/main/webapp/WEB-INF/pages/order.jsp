@@ -67,8 +67,17 @@
                     </c:forEach>
                 </div>
             </div>
+        <ul class="list-group">
+            <c:forEach items="${listMenuBill}" var="menu">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="text-center">${menu.menuName}</div>
+                    <div class="text-center">${menu.description}</div>
+                    <div class="text-center">${menu.menuPrice}</div>
+                </li>
+            </c:forEach>
+                <a href="<c:url value='/export/pdf'/>" class="btn btn-primary">Xuất PDF</a>
+        </ul>
 
-        
         
         <c:url value="/order/${branchId}/hall/${hallId}/menu/service" var="action" />
 
@@ -99,6 +108,9 @@
                         <a href="${orderUrl}/hall/${sendHallId}/menu/service" class="text-white" style="text-decoration: none; color: white; background-color: black; padding: 10px 10px; border-radius: 4px;text-align: center">Chọn dịch vụ</a>-->
                         <button onClick="showSweetAlert()" type="submit" class="btn btn-dark btn-block">Xác nhận món ăn</button>
                     </c:if>
+                        
+                        
+
                 </div>
             </div>
             

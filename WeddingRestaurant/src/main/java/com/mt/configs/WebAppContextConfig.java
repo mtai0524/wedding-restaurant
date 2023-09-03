@@ -6,9 +6,11 @@ package com.mt.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.mt.formatters.MenusFormatter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -49,6 +51,14 @@ public class WebAppContextConfig implements WebMvcConfigurer{
 //        return r;
 //    }
 
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new MenusFormatter());
+    }
+
+    
+    
+    
     @Bean
     public CommonsMultipartResolver multipartResolver(){
          CommonsMultipartResolver resolver = new CommonsMultipartResolver();
