@@ -13,8 +13,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link href="<c:url value = "/css/usercss.css"/>" rel="stylesheet">
-        <link href="<c:url value = "/css/bootstrap.min.css"/>" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
     </head>

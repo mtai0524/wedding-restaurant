@@ -14,6 +14,7 @@ com\mt\pojo\Services_.class
 com\mt\repository\OrderRepositoty.class
 com\mt\pojo\Bill_.class
 com\mt\pojo\SearchForm.class
+com\mt\configs\TilesConfigs.class
 com\mt\pojo\Payments_.class
 com\mt\service\OrderService.class
 com\mt\pojo\Bookings.class
