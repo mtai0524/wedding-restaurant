@@ -4,6 +4,7 @@
  */
 package com.mt.controllers;
 
+import com.mt.service.ServiceService;
 import javax.persistence.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,10 @@ public class IndexController {
     @Autowired
     LocalSessionFactoryBean factory;
 
+    @Autowired
+    ServiceService serviceService;
+    
+    
 //    @ModelAttribute
 //    public void commAttr(Model model) {
 //        model.addAttribute("branch", orderService.getBranches());
@@ -36,7 +41,7 @@ public class IndexController {
         Session s = factory.getObject().getCurrentSession();
         Query q = s.createQuery("FROM Services");
         model.addAttribute("test", q.getResultList());
-        
+        model.addAttribute("services", serviceService.getListServices());
         return "index";
     }
 }

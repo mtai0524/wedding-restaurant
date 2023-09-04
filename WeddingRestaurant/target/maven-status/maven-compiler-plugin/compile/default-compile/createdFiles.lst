@@ -15,11 +15,14 @@ com\mt\pojo\Services_.class
 com\mt\repository\OrderRepositoty.class
 com\mt\pojo\Bill_.class
 com\mt\pojo\SearchForm.class
+com\mt\repository\impl\ServiceRepositoryImpl.class
 com\mt\configs\TilesConfigs.class
 com\mt\pojo\Payments_.class
 com\mt\service\OrderService.class
 com\mt\pojo\Bookings.class
+com\mt\service\impl\ServiceServiceImpl.class
 com\mt\pojo\EventHalls.class
+com\mt\service\ServiceService.class
 com\mt\pojo\BookingServices.class
 com\mt\pojo\RevenueQuarterly_.class
 com\mt\pojo\Employees.class
@@ -33,6 +36,7 @@ com\mt\pojo\Menus_.class
 com\mt\configs\HibernateConfig.class
 com\mt\pojo\Branches_.class
 com\mt\pojo\RevenueQuarterly.class
+com\mt\repository\ServiceRepository.class
 com\mt\service\impl\OrderServiceImpl.class
 com\mt\controllers\OrderController.class
 com\mt\pojo\Feedbacks_.class

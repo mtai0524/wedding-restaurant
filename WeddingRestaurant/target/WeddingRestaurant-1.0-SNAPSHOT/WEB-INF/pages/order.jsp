@@ -42,7 +42,6 @@
             <c:forEach items="${branches}" var="branch">
                 <h1 class="branch-link">
                     Bạn đã chọn chi nhánh ${branch.branchName}
-                    <a href="bill">Xem bill</a> <!-- Liên kết đến /bill -->
                 </h1>
             </c:forEach>
         </ul>
@@ -76,6 +75,7 @@
                 <c:forEach items="${listServices}" var="service">
                     <div class="col-md-6">
                         <div class="card mb-3">
+                            <img src="${service.serviceImg}" alt="Service Image" width="100%" height="200px">
                             <!-- ... Hiển thị thông tin của menu ... -->
                             <div class="card-header">Id: ${service.serviceId}</div>
                             <div class="card-body">
@@ -188,30 +188,44 @@
                 <button type="submit">Tìm kiếm</button>
         </form:form>-->
         <br/>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <c:url value="/order" var="action" />
-                    <form:form method="post" action="${action}" modelAttribute="hall" enctype="multipart/form-data">
-                        <div class="row">
-                            <c:forEach items="${halls}" var="hall" >
-                                <div class="col-md-6">
-                                    <div class="card mb-3">
-                                        <img src="${hall.imgHall}" alt="Hall Image" width="100%" height="200px">
-                                        <div class="card-header">Id: ${hall.hallId}</div>
-                                        <div class="card-header">Tên sảnh: ${hall.hallName}</div>
-                                        <div class="card-body">
-                                            <p class="card-text">Số bàn: ${hall.capacity}</p>
-                                        </div>
+        
+        
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="section-title text-center">
+                    <h1 class="display-5 mb-5">Danh sách sảnh cưới</h1>
+                </div>
+                <c:url value="/order" var="action" />
+                <form:form method="post" action="${action}" modelAttribute="hall" enctype="multipart/form-data">
+                    <div class="row">
+                        <c:forEach items="${halls}" var="hall" varStatus="loop">
+                            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="service-item">
+                                    <div class="overflow-hidden">
+                                        <img src="${hall.imgHall}" alt="Branch Image" width="100%" height="300px">
+                                    </div>
+                                    <div class="p-4 text-center border border-5 border-light border-top-0">
+                                        <h4 class="mb-3">${hall.hallName}</h4>
+                                        <p>${hall.capacity}</p>
                                         <c:url value='/order/${sendBranchId}' var="orderUrl" />
-                                        <a href="${orderUrl}/hall/${hall.hallId}/menu" class="text-white" style="text-decoration: none; color: white; background-color: black; padding: 10px 10px; border-radius: 4px;text-align: center">Chọn sảnh</a>
+
+                                        <a href="${orderUrl}/hall/${hall.hallId}/menu" class="fw-medium" href="">Chọn sảnh<i class="fa fa-arrow-right ms-2"></i></a>
                                     </div>
                                 </div>
-                            </c:forEach>
-                        </div>
+                            </div>
+                            <!-- Close the row after every third item -->
+                            <c:if test="${loop.index % 3 == 2 or loop.last}">
+                            </div>
+                            <div class="row">
+                            </c:if>
+                        </c:forEach>
                     </form:form>
                 </div>
             </div>
         </div>
+        
+        
+        
+       
     </body>
 </html>

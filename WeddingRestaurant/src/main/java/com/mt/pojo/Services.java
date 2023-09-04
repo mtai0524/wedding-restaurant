@@ -55,7 +55,7 @@ public class Services implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "service_price")
     private BigDecimal servicePrice;
-    @Size(max = 100)
+    @Size(max = 255)
     @Column(name = "service_img")
     private String serviceImg;
     @OneToMany(mappedBy = "serviceId")

@@ -37,6 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Menus.findByMenuPrice", query = "SELECT m FROM Menus m WHERE m.menuPrice = :menuPrice")})
 public class Menus implements Serializable {
 
+    @Size(max = 255)
+    @Column(name = "image")
+    private String image;
+
     
     @Column(name = "choose")
     private Integer choose;
@@ -145,6 +149,14 @@ public class Menus implements Serializable {
 
     public void setChoose(Integer choose) {
         this.choose = choose;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
     
 }

@@ -9,7 +9,7 @@
 
 
 
-<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
+<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0" style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
     <a href="#" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
         <h2 class="m-0 text-primary">THE IRELIAKING BANQUET</h2>
     </a>

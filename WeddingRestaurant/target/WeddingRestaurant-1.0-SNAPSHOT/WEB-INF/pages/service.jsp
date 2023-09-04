@@ -13,14 +13,37 @@
         <link href="<c:url value="/css/style1.css"/>" rel="stylesheet">
     </head>
     <body>
-        <h1>Service List</h1>
-        <c:forEach items="${services}" var="service">
-            <div class="card">
-                <div class="card-header">${service.serviceName}</div>
-                <div class="card-description">${service.description}</div>
-                <div class="card-price">${service.servicePrice}</div>
+        <!-- Service Start -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="section-title text-center">
+                    <h1 class="display-5 mb-5">Danh sách dịch vụ</h1>
+                </div>
+                <div class="row">
+                    <c:forEach items="${services}" var="service" varStatus="loop">
+                        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="service-item" style="margin: 5px">
+                                <div class="overflow-hidden">
+                                    <img src="${service.serviceImg}" alt="Service Image" width="100%" height="300px">
+                                </div>
+                                <div class="p-4 text-center border border-5 border-light border-top-0">
+                                    <h4 class="mb-3">${service.serviceName}</h4>
+                                    <p>${service.description}</p>
+                                    <p>${service.servicePrice} VND</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Close the row after every third item -->
+                        <c:if test="${loop.index % 3 == 2 or loop.last}">
+                        </div>
+                        <div class="row">
+                        </c:if>
+                    </c:forEach>
+                </div>
             </div>
-        </c:forEach>
+        </div>
+
+        <!-- Service End -->
 
 <!--        <c:url value="/upload" var="action" />
     <form:form action="${action}"

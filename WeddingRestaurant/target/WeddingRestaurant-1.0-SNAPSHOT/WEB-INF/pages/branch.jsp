@@ -14,30 +14,35 @@
         <link href="<c:url value="/css/style1.css"/>" rel="stylesheet">
     </head>
     <body>
-        <h1>Branches list</h1>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <c:url value="/order" var="action" />
-                    <form:form method="post" action="${action}" modelAttribute="branches" enctype="multipart/form-data" class="my-form">
-                        <div class="row">
-                            <c:forEach items="${branches}" var="branch" >
-                                <div class="col-md-6">
-                                    <div class="card mb-3">
-                                        <img src="${branch.img}" alt="Branch Image" width="100%" height="200px">
-                                        <div class="card-header">Tên chi nhánh: ${branch.branchName}</div>
-                                        <div class="card-body">
-                                            <p class="card-text">Địa chỉ: ${branch.address}</p>
-                                            <p class="card-text">Số điện thoại: ${branch.phone}</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <c:url value='/order/${branch.branchId}' var="orderUrl" />
-                                            <a href="${orderUrl}" class="text-white" style="text-decoration: none; color: white ;background-color: green; padding: 10px 10px; border-radius: 4px;">Chọn chi nhánh</a>
-                                        </div>
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="section-title text-center">
+                    <h1 class="display-5 mb-5">Danh sách chi nhánh</h1>
+                </div>
+                <c:url value="/order" var="action" />
+                <form:form method="post" action="${action}" modelAttribute="branches" enctype="multipart/form-data" class="my-form">
+                    <div class="row">
+                        <c:forEach items="${branches}" var="branch" varStatus="loop">
+                            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="service-item">
+                                    <div class="overflow-hidden">
+                                        <img src="${branch.img}" alt="Branch Image" width="100%" height="300px">
+                                    </div>
+                                    <div class="p-4 text-center border border-5 border-light border-top-0">
+                                        <h4 class="mb-3">${branch.branchName}</h4>
+                                        <p>${branch.address}</p>
+                                        <p>${branch.phone}</p>
+                                        <c:url value='/order/${branch.branchId}' var="orderUrl" />
+                                        <a href="${orderUrl}" class="fw-medium" href="">Chọn chi nhánh<i class="fa fa-arrow-right ms-2"></i></a>
                                     </div>
                                 </div>
-                            </c:forEach>
-                        </div>
+                            </div>
+                            <!-- Close the row after every third item -->
+                            <c:if test="${loop.index % 3 == 2 or loop.last}">
+                            </div>
+                            <div class="row">
+                            </c:if>
+                        </c:forEach>
                     </form:form>
                 </div>
             </div>

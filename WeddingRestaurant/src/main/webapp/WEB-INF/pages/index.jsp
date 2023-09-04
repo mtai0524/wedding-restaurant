@@ -24,7 +24,7 @@
 <div class="container-fluid p-0 pb-5">
     <div class="owl-carousel header-carousel position-relative">
         <div class="owl-carousel-item position-relative">
-            <img class="img-fluid" src="<c:url value="/img/carousel-1.jpg"></c:url>" alt="">
+            <img class="img-fluid" src="<c:url value="/img/mainImage.png"></c:url>" alt="" width="100%">
                 <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(53, 53, 53, .7);">
                     <div class="container">
                         <div class="row justify-content-center">
@@ -92,82 +92,31 @@
                     <div class="section-title text-center">
                         <h1 class="display-5 mb-5">Our Services</h1>
                     </div>
-                    <div class="row g-4">
+                    <div class="row">
+                    <c:forEach items="${services}" var="service" varStatus="loop">
                         <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="service-item">
+                            <div class="service-item" style="margin: 5px">
                                 <div class="overflow-hidden">
-                                    <img class="img-fluid" src="<c:url value="/img/service-1.jpg"></c:url>"alt="">
+                                    <img src="${service.serviceImg}" alt="Service Image" width="100%" height="300px">
                                 </div>
                                 <div class="p-4 text-center border border-5 border-light border-top-0">
-                                    <h4 class="mb-3">General Carpentry</h4>
-                                    <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
+                                    <h4 class="mb-3">${service.serviceName}</h4>
+                                    <p>${service.description}</p>
+                                    <p>${service.servicePrice} VND</p>
                                     <a class="fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                            <div class="service-item">
-                                <div class="overflow-hidden">
-                                    <img class="img-fluid" src="<c:url value="/img/service-2.jpg"></c:url>"alt="">
-                                </div>
-                                <div class="p-4 text-center border border-5 border-light border-top-0">
-                                    <h4 class="mb-3">Furniture Manufacturing</h4>
-                                    <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                                    <a class="fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                                </div>
-                            </div>
+                        <!-- Close the row after every third item -->
+                        <c:if test="${loop.index % 3 == 2 or loop.last}">
                         </div>
-                        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                            <div class="service-item">
-                                <div class="overflow-hidden">
-                                    <img class="img-fluid" src="<c:url value="/img/service-3.jpg"></c:url>"alt="">
-                                </div>
-                                <div class="p-4 text-center border border-5 border-light border-top-0">
-                                    <h4 class="mb-3">Furniture Remodeling</h4>
-                                    <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                                    <a class="fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
-                            <div class="service-item">
-                                <div class="overflow-hidden">
-                                    <img class="img-fluid" src="<c:url value="/img/service-4.jpg"></c:url>"alt="">
-                                </div>
-                                <div class="p-4 text-center border border-5 border-light border-top-0">
-                                    <h4 class="mb-3">Wooden Floor</h4>
-                                    <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                                    <a class="fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
-                            <div class="service-item">
-                                <div class="overflow-hidden">
-                                    <img class="img-fluid" src="<c:url value="/img/service-5.jpg"></c:url>"alt="">
-                                </div>
-                                <div class="p-4 text-center border border-5 border-light border-top-0">
-                                    <h4 class="mb-3">Wooden Furniture</h4>
-                                    <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                                    <a class="fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
-                            <div class="service-item">
-                                <div class="overflow-hidden">
-                                    <img class="img-fluid" src="<c:url value="/img/service-6.jpg"></c:url>"alt="">
-                            </div>
-                            <div class="p-4 text-center border border-5 border-light border-top-0">
-                                <h4 class="mb-3">Custom Work</h4>
-                                <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
-                                <a class="fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="row">
+                        </c:if>
+                    </c:forEach>
                 </div>
             </div>
-        </div>
+            </div>
+
         <!-- Service End -->
 
     </div>
