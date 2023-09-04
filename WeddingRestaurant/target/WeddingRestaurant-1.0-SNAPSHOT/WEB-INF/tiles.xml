@@ -33,10 +33,21 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/service.jsp" />
     </definition>
+    <definition name="menu" extends="baseLayout">
+        <put-attribute name="title" value="thực đơn" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/menu.jsp" />
+    </definition>
     <definition name="user" extends="baseLayout">
-        <put-attribute name="title" value="người dùng" />
+        <put-attribute name="title" value="Danh sách người dùng" />
         <put-attribute name="content"
                        value="/WEB-INF/pages/user.jsp" />
+    </definition>
+    
+    <definition name="userInfo" extends="baseLayout">
+        <put-attribute name="title" value="Sửa thông tin người dùng" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/userInfo.jsp" />
     </definition>
 </tiles-definitions>
 

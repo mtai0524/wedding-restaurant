@@ -190,6 +190,13 @@ public class OrderController {
         return "redirect:/order/{branchId}/hall/{hallId}/menu/service";
     }
     
+    @PostMapping("/order/{branchId}/hall/{hallId}/menu/service/bill")
+    public String selectService(@ModelAttribute("menuSelectionForm") MenuSelectionForm menuSelectionForm, Model model) {
+        
+        return "redirect:/order/{branchId}/hall/{hallId}/menu/service/bill";
+    }
+    
+    
     @ModelAttribute("menuSelectionForm")
     public MenuSelectionForm getMenuSelectionForm() {
         return new MenuSelectionForm();
@@ -218,14 +225,15 @@ public class OrderController {
 //        return "order"; // Chuyển hướng về trang danh sách món ăn
 //    }
     
-    @GetMapping("/order/bill")
-    public String handleBill(Model model){
+    @GetMapping("/order/{branchId}/hall/{hallId}/menu/service/bill")
+    public String handleBill(@PathVariable("branchId") Integer branchId, @PathVariable("hallId") Integer hallId, Model model){
         Session currentSession = factory.getObject().getCurrentSession();
         String hql = "SELECT bm.menuId FROM BookingMenus bm";
         List<Menus> listMenuBill = currentSession.createQuery(hql, Menus.class).getResultList();
         model.addAttribute("listMenuBill", listMenuBill);
         boolean showBtnExportPdf = true;
         model.addAttribute("showBtnExportPdf", showBtnExportPdf);
+        
         return "order";
     }
     
@@ -248,6 +256,13 @@ public class OrderController {
         model.addAttribute("showTxtListService", showTextListService);
         return "order";
     }
+    
+//    @PostMapping("/order/{branchId}/hall/{hallId}/menu/service")
+//    public String postOrderWithServices(@PathVariable("branchId") Integer branchId, @PathVariable("hallId") Integer hallId, Model model) {
+//        
+//        return "redirect:/order/{branchId}/hall/{hallId}/menu/service/bill";
+//    }
+    
     
     @GetMapping("/export/pdf")
     public ModelAndView exportPdf(HttpServletRequest request, HttpServletResponse response) throws DocumentException {
@@ -273,7 +288,7 @@ public class OrderController {
             float sttWidth = 5f; // Độ rộng mong muốn (30f là ví dụ)
             table.setWidths(new float[]{sttWidth, 10f, 10f, 10f}); // 1f là độ rộng của các cột còn lại
             // Thêm tiêu đề
-            PdfPCell titleCell = new PdfPCell(new Paragraph("Wedding Restaurant", new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD)));
+            PdfPCell titleCell = new PdfPCell(new Paragraph("THE IRELIAKING BANQUET", new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD)));
             titleCell.setColspan(4);
             titleCell.setHorizontalAlignment(Element.ALIGN_CENTER);
             titleCell.setBorder(Rectangle.NO_BORDER);

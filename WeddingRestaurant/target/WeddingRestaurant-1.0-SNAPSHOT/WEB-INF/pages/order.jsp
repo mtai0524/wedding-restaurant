@@ -66,9 +66,8 @@
         </div>
 
 
-
-        <c:url value="/order/${idBrand}/hall/${hallId}/menu/service" var="action" />
-
+        <c:url value="/order/${branchId}/hall/${hallId}/menu/service/bill" var="action" />
+        <form:form method="post" action="${action}" modelAttribute="menuSelectionForm">
         <div class="container">
             <div class="row justify-content-center">
                 <c:if test="${showTxtListService}">
@@ -84,12 +83,13 @@
                                 <p class="card-text">Giá dịch vụ: ${service.servicePrice} VND</p>
                                 <p class="card-text">Mô tả: ${service.description}</p>
                             </div>
-
+                                <button type="submit" class="btn btn-dark btn-block">XEM BILL</button>
                         </div>
                     </div>
                 </c:forEach>
             </div>
         </div>
+        </form:form>
         <ul class="list-group">
             <c:forEach items="${listMenuBill}" var="menu">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -133,8 +133,6 @@
                                                 <a href="${orderUrl}/hall/${sendHallId}/menu/service" class="text-white" style="text-decoration: none; color: white; background-color: black; padding: 10px 10px; border-radius: 4px;text-align: center">Chọn dịch vụ</a>-->
                         <button type="submit" class="btn btn-dark btn-block">Xác nhận các món ăn</button>
                     </c:if>
-
-
 
                 </div>
             </div>
