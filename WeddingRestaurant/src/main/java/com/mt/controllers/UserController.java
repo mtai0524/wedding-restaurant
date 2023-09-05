@@ -54,11 +54,11 @@ public class UserController {
     }
 
 //    @RequestMapping(value = "/delete/{userId}", method = RequestMethod.GET)
-    @GetMapping("/delete/{userId}")
-    public String deleteUser(@PathVariable("userId") Integer userId) {
-        userService.deleteProduct(userId);
-        return "index";
-    }
+//    @GetMapping("/delete/{userId}")
+//    public String deleteUser(@PathVariable("userId") Integer userId) {
+//        userService.deleteProduct(userId);
+//        return "index";
+//    }
 
 //    @GetMapping("/edit/{userId}")
 //    public String editUser(@PathVariable("userId") Integer userId, Model model) {
