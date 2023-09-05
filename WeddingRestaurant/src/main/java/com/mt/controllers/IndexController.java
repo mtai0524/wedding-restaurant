@@ -5,6 +5,7 @@
 package com.mt.controllers;
 
 import com.mt.service.ServiceService;
+import com.mt.service.UserService;
 import javax.persistence.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,11 @@ public class IndexController {
     @Autowired
     ServiceService serviceService;
     
-    
+//    @Autowired
+//    UserService userService;
 //    @ModelAttribute
 //    public void commAttr(Model model) {
-//        model.addAttribute("branch", orderService.getBranches());
-//
+//        model.addAttribute("branch", serviceService.getListServices());
 //    }
     @Transactional
     @RequestMapping("/")

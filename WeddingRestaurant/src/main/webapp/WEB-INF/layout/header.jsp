@@ -23,6 +23,7 @@
             <a href="<c:url value="/service"/>" class="nav-item nav-link">Service</a>
             <a href="<c:url value="/menu"/>" class="nav-item nav-link">Menu</a>
             <a href="<c:url value="/user"/>" class="nav-item nav-link">User</a>
+            <a href="<c:url value="/admin"/>" class="nav-item nav-link">Admin</a>
 
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>

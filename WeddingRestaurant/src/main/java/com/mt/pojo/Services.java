@@ -4,6 +4,7 @@
  */
 package com.mt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -58,6 +59,7 @@ public class Services implements Serializable {
     @Size(max = 255)
     @Column(name = "service_img")
     private String serviceImg;
+    @JsonIgnore
     @OneToMany(mappedBy = "serviceId")
     private Set<BookingServices> bookingServicesSet;
 

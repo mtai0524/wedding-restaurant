@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- Footer Start -->
-<div class="container-fluid bg-dark text-light footer mt-5 pt-5 wow fadeIn fixed-footer" data-wow-delay="0.1s">
+<div class="container-fluid bg-dark text-light footer mt-5 pt-5 wow fadeIn fixed-footer" data-wow-delay="0.1s" style="z-index: 1000;">
     <div class="container py-5">
         <div class="row g-5">
             <div class="col-lg-3 col-md-6">

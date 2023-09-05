@@ -105,6 +105,8 @@ public class OrderController {
         model.addAttribute("sendBranchId", branchId);
         model.addAttribute("menus", new Menus());
         model.addAttribute("services", new Services());
+        boolean showTextHall = true;
+        model.addAttribute("showTextHall", showTextHall);
         
         return "order";
     }

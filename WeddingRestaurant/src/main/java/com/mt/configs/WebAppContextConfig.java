@@ -88,6 +88,18 @@ public class WebAppContextConfig implements WebMvcConfigurer{
         
         registry.addResourceHandler("/img/**")
                 .addResourceLocations("/resources/img/"); //vị trí thật sự
+        registry.addResourceHandler("/scss/**")
+                .addResourceLocations("/resources/scss/"); //vị trí thật sự
+        registry.addResourceHandler("/scss/component**")
+                .addResourceLocations("/resources/scss/component"); //vị trí thật sự
+        registry.addResourceHandler("/scss/layouts**")
+                .addResourceLocations("/resources/scss/layouts"); //vị trí thật sự
+        registry.addResourceHandler("/scss/pages**")
+                .addResourceLocations("/resources/scss/pages"); //vị trí thật sự
+        registry.addResourceHandler("/scss/utilities**")
+                .addResourceLocations("/resources/scss/utilities"); //vị trí thật sự
+        registry.addResourceHandler("/scss/variables**")
+                .addResourceLocations("/resources/scss/variables"); //vị trí thật sự
     }
     
     @Bean

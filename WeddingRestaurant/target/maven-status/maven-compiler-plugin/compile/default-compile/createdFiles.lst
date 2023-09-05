@@ -27,6 +27,7 @@ com\mt\pojo\BookingServices.class
 com\mt\pojo\RevenueQuarterly_.class
 com\mt\pojo\Employees.class
 com\mt\pojo\MenuSelectionForm.class
+com\mt\controllers\ApiMenusController.class
 com\mt\pojo\RevenueYearly_.class
 com\mt\service\UserService.class
 com\mt\service\impl\UserServiceImpl.class
@@ -49,6 +50,7 @@ com\mt\controllers\UserController.class
 com\mt\pojo\BookingServices_.class
 com\mt\pojo\Employees_.class
 com\mt\pojo\RevenueMonthly.class
+com\mt\controllers\AdminController.class
 com\mt\pojo\RevenueYearly.class
 com\mt\pojo\BookingMenus.class
 com\mt\controllers\ServiceController.class

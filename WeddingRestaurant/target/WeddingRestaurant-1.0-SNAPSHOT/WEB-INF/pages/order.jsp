@@ -33,6 +33,13 @@
                 font-family: 'Font Awesome 5 Free'; /* Thay thế bằng font-awesome của bạn */
                 margin-left: 5px; /* Khoảng cách giữa văn bản và biểu tượng */
             }
+            .custom-checkbox input[type="checkbox"] {
+                width: 20px; /* Độ rộng của checkbox */
+                height: 20px; /* Chiều cao của checkbox */
+                background-color: black; /* Màu nền của checkbox */
+                border: 2px solid #fff; /* Viền của checkbox */
+                border-radius: 4px; /* Góc bo của checkbox */
+            }
         </style>
         
     </head>
@@ -46,23 +53,36 @@
             </c:forEach>
         </ul>
 
-        <div class="container">
-            <div class="row justify-content-center">
+        
+        
+        
+        <div class="container-xxl py-5" >
+            <div class="container">
                 <c:forEach items="${hallById}" var="h">
-                    <h1>Bạn đã chọn sảnh: ${h.hallName}</h1>
-                    <div class="col-md-6">
-                        <div class="card mb-3">
-                            <img src="${h.imgHall}" alt="Hall Image" width="100%" height="200px">
-                            <div class="card-header">Id: ${h.hallId}</div>
-                            <div class="card-body">
-                                <p class="card-text">Tên sảnh: ${h.hallName}</p>
-                                <p class="card-text">Số bàn: ${h.capacity}</p>
+                    <div class="section-title text-center">
+                        <c:if test="${shouldShowButton}">
+                            <h1>Bạn đã chọn sảnh: ${h.hallName}</h1>
+                        </c:if>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4 mx-auto">
+                            <div class="service-item" style="margin: 5px; width: 400px;"> <!-- Thêm width tại đây -->
+                                <div class="overflow-hidden">
+                                    <img src="${h.imgHall}" alt="Service Image" width="100%" height="300px">
+                                </div>
+                                <div class="p-4 text-center border border-5 border-light border-top-0">
+                                    <h4 class="mb-3">${h.hallId}</h4>
+                                    <p>${h.hallName}</p>
+                                    <p>${h.capacity}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </c:forEach>
             </div>
         </div>
+
+        
 
 
         <c:url value="/order/${branchId}/hall/${hallId}/menu/service/bill" var="action" />
@@ -89,6 +109,10 @@
                 </c:forEach>
             </div>
         </div>
+        
+        
+        
+        
         </form:form>
         <ul class="list-group">
             <c:forEach items="${listMenuBill}" var="menu">
@@ -104,40 +128,55 @@
         </ul>
 
 
+
+        <div class="container-xxl py-5">
         <c:url value="/order/${branchId}/hall/${hallId}/menu/service" var="action" />
 
         <form:form method="post" action="${action}" modelAttribute="menuSelectionForm">
             <div class="container">
-                <div class="row justify-content-center">
+                <div class="section-title text-center">
                     <c:if test="${shouldShowButton}">
                         <h1>Danh sách thực đơn</h1>
                     </c:if>
-                    <c:forEach items="${listMenu}" var="menu">
-                        <div class="col-md-6">
-                            <div class="card mb-3">
-                                <!-- ... Hiển thị thông tin của menu ... -->
-                                <div class="card-header">Id: ${menu.menuId}</div>
-                                <div class="card-body">
-                                    <p class="card-text">Tên món ăn: ${menu.menuName}</p>
-                                    <p class="card-text">Giá món ăn: ${menu.menuPrice}</p>
-                                    <p class="card-text">Mô tả: ${menu.description}</p>
+                </div>
+                <div class="row">
+                    <c:forEach items="${listMenu}" var="menu" varStatus="loop">
+                        <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="service-item" style="margin: 5px">
+                                <div class="overflow-hidden">
+                                    <img src="${menu.image}" alt="Service Image" width="100%" height="300px">
                                 </div>
-                                <div class="card-footer text-center">
-                                    <form:checkbox path="selectedMenuIds" value="${menu.menuId}" onclick="handleCheckboxChange(this)" />
+                                <div class="p-4 text-center border border-5 border-light border-top-0">
+                                    <h4 class="mb-3">${menu.menuName}</h4>
+                                    <p>${menu.description}</p>
+                                    <p>${menu.menuPrice} VND</p>
+                                    <div class="card-footer text-center">
+                                        <form:checkbox path="selectedMenuIds" value="${menu.menuId}" onclick="handleCheckboxChange(this)" class="form-check-input custom-checkbox" />
+                                        <label class="form-check-label" for="selectedMenuIds">Chọn món ăn</label>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
+                        <!-- Close the row after every third item -->
+                        <c:if test="${loop.index % 3 == 2 or loop.last}">
+                        </div>
+                        <div class="row">
+                        </c:if>
                     </c:forEach>
-                    <c:if test="${shouldShowButton}">
-                        <!--                        <c:url value='/order/${idBrand}' var="orderUrl" />
-                                                <a href="${orderUrl}/hall/${sendHallId}/menu/service" class="text-white" style="text-decoration: none; color: white; background-color: black; padding: 10px 10px; border-radius: 4px;text-align: center">Chọn dịch vụ</a>-->
-                        <button type="submit" class="btn btn-dark btn-block">Xác nhận các món ăn</button>
-                    </c:if>
+                            <div class="text-center" style="width: 300px; margin: 0 auto; margin-top: 20px;">
+                                <c:if test="${shouldShowButton}">
+                                    <button type="submit" class="btn btn-dark">Xác nhận các món ăn</button>
+                                </c:if>
+                            </div>
 
                 </div>
-            </div>
-
+                </div>
         </form:form>
+    </div>
+        
+
+        
 
         <script>
             function handleCheckboxChange(checkbox) {
@@ -193,7 +232,9 @@
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="section-title text-center">
-                    <h1 class="display-5 mb-5">Danh sách sảnh cưới</h1>
+                    <c:if test="${showTextHall}">
+                        <h1>Danh sách sảnh cưới</h1>
+                    </c:if>
                 </div>
                 <c:url value="/order" var="action" />
                 <form:form method="post" action="${action}" modelAttribute="hall" enctype="multipart/form-data">

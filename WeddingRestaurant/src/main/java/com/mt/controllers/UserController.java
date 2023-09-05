@@ -60,17 +60,17 @@ public class UserController {
         return "index";
     }
 
-    @GetMapping("/edit/{userId}")
-    public String editUser(@PathVariable("userId") Integer userId, Model model) {
-        Users user1 = userService.getProductById(userId);
-        model.addAttribute("users",user1 );
+//    @GetMapping("/edit/{userId}")
+//    public String editUser(@PathVariable("userId") Integer userId, Model model) {
+//        Users user1 = userService.getProductById(userId);
+//        model.addAttribute("users",user1 );
+////        userService.updateUser(user);
+//        return "userInfo";
+//    }
+//    
+//    @PostMapping("/edit/{userId}")
+//    public String editUserPost(@ModelAttribute(value = "users") Users user) {
 //        userService.updateUser(user);
-        return "userInfo";
-    }
-    
-    @PostMapping("/edit/{userId}")
-    public String editUserPost(@ModelAttribute(value = "users") Users user) {
-        userService.updateUser(user);
-        return "redirect:/";
-    }
+//        return "redirect:/";
+//    }
 }

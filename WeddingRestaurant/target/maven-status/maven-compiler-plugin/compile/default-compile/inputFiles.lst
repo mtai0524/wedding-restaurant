@@ -12,10 +12,12 @@ E:\Java Programing\WeddingRestaurant\src\main\java\com\mt\pojo\Menus.java
 E:\Java Programing\WeddingRestaurant\src\main\java\com\mt\repository\impl\OrderRepositotyImpl.java
 E:\Java Programing\WeddingRestaurant\src\main\java\com\mt\configs\DispatcherServletInit.java
 E:\Java Programing\WeddingRestaurant\src\main\java\com\mt\repository\ServiceRepository.java
+E:\Java Programing\WeddingRestaurant\src\main\java\com\mt\controllers\ApiMenusController.java
 E:\Java Programing\WeddingRestaurant\src\main\java\com\mt\configs\HibernateConfig.java
 E:\Java Programing\WeddingRestaurant\src\main\java\com\mt\controllers\ApiUserController.java
 E:\Java Programing\WeddingRestaurant\src\main\java\com\mt\pojo\RevenueQuarterly.java
 E:\Java Programing\WeddingRestaurant\src\main\java\com\mt\service\impl\UserServiceImpl.java
+E:\Java Programing\WeddingRestaurant\src\main\java\com\mt\controllers\AdminController.java
 E:\Java Programing\WeddingRestaurant\src\main\java\com\mt\configs\TilesConfigs.java
 E:\Java Programing\WeddingRestaurant\src\main\java\com\mt\pojo\EventHalls.java
 E:\Java Programing\WeddingRestaurant\src\main\java\com\mt\pojo\RevenueYearly.java
