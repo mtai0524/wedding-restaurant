@@ -54,5 +54,29 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/admin.jsp" />
     </definition>
+    
+    <definition name="branchInfo" extends="baseLayout">
+        <put-attribute name="title" value="EDIT BRANCH" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/branchInfo.jsp" />
+    </definition>
+    
+    <definition name="menuInfo" extends="baseLayout">
+        <put-attribute name="title" value="EDIT MENU" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/menuInfo.jsp" />
+    </definition>
+    
+    <definition name="serviceInfo" extends="baseLayout">
+        <put-attribute name="title" value="EDIT SERVICE" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/serviceInfo.jsp" />
+    </definition>
+    
+    <definition name="hallInfo" extends="baseLayout">
+        <put-attribute name="title" value="EDIT HALL" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/hallInfo.jsp" />
+    </definition>
 </tiles-definitions>
 

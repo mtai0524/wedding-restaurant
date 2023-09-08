@@ -14,4 +14,5 @@ import java.util.List;
  */
 public interface MenuService {
     List<Menus> getListMenus();
+    Menus updateMenus(Menus menu);
 }

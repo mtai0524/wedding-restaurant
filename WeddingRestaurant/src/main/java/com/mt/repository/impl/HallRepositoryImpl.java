@@ -4,11 +4,15 @@
  */
 package com.mt.repository.impl;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.mt.pojo.Branches;
 import com.mt.pojo.EventHalls;
 import com.mt.repository.BranchRepository;
 import com.mt.repository.HallRepository;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.Query;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class HallRepositoryImpl implements HallRepository{
 
     @Autowired
+    private Cloudinary cloudinary;
+    
+    @Autowired
     LocalSessionFactoryBean factory;
     
 
@@ -33,6 +40,32 @@ public class HallRepositoryImpl implements HallRepository{
         Session s = factory.getObject().getCurrentSession();
         Query q = s.createQuery("FROM EventHalls");
         return q.getResultList();
+    }
+
+    @Override
+    public EventHalls updateEventHalls(EventHalls hall) {
+        try {
+            // Tải lên hình ảnh lên Cloudinary
+            Map<String, Object> uploadResult = this.cloudinary.uploader().upload(hall.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+
+            // Lấy địa chỉ URL của hình ảnh từ kết quả tải lên
+            String imageUrl = (String) uploadResult.get("secure_url");
+//            user.setUsername("dashduksh");
+//            user.setRole("ccccc");
+//            user.setPassword("cc");
+//            // Gán địa chỉ URL vào đối tượng Users
+            hall.setImgHall(imageUrl);
+
+            // Lưu đối tượng Users vào cơ sở dữ liệu
+            Session session = factory.getObject().getCurrentSession();
+            session.update(hall);
+
+            return hall;
+
+        } catch (IOException ex) {
+            System.err.println("Có lỗi xảy ra: " + ex.getMessage());
+        }
+        return null;
     }
     
 }

@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface BranchService {
     List<Branches> getListBranches();
+    Branches updateBranch(Branches branch);
 }

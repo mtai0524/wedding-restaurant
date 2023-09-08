@@ -27,5 +27,10 @@ public class ServiceServiceImpl implements ServiceService{
     public List<Services> getListServices() {
         return this.serverRepo.getListServices();
     }
+
+    @Override
+    public Services updateServices(Services service) {
+        return this.serverRepo.updateServices(service);
+    }
     
 }

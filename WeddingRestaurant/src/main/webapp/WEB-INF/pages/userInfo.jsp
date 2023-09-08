@@ -17,15 +17,13 @@
     </head>
     <body>
         <c:url value="/edit/${users.userId}" var = "action"></c:url>
-            <h1>Hello World!</h1>
-            <h1>cmm</h1>
-            <div class="container">
+            <div class="container" style="margin-top: 50px">
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                     <form:form method="post" action="${action}" modelAttribute="users" enctype="multipart/form-data" class="my-form">
                         <div class="form-group">
                             <label for="username">Username:</label>
-                            <form:input path="username" id="username" class="form-control" /> // path để lấy user.userName
+                            <form:input path="username" id="username" class="form-control" />
                         </div>
                         <div class="form-group">
                             <label for="password">Password:</label>
@@ -49,7 +47,7 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
 
 </body>
 </html>

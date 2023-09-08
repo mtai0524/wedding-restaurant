@@ -24,6 +24,11 @@ public class BranchServiceImpl implements BranchService{
     BranchRepository branchRepo;
     @Override
     public List<Branches> getListBranches() {
-        return branchRepo.getListBranches();
+        return this.branchRepo.getListBranches();
+    }
+
+    @Override
+    public Branches updateBranch(Branches branch) {
+        return this.branchRepo.updateBranch(branch);
     }
 }

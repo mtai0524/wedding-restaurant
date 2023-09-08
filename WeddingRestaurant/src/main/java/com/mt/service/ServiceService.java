@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface ServiceService {
     List<Services> getListServices();
+    Services updateServices(Services service);
 }

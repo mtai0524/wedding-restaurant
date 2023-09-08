@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface HallRepository {
     List<EventHalls> getListHalls();
+    EventHalls updateEventHalls(EventHalls hall);
 }

@@ -30,4 +30,11 @@ public class HallServiceImpl implements HallService{
     public List<EventHalls> getListHalls() {
         return hallRepo.getListHalls();
     }
+
+    @Override
+    public EventHalls updateEventHalls(EventHalls hall) {
+        return this.hallRepo.updateEventHalls(hall);
+    }
+    
+    
 }

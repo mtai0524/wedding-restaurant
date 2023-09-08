@@ -214,7 +214,7 @@
                                 <td>${b.phone}</td>
                                 <td>
                                     <!-- Edit Button with Edit Icon -->
-                                    <a href="<c:url value='/edit/${b.branchId}'/>" class="edit-button">
+                                    <a href="<c:url value='/edit/branch/${b.branchId}'/>" class="edit-button">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
                                     <!-- Delete Button with Delete Icon -->
@@ -257,7 +257,7 @@
                                     <td>${h.branchId.branchName}</td>
                                     <td>
                                         <!-- Edit Button with Edit Icon -->
-                                        <a href="<c:url value='/edit/${h.hallId}'/>" class="edit-button">
+                                        <a href="<c:url value='/edit/hall/${h.hallId}'/>" class="edit-button">
                                             <i class="fas fa-edit"></i> Edit
                                         </a>
                                         <!-- Delete Button with Delete Icon -->
@@ -340,7 +340,7 @@
                             <td>${s.servicePrice}</td>
                             <td>
                                 <!-- Edit Button with Edit Icon -->
-                                <a href="<c:url value='/edit/${s.serviceId}'/>" class="edit-button">
+                                <a href="<c:url value='/edit/service/${s.serviceId}'/>" class="edit-button">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
                                 <!-- Delete Button with Delete Icon -->
@@ -375,14 +375,14 @@
                             <tr class="user-card">
                                 <td>${m.menuId}</td>
                                 <td>
-                                    <img src="${m.image}" alt="Service Image" width="100%" height="80px">
+                                    <img src="${m.image}" alt="Menu Image" width="100%" height="80px">
                                 </td>
                                 <td>${m.menuName}</td>
                                 <td>${m.description}</td>
                                 <td>${m.menuPrice}</td>
                                 <td>
                                     <!-- Edit Button with Edit Icon -->
-                                    <a href="<c:url value='/edit/${m.menuId}'/>" class="edit-button">
+                                    <a href="<c:url value='/edit/menu/${m.menuId}'/>" class="edit-button">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
                                     <!-- Delete Button with Delete Icon -->
