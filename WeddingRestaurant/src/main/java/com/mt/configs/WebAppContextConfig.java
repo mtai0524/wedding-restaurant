@@ -102,14 +102,14 @@ public class WebAppContextConfig implements WebMvcConfigurer{
                 .addResourceLocations("/resources/scss/variables"); //vị trí thật sự
     }
     
-//    @Bean
-//    public Cloudinary cloudinary() {
-//        Cloudinary cloudinary
-//                = new Cloudinary(ObjectUtils.asMap(
-//                        "cloud_name", "dl3hvap4a",
-//                        "api_key", "834354428788744",
-//                        "api_secret", "lv7zI6VPru0YhHwUPQsru318SOE",
-//                        "secure", true));
-//        return cloudinary;
-//    }
+    @Bean
+    public Cloudinary cloudinary() {
+        Cloudinary cloudinary
+                = new Cloudinary(ObjectUtils.asMap(
+                        "cloud_name", "dl3hvap4a",
+                        "api_key", "834354428788744",
+                        "api_secret", "lv7zI6VPru0YhHwUPQsru318SOE",
+                        "secure", true));
+        return cloudinary;
+    }
 }

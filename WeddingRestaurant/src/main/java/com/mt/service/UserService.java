@@ -6,18 +6,16 @@ package com.mt.service;
 
 import com.mt.pojo.Users;
 import java.util.List;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  *
  * @author minh tai
  */
-public interface UserService extends UserDetailsService{
+public interface UserService {
     public Users getProductById(int id);
     public void deleteProduct(int id);
     List<Users> getUsers();
     String add(Users user);
     void delete(Integer userId);
     Users updateUser(Users user);
-    Users getUsersByName(String username);
 }

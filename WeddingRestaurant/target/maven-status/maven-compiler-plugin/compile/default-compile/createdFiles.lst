@@ -14,7 +14,6 @@ com\mt\repository\impl\OrderRepositotyImpl.class
 com\mt\pojo\Payments.class
 com\mt\pojo\Services_.class
 com\mt\repository\OrderRepositoty.class
-com\mt\configs\SecurityWebApplicationInitializer.class
 com\mt\pojo\Bill_.class
 com\mt\pojo\SearchForm.class
 com\mt\repository\impl\ServiceRepositoryImpl.class
@@ -48,7 +47,6 @@ com\mt\pojo\RevenueQuarterly.class
 com\mt\repository\ServiceRepository.class
 com\mt\service\impl\OrderServiceImpl.class
 com\mt\controllers\OrderController.class
-com\mt\configs\SpringSecurityConfig.class
 com\mt\pojo\Feedbacks_.class
 com\mt\configs\WebAppContextConfig.class
 com\mt\pojo\EventHalls_.class

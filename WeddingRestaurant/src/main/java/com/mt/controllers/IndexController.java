@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -38,7 +39,10 @@ public class IndexController {
 //    }
     @Transactional
     @RequestMapping("/")
-    public String index(Model model){
+    public String index(Model model, @RequestParam(name = "success", required = false) String success){
+        if (success != null && success.equals("true")) {
+            model.addAttribute("successMessage", "Đăng nhập thành công");
+        }
         Session s = factory.getObject().getCurrentSession();
         Query q = s.createQuery("FROM Services");
         model.addAttribute("test", q.getResultList());

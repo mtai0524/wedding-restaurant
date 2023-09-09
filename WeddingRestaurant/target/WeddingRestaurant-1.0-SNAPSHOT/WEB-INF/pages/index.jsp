@@ -7,6 +7,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<style>
+    #successMessage {
+        position: fixed; /* Hoặc 'absolute' tùy vào mục đích */
+        top: 50px; /* Điều chỉnh vị trí theo chiều dọc */
+        right: 20px; /* Điều chỉnh vị trí theo chiều ngang */
+        z-index: 9999; /* Đảm bảo div hiển thị phía trên mọi thành phần khác */
+    }
+</style>
 <!-- Spinner Start -->
 <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
     <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -17,7 +25,29 @@
 
 
 
+<c:if test="${not empty successMessage}">
+    <div class="alert alert-success" id="successMessage">
+        ${successMessage}
+    </div>
 
+    <script>
+        // Lấy thẻ div chứa thông báo thành công
+        var successDiv = document.getElementById("successMessage");
+
+        // Ẩn div ban đầu
+        successDiv.style.display = "none";
+
+        // Hiển thị div trong 5 giây sau khi trang đã được tải
+        setTimeout(function() {
+            successDiv.style.display = "block";
+        }, 100); // Thời gian hiển thị là 1000 miliseconds (1 giây)
+
+        // Ẩn div sau 5 giây
+        setTimeout(function() {
+            successDiv.style.display = "none";
+        }, 5000);
+    </script>
+</c:if>
 
 
 <!-- Carousel Start -->

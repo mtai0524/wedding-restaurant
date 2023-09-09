@@ -126,16 +126,5 @@ public class UserRepositoryImpl implements UserRepository{
         }
         return null;
     }
-
-    @Override
-    public Users getUsersByName(String username) {
-        String hql = "FROM Users WHERE username = :username";
-
-        Users user = factory.getObject().getCurrentSession()
-                .createQuery(hql, Users.class)
-                .setParameter("username", username)
-                .uniqueResult();
-
-        return user;
-    }
+    
 }

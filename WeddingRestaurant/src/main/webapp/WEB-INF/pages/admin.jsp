@@ -274,7 +274,6 @@
             
             
         <c:if test="${isManageUser}">
-            <h1>${oneuser.password}</h1>
             <div class="section-title text-center">
                 <h1 class="display-5 mb-5">${txtMngUsers}</h1>
             </div>

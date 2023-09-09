@@ -43,6 +43,7 @@ public class UserController {
     @GetMapping("/user")
     public String user(Model model) {
         model.addAttribute("user", new Users());
+        model.addAttribute("users", userService.getUsers());
         return "user";
     }
 
@@ -72,9 +73,21 @@ public class UserController {
 //        userService.updateUser(user);
 //        return "redirect:/";
 //    }
+    
     @GetMapping("/login")
-    public String login(){
-        return "login";
+    public String loginForm() {
+        return "login"; // Trả về trang đăng nhập
     }
 
+    @PostMapping("/login")
+    public String login(@RequestParam String username, @RequestParam String password, Model model) {
+        if (username.equals("tai") && password.equals("1")) {
+            boolean isSuccess = true;
+            model.addAttribute("success", isSuccess);
+            return "redirect:/";
+        } else {
+            // Nếu thông tin không hợp lệ, có thể xử lý ở đây
+            return "redirect:/login?error";
+        }
+    }
 }

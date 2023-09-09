@@ -176,8 +176,6 @@
     </div>
         
 
-        
-
         <script>
             function handleCheckboxChange(checkbox) {
                 if (checkbox.checked) {
