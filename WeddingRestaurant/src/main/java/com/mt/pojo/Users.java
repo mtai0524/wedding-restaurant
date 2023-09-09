@@ -39,7 +39,8 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Users.findByRole", query = "SELECT u FROM Users u WHERE u.role = :role"),
     @NamedQuery(name = "Users.findByAvatar", query = "SELECT u FROM Users u WHERE u.avatar = :avatar")})
 public class Users implements Serializable {
-
+    public static final String ADMIN = "ROLE_ADMIN";
+    public static final String USER = "ROLE_USER";
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,17 +48,17 @@ public class Users implements Serializable {
     @Column(name = "user_id")
     private Integer userId;
     @Basic(optional = false)
-//    @NotNull
+    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "username")
     private String username;
     @Basic(optional = false)
-//    @NotNull
+    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
-//    @NotNull
+    @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "role")
     private String role;

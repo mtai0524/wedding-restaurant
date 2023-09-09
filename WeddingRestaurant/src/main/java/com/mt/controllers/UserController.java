@@ -43,7 +43,6 @@ public class UserController {
     @GetMapping("/user")
     public String user(Model model) {
         model.addAttribute("user", new Users());
-        model.addAttribute("users", userService.getUsers());
         return "user";
     }
 
@@ -73,4 +72,9 @@ public class UserController {
 //        userService.updateUser(user);
 //        return "redirect:/";
 //    }
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
 }

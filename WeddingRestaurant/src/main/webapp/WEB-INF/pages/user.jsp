@@ -17,6 +17,7 @@
         <link href="<c:url value = "/css/bootstrap.min.css"/>" rel="stylesheet">
     </head>
     <body>
+
         <h1>Hello World!</h1>
         <c:url value = "/user" var ="action"/>
         <div class="container">
@@ -67,7 +68,5 @@
                 </li>
             </c:forEach>
         </ul>
-
-        
     </body>
 </html>

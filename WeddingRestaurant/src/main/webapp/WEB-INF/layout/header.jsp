@@ -24,7 +24,22 @@
             <a href="<c:url value="/menu"/>" class="nav-item nav-link">Menu</a>
             <a href="<c:url value="/user"/>" class="nav-item nav-link">User</a>
             <a href="<c:url value="/admin"/>" class="nav-item nav-link">Admin</a>
-
+            <!--<a href="<c:url value="/login"/>" class="nav-item nav-link">Login</a>-->
+            <c:choose>
+                <c:when test="${pageContext.request.userPrincipal.name != null}">
+                    <li class="nav-item">
+                        <a class="nav-link text-info" href="<c:url value="/" />">Chào ${pageContext.request.userPrincipal.name}!</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value="/logout" />">Đăng xuất</a>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value="/login" />">Đăng nhập</a>
+                    </li>
+                </c:otherwise>
+            </c:choose>
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                 <div class="dropdown-menu fade-up m-0">

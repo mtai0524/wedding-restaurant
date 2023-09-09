@@ -7,15 +7,23 @@ package com.mt.service.impl;
 import com.mt.pojo.Users;
 import com.mt.repository.UserRepository;
 import com.mt.service.UserService;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author minh tai
  */
-@Service
+@Transactional
+@Service("userDetailsService")
 public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepo;
@@ -49,5 +57,23 @@ public class UserServiceImpl implements UserService{
     public Users updateUser(Users user) {
         return userRepo.updateUser(user);
     }
-    
+
+    @Override
+    public Users getUsersByName(String username) {
+        return this.userRepo.getUsersByName(username);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Users u = this.userRepo.getUsersByName(username);
+        if (u == null) {
+            throw new UsernameNotFoundException("User hong tồn tại gòi!!");
+        }
+
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority(u.getRole()));
+
+        return new org.springframework.security.core.userdetails.User(
+                u.getUsername(), u.getPassword(), authorities);
+    }
 }

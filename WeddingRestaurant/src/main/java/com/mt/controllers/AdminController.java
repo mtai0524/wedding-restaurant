@@ -159,6 +159,7 @@ public class AdminController {
     public String adminEdit(Model model) {
         model.addAttribute("txtMngUsers", "Quản lý người dùng");
         model.addAttribute("users", userService.getUsers());
+        model.addAttribute("oneuser", userService.getUsersByName("cmm thinh"));
         boolean isManageUser = true;
         model.addAttribute("isManageUser", isManageUser);
 

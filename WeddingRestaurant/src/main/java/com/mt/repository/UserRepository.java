@@ -19,4 +19,5 @@ public interface UserRepository {
     public Users getProductById(int id);
     public void deleteProduct(int id);
     public Users updateUser(Users user);
+    Users getUsersByName(String username);
 }
