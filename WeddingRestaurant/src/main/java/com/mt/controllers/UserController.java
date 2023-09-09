@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author minh tai
  */
+@Transactional
 @Controller
 public class UserController {
 
@@ -38,7 +39,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    LocalSessionFactoryBean f;
+    LocalSessionFactoryBean factory;
 
     @GetMapping("/user")
     public String user(Model model) {
@@ -81,13 +82,26 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password, Model model) {
-        if (username.equals("tai") && password.equals("1")) {
+        String hql = "FROM Users WHERE username = :username AND password = :password";
+        Users user = factory.getObject().getCurrentSession()
+                .createQuery(hql, Users.class)
+                .setParameter("username", username)
+                .setParameter("password", password)
+                .uniqueResult();
+
+        if (user != null) {
+            // Nếu user được tìm thấy trong cơ sở dữ liệu, đăng nhập thành công.
             boolean isSuccess = true;
             model.addAttribute("success", isSuccess);
-            return "redirect:/";
+            // Đăng nhập thành công, lấy userId từ đối tượng Users
+            int userId = user.getUserId();
+
+            // Thêm userId vào đường dẫn trước khi chuyển hướng
+            return "redirect:/?userId=" + userId;
         } else {
-            // Nếu thông tin không hợp lệ, có thể xử lý ở đây
+            // Nếu không tìm thấy user, thông tin không hợp lệ.
             return "redirect:/login?error";
         }
     }
+
 }

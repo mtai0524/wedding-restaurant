@@ -22,9 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
  *
  * @author minh tai
  */
-//@ControllerAdvice
+@ControllerAdvice
 @Controller
 public class IndexController {
+    int getUserIdCurrent = 0;
     @Autowired
     LocalSessionFactoryBean factory;
 
@@ -33,20 +34,28 @@ public class IndexController {
     
 //    @Autowired
 //    UserService userService;
-//    @ModelAttribute
-//    public void commAttr(Model model) {
-//        model.addAttribute("branch", serviceService.getListServices());
-//    }
+    @ModelAttribute
+    public void commAttr(Model model) {
+        model.addAttribute("branch", serviceService.getListServices());
+        model.addAttribute("getUserIdCurrent", getUserIdCurrent);
+
+    }
     @Transactional
     @RequestMapping("/")
-    public String index(Model model, @RequestParam(name = "success", required = false) String success){
+    public String index(Model model, @RequestParam(name = "success", required = false) String success,
+            @RequestParam(name = "userId", required = false) Integer userId) {
         if (success != null && success.equals("true")) {
             model.addAttribute("successMessage", "Đăng nhập thành công");
         }
+        if (userId != null) {
+            getUserIdCurrent = userId;
+        }
+
         Session s = factory.getObject().getCurrentSession();
         Query q = s.createQuery("FROM Services");
         model.addAttribute("test", q.getResultList());
         model.addAttribute("services", serviceService.getListServices());
         return "index";
     }
+
 }

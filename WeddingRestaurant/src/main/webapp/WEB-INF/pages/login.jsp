@@ -4,6 +4,7 @@
     Author     : minh tai
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:url value="/login" var="action" />
 
 <form method="post" action= "${action}">
@@ -13,5 +14,5 @@
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required><br>
 
-    <input type="submit" value="??ng Nh?p">
+    <input type="submit" value="LOGIN">
 </form>
