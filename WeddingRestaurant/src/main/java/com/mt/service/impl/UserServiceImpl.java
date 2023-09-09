@@ -49,5 +49,10 @@ public class UserServiceImpl implements UserService{
     public Users updateUser(Users user) {
         return userRepo.updateUser(user);
     }
+
+    @Override
+    public Users findUserNameById(int userId) {
+        return this.userRepo.findUserNameById(userId);
+    }
     
 }

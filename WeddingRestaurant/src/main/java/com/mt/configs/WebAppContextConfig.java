@@ -31,7 +31,8 @@ import org.springframework.web.servlet.view.JstlView;
 @ComponentScan(basePackages = {
     "com.mt.controllers",
     "com.mt.service",
-    "com.mt.repository"
+    "com.mt.repository",
+    "com.mt.component"
 })
 public class WebAppContextConfig implements WebMvcConfigurer{
 

@@ -18,4 +18,5 @@ public interface UserService {
     String add(Users user);
     void delete(Integer userId);
     Users updateUser(Users user);
+    public Users findUserNameById(int userId);
 }

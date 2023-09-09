@@ -4,6 +4,7 @@
  */
 package com.mt.controllers;
 
+import com.mt.component.MyEnvironment;
 import com.mt.service.ServiceService;
 import com.mt.service.UserService;
 import javax.persistence.Query;
@@ -25,7 +26,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @ControllerAdvice
 @Controller
 public class IndexController {
-    int getUserIdCurrent = 0;
+    @Autowired
+    private MyEnvironment myEnvironment;
+    
     @Autowired
     LocalSessionFactoryBean factory;
 
@@ -37,9 +40,8 @@ public class IndexController {
     @ModelAttribute
     public void commAttr(Model model) {
         model.addAttribute("branch", serviceService.getListServices());
-        model.addAttribute("getUserIdCurrent", getUserIdCurrent);
-
     }
+    
     @Transactional
     @RequestMapping("/")
     public String index(Model model, @RequestParam(name = "success", required = false) String success,
@@ -48,7 +50,7 @@ public class IndexController {
             model.addAttribute("successMessage", "Đăng nhập thành công");
         }
         if (userId != null) {
-            getUserIdCurrent = userId;
+            myEnvironment.setUserIdCurrent(userId);
         }
 
         Session s = factory.getObject().getCurrentSession();

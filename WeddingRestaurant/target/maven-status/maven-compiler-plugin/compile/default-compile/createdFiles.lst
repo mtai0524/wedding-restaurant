@@ -20,6 +20,7 @@ com\mt\repository\impl\ServiceRepositoryImpl.class
 com\mt\configs\TilesConfigs.class
 com\mt\pojo\Payments_.class
 com\mt\service\OrderService.class
+com\mt\component\MyEnvironment.class
 com\mt\repository\impl\BranchRepositoryImpl.class
 com\mt\service\BranchService.class
 com\mt\pojo\Bookings.class

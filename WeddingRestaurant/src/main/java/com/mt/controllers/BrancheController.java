@@ -6,7 +6,9 @@ package com.mt.controllers;
 
 import com.mt.pojo.Branches;
 import com.mt.pojo.EventHalls;
+import com.mt.component.MyEnvironment;
 import com.mt.pojo.Users;
+import com.mt.service.UserService;
 import java.util.List;
 import javax.persistence.Query;
 import org.hibernate.Session;
@@ -31,13 +33,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BrancheController {
     @Autowired
     LocalSessionFactoryBean factory;
-
+    @Autowired
+    private MyEnvironment myEnvironment;
+    @Autowired
+    UserService userService;
+    
     @RequestMapping("/branch")
     public String index(Model model) {
         Session s = factory.getObject().getCurrentSession();
         Query q = s.createQuery("FROM Branches");
         model.addAttribute("branches", q.getResultList());
 
+        int userId = myEnvironment.getUserIdCurrent(); // Lấy giá trị
+        model.addAttribute("getUserIdCurrentNePa", userId);
         return "branch";
     }
     
