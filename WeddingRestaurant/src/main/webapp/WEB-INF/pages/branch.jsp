@@ -14,9 +14,6 @@
         <link href="<c:url value="/css/style1.css"/>" rel="stylesheet">
     </head>
     <body>
-        
-        <h1>${getUserIdCurrent}</h1>
-        <h1>${getUserIdCurrentNePa}</h1>
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="section-title text-center">

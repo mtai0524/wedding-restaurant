@@ -83,8 +83,53 @@
         </div>
 
         
+        <c:if test="${showButtonService}">
 
+        <div class="container-xxl py-5">
+            <c:url value="/order/${branchId}/hall/${hallId}/menu/service/bill" var="action" />
 
+            <form:form method="post" action="${action}" modelAttribute="serviceSelectionForm">
+                <div class="container">
+                    <div class="section-title text-center">
+                        <c:if test="${showTxtListService}">
+                            <h1>Danh sách dịch vụ</h1>
+                        </c:if>
+                    </div>
+                    <div class="row">
+                        <c:forEach items="${listServices}" var="service" varStatus="loop">
+                            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                                <div class="service-item" style="margin: 5px">
+                                    <div class="overflow-hidden">
+                                        <img src="${service.serviceImg}" alt="Service Image" width="100%" height="300px">
+                                    </div>
+                                    <div class="p-4 text-center border border-5 border-light border-top-0">
+                                        <h4 class="mb-3">${service.serviceName}</h4>
+                                        <p>${service.servicePrice} VND</p>
+                                        <p>${service.description}</p>
+                                        <div class="card-footer text-center">
+                                            <form:checkbox path="selectedServiceIds" value="${service.serviceId}" onclick="handleCheckboxChange(this)" class="form-check-input custom-checkbox" />
+                                            <label class="form-check-label" for="selectedServiceIds">Chọn dịch vụ</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Close the row after every third item -->
+                            <c:if test="${loop.index % 3 == 2 or loop.last}">
+                            </div>
+                            <div class="row">
+                            </c:if>
+                        </c:forEach>
+                        <div class="text-center" style="width: 300px; margin: 0 auto; margin-top: 20px;">
+                                <button type="submit" class="btn btn-dark">Xác nhận dịch vụ</button>
+                        </div>
+                    </div>
+                </div>
+            </form:form>
+        </div>
+        </c:if>
+
+        
+<!--
         <c:url value="/order/${branchId}/hall/${hallId}/menu/service/bill" var="action" />
         <form:form method="post" action="${action}" modelAttribute="menuSelectionForm">
         <div class="container">
@@ -96,7 +141,7 @@
                     <div class="col-md-6">
                         <div class="card mb-3">
                             <img src="${service.serviceImg}" alt="Service Image" width="100%" height="200px">
-                            <!-- ... Hiển thị thông tin của menu ... -->
+                             ... Hiển thị thông tin của menu ... 
                             <div class="card-header">Id: ${service.serviceId}</div>
                             <div class="card-body">
                                 <p class="card-text">Tên dịch vụ: ${service.serviceName}</p>
@@ -108,7 +153,7 @@
                     </div>
                 </c:forEach>
             </div>
-        </div>
+        </div>-->
         
         
         
@@ -122,6 +167,14 @@
                     <div class="text-center">${menu.menuPrice}</div>
                 </li>
             </c:forEach>
+                
+                <c:forEach items="${listServiceBill}" var="service">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="text-center">${service.serviceName}</div>
+                        <div class="text-center">${service.description}</div>
+                        <div class="text-center">${service.servicePrice}</div>
+                    </li>
+                </c:forEach>
             <c:if test="${showBtnExportPdf}">
                 <a href="<c:url value='/export/pdf'/>" class="btn btn-primary">Xuất PDF</a>
             </c:if>

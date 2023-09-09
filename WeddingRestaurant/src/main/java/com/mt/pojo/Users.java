@@ -81,7 +81,7 @@ public class Users implements Serializable {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
-    
+
     public Users() {
     }
 
@@ -178,5 +178,5 @@ public class Users implements Serializable {
     public String toString() {
         return "com.mt.pojo.Users[ userId=" + userId + " ]";
     }
-    
+
 }

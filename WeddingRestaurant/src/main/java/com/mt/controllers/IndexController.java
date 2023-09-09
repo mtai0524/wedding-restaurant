@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @ControllerAdvice
 @Controller
 public class IndexController {
+    String usernameCurrent = "";
     @Autowired
     private MyEnvironment myEnvironment;
     
@@ -35,11 +36,15 @@ public class IndexController {
     @Autowired
     ServiceService serviceService;
     
+    @Autowired
+    UserService userService;
+    
 //    @Autowired
 //    UserService userService;
     @ModelAttribute
     public void commAttr(Model model) {
         model.addAttribute("branch", serviceService.getListServices());
+        model.addAttribute("usernameCurrent", usernameCurrent);
     }
     
     @Transactional
@@ -51,6 +56,7 @@ public class IndexController {
         }
         if (userId != null) {
             myEnvironment.setUserIdCurrent(userId);
+            usernameCurrent = userService.getProductById(userId).getUsername();
         }
 
         Session s = factory.getObject().getCurrentSession();

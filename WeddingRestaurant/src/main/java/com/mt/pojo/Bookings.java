@@ -4,6 +4,7 @@
  */
 package com.mt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -38,15 +39,15 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Bookings.findByBookingPrice", query = "SELECT b FROM Bookings b WHERE b.bookingPrice = :bookingPrice")})
 public class Bookings implements Serializable {
 
+    @Column(name = "event_date")
+    private Integer eventDate;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "booking_id")
     private Integer bookingId;
-    @Column(name = "event_date")
-    @Temporal(TemporalType.DATE)
-    private Date eventDate;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "booking_price")
     private BigDecimal bookingPrice;
@@ -57,9 +58,11 @@ public class Bookings implements Serializable {
     @OneToMany(mappedBy = "bookingId")
     private Set<BookingServices> bookingServicesSet;
     @JoinColumn(name = "hall_id", referencedColumnName = "hall_id")
+    @JsonIgnore
     @ManyToOne
     private EventHalls hallId;
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JsonIgnore
     @ManyToOne
     private Users userId;
 
@@ -78,13 +81,7 @@ public class Bookings implements Serializable {
         this.bookingId = bookingId;
     }
 
-    public Date getEventDate() {
-        return eventDate;
-    }
 
-    public void setEventDate(Date eventDate) {
-        this.eventDate = eventDate;
-    }
 
     public BigDecimal getBookingPrice() {
         return bookingPrice;
@@ -160,6 +157,11 @@ public class Bookings implements Serializable {
     @Override
     public String toString() {
         return "com.mt.pojo.Bookings[ bookingId=" + bookingId + " ]";
+    }
+
+
+    public void setEventDate(Integer eventDate) {
+        this.eventDate = eventDate;
     }
     
 }

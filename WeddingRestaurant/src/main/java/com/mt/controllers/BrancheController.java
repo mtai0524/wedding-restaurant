@@ -33,8 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BrancheController {
     @Autowired
     LocalSessionFactoryBean factory;
-    @Autowired
-    private MyEnvironment myEnvironment;
+    
     @Autowired
     UserService userService;
     
@@ -44,8 +43,6 @@ public class BrancheController {
         Query q = s.createQuery("FROM Branches");
         model.addAttribute("branches", q.getResultList());
 
-        int userId = myEnvironment.getUserIdCurrent(); // Lấy giá trị
-        model.addAttribute("getUserIdCurrentNePa", userId);
         return "branch";
     }
     

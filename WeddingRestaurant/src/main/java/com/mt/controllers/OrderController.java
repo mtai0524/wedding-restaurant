@@ -16,15 +16,19 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.mt.component.MyEnvironment;
 import com.mt.pojo.Bill;
 import com.mt.pojo.BookingMenus;
+import com.mt.pojo.BookingServices;
 import com.mt.pojo.Branches;
 import com.mt.pojo.EventHalls;
 import com.mt.pojo.MenuSelectionForm;
 import com.mt.pojo.Menus;
 import com.mt.pojo.SearchForm;
+import com.mt.pojo.ServiceSelectionForm;
 import com.mt.pojo.Services;
 import com.mt.service.OrderService;
+import com.mt.service.UserService;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -61,27 +65,27 @@ import org.springframework.web.servlet.ModelAndView;
 @Transactional
 @Controller
 public class OrderController {
+
     private List<String> menuNameList;
-    
+    String usernameCurrent;
     @Autowired
     OrderService orderService;
+    @Autowired
+    UserService userService;
 
-    
-    
     @ModelAttribute
     public void commAttr(Model model) {
         model.addAttribute("branch", orderService.getBranches());
     }
     @Autowired
     private LocalSessionFactoryBean factory;
-    
+
     @RequestMapping("/order")
-    public String order(Model model){
+    public String order(Model model) {
         model.addAttribute("branch", orderService.getBranches());
         return "order";
     }
-    
-    
+
     @GetMapping("/order/{branchId}")
     public String getHall(@PathVariable("branchId") Integer branchId, Model model) {
         int id = branchId;
@@ -107,10 +111,10 @@ public class OrderController {
         model.addAttribute("services", new Services());
         boolean showTextHall = true;
         model.addAttribute("showTextHall", showTextHall);
-        
+
         return "order";
     }
-    
+
     @GetMapping("/order/{branchId}/hall/{hallId}/menu")
     public String getOrderWithHall(@PathVariable("branchId") Integer branchId, @PathVariable("hallId") Integer hallId, Model model) {
         int idBrand = branchId;
@@ -121,7 +125,7 @@ public class OrderController {
                 .setParameter("hallId", id)
                 .getResultList();
         model.addAttribute("hallById", evenHall);
-        
+
         // lấy menu
         Session s = factory.getObject().getCurrentSession();
         Query q = s.createQuery("FROM Menus");
@@ -137,8 +141,7 @@ public class OrderController {
         model.addAttribute("idBrand", idBrand); // id branch trang trước không tồn tại khi qua URL khác => phải gửi lại
         return "order";
     }
-    
-    
+
 //    @PostMapping("/search")
 //    public String search(@ModelAttribute("searchForm") SearchForm searchForm, Model model) {
 //        String searchType = searchForm.getSearchType();
@@ -171,8 +174,9 @@ public class OrderController {
 //
 //        return "searchResults";
 //    }
+    @Autowired
+    MyEnvironment myEnvironment;
 
-    
     @PostMapping("/order/{branchId}/hall/{hallId}/menu/service")
     public String selectMenus(@ModelAttribute("menuSelectionForm") MenuSelectionForm menuSelectionForm, Model model) {
         Integer[] selectedMenuIds = menuSelectionForm.getSelectedMenuIds();
@@ -186,26 +190,44 @@ public class OrderController {
 
             BookingMenus bookingMenu = new BookingMenus();
             bookingMenu.setMenuId(menu);
-            
+            bookingMenu.setUserId(userService.getProductById(myEnvironment.getUserIdCurrent()));
             Session session = factory.getObject().getCurrentSession();
             session.save(bookingMenu);
         }
 //        return "order"; // Chuyển hướng về trang danh sách món ăn
         return "redirect:/order/{branchId}/hall/{hallId}/menu/service";
     }
-    
+
     @PostMapping("/order/{branchId}/hall/{hallId}/menu/service/bill")
-    public String selectService(@ModelAttribute("menuSelectionForm") MenuSelectionForm menuSelectionForm, Model model) {
-        
+    public String selectService(@ModelAttribute("serviceSelectionForm") ServiceSelectionForm serviceSelectionForm, Model model) {
+        Integer[] selectedServiceIds = serviceSelectionForm.getSelectedServiceIds();
+
+        String hql = "FROM Services s WHERE s.serviceId = :serviceId";
+        for (Integer id : selectedServiceIds) {
+            Services service = factory.getObject().getCurrentSession()
+                    .createQuery(hql, Services.class)
+                    .setParameter("serviceId", id)
+                    .uniqueResult();
+
+            BookingServices bookingServices = new BookingServices();
+            bookingServices.setServiceId(service);
+//            bookingServices.setUserId(userService.getProductById(myEnvironment.getUserIdCurrent()));
+            Session session = factory.getObject().getCurrentSession();
+            session.save(bookingServices);
+        }
         return "redirect:/order/{branchId}/hall/{hallId}/menu/service/bill";
     }
-    
-    
+
     @ModelAttribute("menuSelectionForm")
     public MenuSelectionForm getMenuSelectionForm() {
         return new MenuSelectionForm();
     }
     
+    @ModelAttribute("serviceSelectionForm")
+    public ServiceSelectionForm getServiceSelectionForm() {
+        return new ServiceSelectionForm();
+    }
+
 //    @PostMapping("/order/{branchId}/hall/{hallId}")
 //    public String selectMenus(@RequestParam(value = "selectedMenuIds", required = false) Integer[] selectedMenuIds) {
 //        if (selectedMenuIds != null) {
@@ -228,19 +250,22 @@ public class OrderController {
 //        }
 //        return "order"; // Chuyển hướng về trang danh sách món ăn
 //    }
-    
     @GetMapping("/order/{branchId}/hall/{hallId}/menu/service/bill")
-    public String handleBill(@PathVariable("branchId") Integer branchId, @PathVariable("hallId") Integer hallId, Model model){
+    public String handleBill(@PathVariable("branchId") Integer branchId, @PathVariable("hallId") Integer hallId, Model model) {
         Session currentSession = factory.getObject().getCurrentSession();
         String hql = "SELECT bm.menuId FROM BookingMenus bm";
         List<Menus> listMenuBill = currentSession.createQuery(hql, Menus.class).getResultList();
         model.addAttribute("listMenuBill", listMenuBill);
+        
+        hql = "SELECT bm.serviceId FROM BookingServices bm";
+        List<Services> listServiceBill = currentSession.createQuery(hql, Services.class).getResultList();
+        model.addAttribute("listServiceBill", listServiceBill);
         boolean showBtnExportPdf = true;
         model.addAttribute("showBtnExportPdf", showBtnExportPdf);
-        
+
         return "order";
     }
-    
+
     @GetMapping("/order/{branchId}/hall/{hallId}/menu/service")
     public String getOrderWithServices(@PathVariable("branchId") Integer branchId, @PathVariable("hallId") Integer hallId, Model model) {
         int id = hallId;
@@ -254,26 +279,28 @@ public class OrderController {
         Session s = factory.getObject().getCurrentSession();
         Query q = s.createQuery("FROM Services");
         model.addAttribute("listServices", q.getResultList());
-        
-        boolean showTextListService = true; // Thay đổi giá trị điều kiện tùy theo logic của bạn
 
+        boolean showTextListService = true; // Thay đổi giá trị điều kiện tùy theo logic của bạn
+        boolean showButtonService = true;
+        model.addAttribute("showButtonService", showButtonService);
         model.addAttribute("showTxtListService", showTextListService);
         return "order";
     }
-    
+
 //    @PostMapping("/order/{branchId}/hall/{hallId}/menu/service")
 //    public String postOrderWithServices(@PathVariable("branchId") Integer branchId, @PathVariable("hallId") Integer hallId, Model model) {
 //        
 //        return "redirect:/order/{branchId}/hall/{hallId}/menu/service/bill";
 //    }
-    
-    
     @GetMapping("/export/pdf")
     public ModelAndView exportPdf(HttpServletRequest request, HttpServletResponse response) throws DocumentException {
         // Lấy danh sách menu từ dịch vụ của bạn
         Session currentSession = factory.getObject().getCurrentSession();
         String hql = "SELECT m FROM Menus m";
         List<Menus> menuList = currentSession.createQuery(hql, Menus.class).getResultList();
+
+        hql = "SELECT m FROM Services m";
+        List<Services> serviceList = currentSession.createQuery(hql, Services.class).getResultList();
 
         // Tạo một Document
         Document document = new Document();
@@ -288,9 +315,10 @@ public class OrderController {
 
             // Tạo một bảng để hiển thị danh sách menu
             PdfPTable table = new PdfPTable(4); // 4 cột: Số thứ tự, Tên món ăn, Mô tả và Giá món ăn
-            table.setWidthPercentage(100);
+            table.setWidthPercentage(80);
             float sttWidth = 5f; // Độ rộng mong muốn (30f là ví dụ)
             table.setWidths(new float[]{sttWidth, 10f, 10f, 10f}); // 1f là độ rộng của các cột còn lại
+
             // Thêm tiêu đề
             PdfPCell titleCell = new PdfPCell(new Paragraph("THE IRELIAKING BANQUET", new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD)));
             titleCell.setColspan(4);
@@ -310,6 +338,14 @@ public class OrderController {
             timeCell.setBorder(Rectangle.NO_BORDER);
             table.addCell(timeCell);
 
+            float rowHeight = 30f;
+
+            // Tiêu đề cho Menu
+            PdfPCell menuTitleCell = new PdfPCell(new Paragraph("Danh sách menu", new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD)));
+            menuTitleCell.setColspan(4);
+            menuTitleCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            menuTitleCell.setBorder(Rectangle.NO_BORDER);
+            table.addCell(menuTitleCell);
 
             table.addCell("Stt");
             table.addCell("Ten mon an");
@@ -318,24 +354,122 @@ public class OrderController {
             int order = 1; // Số thứ tự ban đầu
             // Thêm danh sách menu vào bảng
             for (Menus menu : menuList) {
-                
                 table.addCell(String.valueOf(order));
-                table.addCell(menu.getMenuName());
-                table.addCell(menu.getDescription());
-                table.addCell(menu.getMenuPrice().toString() + " VND");
+
+                // Tạo ô với độ cao tùy chỉnh
+                PdfPCell menuNameCell = new PdfPCell(new Paragraph(menu.getMenuName()));
+                menuNameCell.setFixedHeight(rowHeight);
+                table.addCell(menuNameCell);
+
+                // Tạo ô với độ cao tùy chỉnh
+                PdfPCell descriptionCell = new PdfPCell(new Paragraph(menu.getDescription()));
+                descriptionCell.setFixedHeight(rowHeight);
+                table.addCell(descriptionCell);
+
+                // Tạo ô với độ cao tùy chỉnh
+                PdfPCell priceCell = new PdfPCell(new Paragraph(menu.getMenuPrice().toString() + " VND"));
+                priceCell.setFixedHeight(rowHeight);
+                table.addCell(priceCell);
+
+                order++;
+            }
+            // Hiển thị tổng tiền cho Menu
+            BigDecimal totalMenuAmount = calculateTotalAmount(menuList);
+
+            String totalMenuAmountText = "Tong tien menu: " + totalMenuAmount.toString() + " VND";
+            PdfPCell totalMenuAmountCell = new PdfPCell(new Phrase(totalMenuAmountText, new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+            totalMenuAmountCell.setColspan(4);
+            totalMenuAmountCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            totalMenuAmountCell.setBorder(Rectangle.NO_BORDER);
+            table.addCell(totalMenuAmountCell);
+            // Thêm khoảng trống giữa hai bảng
+            PdfPTable spaceTable = new PdfPTable(1);
+            PdfPCell spaceCell = new PdfPCell();
+            spaceCell.setFixedHeight(40f); // Độ cao của khoảng trống (20f là ví dụ)
+            spaceCell.setBorder(Rectangle.NO_BORDER);
+            spaceTable.addCell(spaceCell);
+            PdfPTable spaceTable2 = new PdfPTable(1);
+            PdfPCell spaceCell2 = new PdfPCell();
+            spaceCell2.setFixedHeight(40f); // Độ cao của khoảng trống (20f là ví dụ)
+            spaceCell2.setBorder(Rectangle.NO_BORDER);
+            spaceTable.addCell(spaceCell2);
+
+            // Tiêu đề cho Services
+            PdfPCell serviceTitleCell = new PdfPCell(new Paragraph("Danh sach dich vu", new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD)));
+            serviceTitleCell.setColspan(4);
+            serviceTitleCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            serviceTitleCell.setBorder(Rectangle.NO_BORDER);
+            table.addCell(serviceTitleCell);
+
+            table.addCell("Stt");
+            table.addCell("Ten dich vu");
+            table.addCell("Mo ta");
+            table.addCell("Gia dich vu");
+            order = 1; // Số thứ tự ban đầu
+            for (Services service : serviceList) {
+                table.addCell(String.valueOf(order));
+
+                // Tạo ô với độ cao tùy chỉnh
+                PdfPCell serviceNameCell = new PdfPCell(new Paragraph(service.getServiceName()));
+                serviceNameCell.setFixedHeight(rowHeight);
+                table.addCell(serviceNameCell);
+
+                // Tạo ô với độ cao tùy chỉnh
+                PdfPCell serviceDescriptionCell = new PdfPCell(new Paragraph(service.getDescription()));
+                serviceDescriptionCell.setFixedHeight(rowHeight);
+                table.addCell(serviceDescriptionCell);
+
+                // Tạo ô với độ cao tùy chỉnh
+                PdfPCell servicePriceCell = new PdfPCell(new Paragraph(service.getServicePrice().toString() + " VND"));
+                servicePriceCell.setFixedHeight(rowHeight);
+                table.addCell(servicePriceCell);
+
                 order++;
             }
 
-            BigDecimal totalAmount = calculateTotalAmount(menuList); // Hàm tính tổng số tiền
+            // Tính tổng tiền cho Menu và Services
+            BigDecimal totalServiceAmount = calculateTotalAmountService(serviceList);
+
+            // Tính tổng tiền của cả hai bảng
+            BigDecimal totalAmount = totalMenuAmount.add(totalServiceAmount);
+
+        
+
+            // Hiển thị tổng tiền cho Services
+            String totalServiceAmountText = "Tong tien dich vu: " + totalServiceAmount.toString() + " VND";
+            PdfPCell totalServiceAmountCell = new PdfPCell(new Phrase(totalServiceAmountText, new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+            totalServiceAmountCell.setColspan(4);
+            totalServiceAmountCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            totalServiceAmountCell.setBorder(Rectangle.NO_BORDER);
+            table.addCell(totalServiceAmountCell);
+
+            // Hiển thị tổng tiền của cả hai bảng
             String totalAmountText = "Tong tien thanh toan: " + totalAmount.toString() + " VND";
             PdfPCell totalAmountCell = new PdfPCell(new Phrase(totalAmountText, new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD)));
-            totalAmountCell.setColspan(4); // Chỉnh số cột (4 cột) để ô này chiếm cả bảng
-            totalAmountCell.setHorizontalAlignment(Element.ALIGN_RIGHT); // Căn giữa ngang
+            totalAmountCell.setColspan(4);
+            totalAmountCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
             totalAmountCell.setBorder(Rectangle.NO_BORDER);
             table.addCell(totalAmountCell);
 
+            // Thêm dòng trắng
+            PdfPCell blankCell = new PdfPCell();
+            blankCell.setColspan(4);
+            blankCell.setFixedHeight(20f); // Độ cao của dòng trắng (20f là ví dụ)
+            blankCell.setBorder(Rectangle.NO_BORDER);
+            table.addCell(blankCell);
 
+            // Thêm dòng "Cam on quý khach"
+            PdfPCell thankYouCell = new PdfPCell(new Paragraph("Cam on " + userService.getProductById(myEnvironment.getUserIdCurrent()).getUsername() + " da tin tuong nha hang chung toi nhen :>", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+            thankYouCell.setColspan(4);
+            thankYouCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            thankYouCell.setBorder(Rectangle.NO_BORDER);
+            table.addCell(thankYouCell);
+
+            // Thêm các bảng vào tài liệu
             document.add(table);
+            document.add(spaceTable);
+            document.add(spaceTable2);
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -349,10 +483,12 @@ public class OrderController {
         return null;
     }
 
+
     private String getCurrentDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(new Date());
     }
+
     private String getCurrentTime() {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         return sdf.format(new Date());
@@ -368,4 +504,14 @@ public class OrderController {
         return totalAmount;
     }
     
+    private BigDecimal calculateTotalAmountService(List<Services> serviceList) {
+        Session currentSession = factory.getObject().getCurrentSession();
+        String hql = "SELECT SUM(m.servicePrice) FROM Services m WHERE m IN :serviceList";
+
+        BigDecimal totalAmount = (BigDecimal) currentSession.createQuery(hql)
+                .setParameter("serviceList", serviceList)
+                .uniqueResult();
+        return totalAmount;
+    }
+
 }
