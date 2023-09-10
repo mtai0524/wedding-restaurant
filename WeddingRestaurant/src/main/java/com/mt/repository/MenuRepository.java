@@ -17,4 +17,5 @@ public interface MenuRepository {
     List<Menus> getListMenus();
     Menus updateMenus(Menus menu);
     Menus addMenu(Menus menu);
+    List<Menus> getListMenuById(int userId);
 }

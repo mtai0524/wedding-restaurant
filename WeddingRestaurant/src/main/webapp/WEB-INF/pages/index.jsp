@@ -15,13 +15,6 @@
         z-index: 9999; /* Đảm bảo div hiển thị phía trên mọi thành phần khác */
     }
 </style>
-<!-- Spinner Start -->
-<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-    <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
-<!-- Spinner End -->
 
 
 
@@ -61,8 +54,6 @@
                             <div class="col-12 col-lg-8 text-center">
                                 <h5 class="text-white text-uppercase mb-3 animated slideInDown">Chào mừng đến với The Ireliaking Banquet</h5>
                                 <h1 class="display-3 text-white animated slideInDown mb-4">Nơi câu chuyện bắt đầu</h1>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Free Quote</a>
                             </div>
                         </div>
                     </div>

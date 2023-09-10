@@ -6,6 +6,7 @@ package com.mt.repository.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.mt.component.MyEnvironment;
 import com.mt.pojo.Services;
 import com.mt.repository.ServiceRepository;
 import java.io.IOException;
@@ -26,6 +27,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class ServiceRepositoryImpl implements ServiceRepository{
 
+    @Autowired
+    MyEnvironment myEnvironment;
+    
     @Autowired
     private Cloudinary cloudinary;
     
@@ -80,5 +84,15 @@ public class ServiceRepositoryImpl implements ServiceRepository{
             System.err.println("Có lỗi xảy ra: " + ex.getMessage());
             return null;
         }
+    }
+
+    @Override
+    public List<Services> getListServiceByUserId(int userId) {
+        Session currentSession = factory.getObject().getCurrentSession();
+        String hql = "SELECT bm.serviceId FROM BookingServices bm WHERE bm.userId.userId = :userId";
+        List<Services> serviceList = currentSession.createQuery(hql, Services.class)
+                .setParameter("userId", myEnvironment.getUserIdCurrent()) // Đặt tham số userId vào truy vấn
+                .getResultList();
+        return serviceList;
     }
 }

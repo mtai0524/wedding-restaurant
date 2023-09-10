@@ -4,6 +4,7 @@
  */
 package com.mt.controllers;
 
+import com.mt.component.MyEnvironment;
 import com.mt.pojo.Branches;
 import com.mt.pojo.EventHalls;
 import com.mt.pojo.Menus;
@@ -20,6 +21,7 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  * @author minh tai
  */
+@ControllerAdvice
 @Transactional
 @Controller
 public class AdminController {
@@ -47,8 +50,16 @@ public class AdminController {
     HallService hallService;
     @Autowired
     ServiceService serviceService;
+    @Autowired
+    MyEnvironment myEnvironment;
+    @ModelAttribute
+    public void commAttr(Model model) {
+        model.addAttribute("isAdminSystem", isAdminSystem);
+    }
+
+    
     @RequestMapping("/admin")
-    public String admin(){
+    public String admin(Model model){ 
         return "redirect:/admin/manage-branch";
     }
     
@@ -78,6 +89,7 @@ public class AdminController {
     
     @GetMapping("/admin/manage-branch/add")
     public String addBranch(Model model) { 
+       
         model.addAttribute("branchpost", new Branches()); // do đã có một branch public ra rồi, nên đổi tên thành branchpost cho khác
         return "addBranch";
     }
@@ -127,9 +139,19 @@ public class AdminController {
         
         return "redirect:/admin/manage-service";
     }
-    
+    boolean isAdminSystem;
     @GetMapping("/admin/manage-branch")
     public String manageBranch(Model model) {
+        Users user = userService.getUserById(myEnvironment.getUserIdCurrent());
+        String role = user.getRole();
+        if (role.equals("admin system")) {
+            isAdminSystem = true;
+            System.out.println(isAdminSystem);
+        }
+        else if(role.equals("employee")){
+            isAdminSystem = false;
+        }
+        
         model.addAttribute("txtMngBranches", "Quản lý chi nhánh");
         model.addAttribute("branches", branchService.getListBranches());
 
@@ -226,7 +248,6 @@ public class AdminController {
         userService.updateUser(user);
         return "redirect:/admin/manage-user";
     }
-    
 
     @GetMapping("/delete/{userId}")
     public String deleteUser(@PathVariable("userId") Integer userId) {

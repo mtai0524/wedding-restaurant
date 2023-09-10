@@ -40,4 +40,9 @@ public class MenuServiceImpl implements MenuService{
     public Menus addMenu(Menus menu) {
         return this.menuRepo.addMenu(menu);
     }
+
+    @Override
+    public List<Menus> getListMenuById(int userId) {
+        return this.menuRepo.getListMenuById(userId);
+    }
 }

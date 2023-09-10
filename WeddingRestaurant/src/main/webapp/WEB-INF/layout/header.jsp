@@ -20,10 +20,10 @@
             <a href="<c:url value="/branch"/>" class="nav-item nav-link">Branch</a>
             <a href="<c:url value="/service"/>" class="nav-item nav-link">Service</a>
             <a href="<c:url value="/menu"/>" class="nav-item nav-link">Menu</a>
-            <a href="<c:url value="/user"/>" class="nav-item nav-link">User</a>
-            <a href="<c:url value="/admin"/>" class="nav-item nav-link">Admin</a>
             <a href="<c:url value="/login"/>" class="nav-item nav-link">Login</a>
-            <a href="<c:url value="/"/>" class="nav-item nav-link">Hi ${usernameCurrent}</a>
+            <a href="<c:url value="/user"/>" class="nav-item nav-link">Register</a>
+            <a href="<c:url value="/admin"/>" class="nav-item nav-link">Admin</a>
+            <a href="<c:url value="/"/>" class="nav-item nav-link" style="color:black">${usernameCurrent}</a>
         </div>
         <div class="container" style = "width: 300px">
             <form class="d-flex justify-content-end">

@@ -21,19 +21,21 @@
                 <div class="row justify-content-center">
                     <div class="col-md-6">
                     <form:form method="post" action="${action}" modelAttribute="users" enctype="multipart/form-data" class="my-form">
-                        <div class="form-group">
+                        <div class="form-group" style="display: none;">
                             <label for="username">Username:</label>
                             <form:input path="username" id="username" class="form-control" />
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display: none;">
                             <label for="password">Password:</label>
                             <form:input path="password" id="password" class="form-control" />
                         </div>
+
                         <div class="form-group">
                             <label for="role">Vai trò:</label>
                             <form:select path="role" id="role" class="form-control">
                                 <form:option value="admin" label="Admin" />
                                 <form:option value="user" label="User" />
+                                <form:option value="employee" label="Employee" />
                             </form:select>
                         </div>
                         <div class="form-group">

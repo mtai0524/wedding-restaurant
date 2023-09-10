@@ -20,4 +20,5 @@ public interface UserRepository {
     public void deleteProduct(int id);
     public Users updateUser(Users user);
     public Users findUserNameById(int userId);
+    public Users changeRole(Users user);
 }

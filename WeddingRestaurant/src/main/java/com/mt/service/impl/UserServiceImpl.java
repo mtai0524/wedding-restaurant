@@ -54,5 +54,12 @@ public class UserServiceImpl implements UserService{
     public Users findUserNameById(int userId) {
         return this.userRepo.findUserNameById(userId);
     }
+
+    @Override
+    public Users changeRole(Users user) {
+        return this.userRepo.changeRole(user);
+    }
+    
+    
     
 }

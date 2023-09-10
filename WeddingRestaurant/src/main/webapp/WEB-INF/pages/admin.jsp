@@ -176,14 +176,15 @@
 
 <div class="wrapper">
     <nav class="sidebar">
-        <!-- Đặt nội dung của menu dọc ở đây -->
         <ul>
             <li><a href="<c:url value="/"/>" class="nav-item nav-link">Trang chủ</a></li>
             <li><a href="<c:url value="/admin/manage-branch"/>" class="nav-item nav-link">Quản lý chi nhánh</a></li>
             <li><a href="<c:url value="/admin/manage-hall"/>" class="nav-item nav-link">Quản lý sảnh</a></li>
             <li><a href="<c:url value="/admin/manage-service"/>" class="nav-item nav-link">Quản lý dịch vụ</a></li>
             <li><a href="<c:url value="/admin/manage-menu"/>" class="nav-item nav-link">Quản lý thực đơn</a></li>
-            <li><a href="<c:url value="/admin/manage-user"/>" class="nav-item nav-link">Quản lý người dùng</a></li>
+            <c:if test="${isAdminSystem}">
+                <li><a href="<c:url value="/admin/manage-user"/>" class="nav-item nav-link">Quản lý người dùng</a></li>
+            </c:if>
         </ul>
     </nav>
     <main class="content">
@@ -308,7 +309,7 @@
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
                                     <!-- Delete Button with Delete Icon -->
-                                    <a href="<c:url value='/delete/${u.userId}'/>" class="delete-button">
+                                    <a href="<c:url value='admin/manage-user/delete/${u.userId}'/>" class="delete-button">
                                         <i class="fas fa-trash"></i> Delete
                                     </a>
                                 </td>

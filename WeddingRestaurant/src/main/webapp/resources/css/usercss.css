@@ -27,8 +27,47 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     margin-bottom: 5px;
 }
 
-.form-group input[type="text"]
-{
+.my-form-group input[type="text"] {
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+/* CSS cho input type password bên trong .my-form-group */
+.my-form-group input[type="password"] {
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+.text-input {
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+/* CSS cho input type password */
+.password-input {
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+.form-password{
     margin-bottom: 20px;
     width: 100%;
     padding: 20px;

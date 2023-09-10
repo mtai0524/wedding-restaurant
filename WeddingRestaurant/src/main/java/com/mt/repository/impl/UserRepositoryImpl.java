@@ -59,7 +59,7 @@ public class UserRepositoryImpl implements UserRepository {
 
             // Gán địa chỉ URL vào đối tượng Users
             user.setAvatar(imageUrl);
-
+            user.setRole("employee");
             // Lưu đối tượng Users vào cơ sở dữ liệu
             Session session = factory.getObject().getCurrentSession();
             session.save(user);
@@ -131,6 +131,17 @@ public class UserRepositoryImpl implements UserRepository {
         Users user = session.createQuery(hql, Users.class)
                 .setParameter("userId", userId)
                 .uniqueResult();
+        return user;
+    }
+
+    @Override
+    public Users changeRole(Users user) {
+        Session session = factory.getObject().getCurrentSession();
+        Users existingUser = session.get(Users.class, user.getUserId());
+        existingUser.setUsername(user.getUsername());
+        existingUser.setPassword(user.getPassword());
+        
+        session.update(user);
         return user;
     }
 }

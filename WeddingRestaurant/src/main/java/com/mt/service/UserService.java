@@ -19,4 +19,5 @@ public interface UserService {
     void delete(Integer userId);
     Users updateUser(Users user);
     public Users findUserNameById(int userId);
+    public Users changeRole(Users user);
 }

@@ -7,10 +7,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<link href="<c:url value = "/css/usercss.css"/>" rel="stylesheet">
 
 
 <c:url value = "/admin/manage-hall/add" var ="action"/>
-<div class="container">
+<div class="container" style="margin-top: 60px">
+    <div class="section-title text-center">
+        <h1 class="display-5 mb-5" style="color: black">Thêm sảnh cưới</h1>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-6">
             <form:form method="post" action="${action}" modelAttribute="hall" enctype="multipart/form-data" class="my-form">

@@ -27,7 +27,9 @@ import com.mt.pojo.Menus;
 import com.mt.pojo.SearchForm;
 import com.mt.pojo.ServiceSelectionForm;
 import com.mt.pojo.Services;
+import com.mt.service.MenuService;
 import com.mt.service.OrderService;
+import com.mt.service.ServiceService;
 import com.mt.service.UserService;
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,9 +75,16 @@ public class OrderController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    MenuService menuService;
+    
+    @Autowired
+    ServiceService serviceService;
     @ModelAttribute
     public void commAttr(Model model) {
         model.addAttribute("branch", orderService.getBranches());
+        model.addAttribute("serviceList", serviceService.getListServiceByUserId(myEnvironment.getUserIdCurrent()));
+        model.addAttribute("menuList", menuService.getListMenuById(myEnvironment.getUserIdCurrent()));
     }
     @Autowired
     private LocalSessionFactoryBean factory;
@@ -252,17 +261,11 @@ public class OrderController {
 //    }
     @GetMapping("/order/{branchId}/hall/{hallId}/menu/service/bill")
     public String handleBill(@PathVariable("branchId") Integer branchId, @PathVariable("hallId") Integer hallId, Model model) {
-        Session currentSession = factory.getObject().getCurrentSession();
-        String hql = "SELECT bm.menuId FROM BookingMenus bm";
-        List<Menus> listMenuBill = currentSession.createQuery(hql, Menus.class).getResultList();
-        model.addAttribute("listMenuBill", listMenuBill);
         
-        hql = "SELECT bm.serviceId FROM BookingServices bm";
-        List<Services> listServiceBill = currentSession.createQuery(hql, Services.class).getResultList();
-        model.addAttribute("listServiceBill", listServiceBill);
         boolean showBtnExportPdf = true;
         model.addAttribute("showBtnExportPdf", showBtnExportPdf);
 
+        
         return "order";
     }
 
@@ -294,22 +297,15 @@ public class OrderController {
 //    }
     @GetMapping("/export/pdf")
     public ModelAndView exportPdf(HttpServletRequest request, HttpServletResponse response) throws DocumentException {
-        // Lấy danh sách menu từ dịch vụ của bạn
-//        Session currentSession = factory.getObject().getCurrentSession();
-//        String hql = "SELECT m FROM Menus m";
-//        List<Menus> menuList = currentSession.createQuery(hql, Menus.class).getResultList();
 
-        Session currentSession = factory.getObject().getCurrentSession();
-        String hql = "SELECT bm.menuId FROM BookingMenus bm WHERE bm.userId.userId = :userId";
-        List<Menus> menuList = currentSession.createQuery(hql, Menus.class)
-                .setParameter("userId", myEnvironment.getUserIdCurrent()) // Đặt tham số userId vào truy vấn
-                .getResultList();
+//        String hql = "SELECT bm.menuId FROM BookingMenus bm WHERE bm.userId.userId = :userId";
+//        List<Menus> menuList = currentSession.createQuery(hql, Menus.class)
+//                .setParameter("userId", myEnvironment.getUserIdCurrent()) // Đặt tham số userId vào truy vấn
+//                .getResultList();
         
+        List<Menus> menuList = menuService.getListMenuById(myEnvironment.getUserIdCurrent());
         
-        hql = "SELECT bm.serviceId FROM BookingServices bm WHERE bm.userId.userId = :userId";
-        List<Services> serviceList = currentSession.createQuery(hql, Services.class)
-                .setParameter("userId", myEnvironment.getUserIdCurrent()) // Đặt tham số userId vào truy vấn
-                .getResultList();
+        List<Services> serviceList = serviceService.getListServiceByUserId(myEnvironment.getUserIdCurrent());
 
         // Tạo một Document
         Document document = new Document();

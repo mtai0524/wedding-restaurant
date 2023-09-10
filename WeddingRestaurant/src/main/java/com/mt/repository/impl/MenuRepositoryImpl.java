@@ -6,6 +6,7 @@ package com.mt.repository.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.mt.component.MyEnvironment;
 import com.mt.pojo.Branches;
 import com.mt.pojo.Menus;
 import com.mt.repository.BranchRepository;
@@ -32,6 +33,8 @@ public class MenuRepositoryImpl implements MenuRepository{
     @Autowired
     LocalSessionFactoryBean factory;
     
+    @Autowired
+    MyEnvironment myEnvironment;
 
     @Override
     public List<Menus> getListMenus() {
@@ -90,5 +93,15 @@ public class MenuRepositoryImpl implements MenuRepository{
             // Trả về null hoặc đối tượng Users rỗng nếu xảy ra lỗi
             return null;
         }
+    }
+
+    @Override
+    public List<Menus> getListMenuById(int userId) {
+        Session currentSession = factory.getObject().getCurrentSession();
+        String hql = "SELECT bm.menuId FROM BookingMenus bm WHERE bm.userId.userId = :userId";
+        List<Menus> menuList = currentSession.createQuery(hql, Menus.class)
+                .setParameter("userId", myEnvironment.getUserIdCurrent()) // Đặt tham số userId vào truy vấn
+                .getResultList();
+        return menuList;
     }
 }

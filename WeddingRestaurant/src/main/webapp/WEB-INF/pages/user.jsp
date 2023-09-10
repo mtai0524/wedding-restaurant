@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : user
     Created on : Aug 24, 2023, 6:59:13 PM
     Author     : minh tai
@@ -12,14 +12,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        
+
         <link href="<c:url value = "/css/usercss.css"/>" rel="stylesheet">
         <link href="<c:url value = "/css/bootstrap.min.css"/>" rel="stylesheet">
     </head>
     <body>
-        <h1>Hello World!</h1>
         <c:url value = "/user" var ="action"/>
-        <div class="container">
+        <div class="container" style="margin-top: 60px">
+            <div class="section-title text-center"  style="margin-bottom: 60px">
+                <h1>Đăng kí tài khoản</h1>
+            </div>
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <form:form method="post" action="${action}" modelAttribute="user" enctype="multipart/form-data" class="my-form">
@@ -29,13 +31,6 @@
 
                             <label for="password">Password:</label>
                             <input type="text" id="password" name="password" class="form-control" required="true"/>
-
-                            <label for="role">Vai trò:</label>
-                            <select id="role" name="role" class="form-control">
-                                <option value="admin">Admin</option>
-                                <option value="user">User</option>
-                                <!-- Thêm các vai trò khác vào đây nếu cần -->
-                            </select>
 
                             <label for="file">Hình ảnh:</label>
                             <input type="file" id="file" name="file" class="form-control" required="true"/>
@@ -48,26 +43,5 @@
                 </div>
             </div>
         </div>
-
-        
-        <ul class="user-cards">
-            <c:forEach items="${users}" var="i">
-                <li class="user-card">
-                    <div class="user-avatar">
-                        <img src="${i.avatar}" alt="User Avatar">
-                    </div>
-                    <div class="user-info">
-                        <p>User ID: ${i.userId}</p>
-                        <p>Username: ${i.username}</p>
-                        <p>Password: ${i.password}</p>
-                        <p>Role: ${i.role}</p>
-                        <a href="<c:url value='/delete/${i.userId}'/>" class="btn btn-danger">Delete</a>
-                        <a href="<c:url value='/edit/${i.userId}'/>" class="btn btn-primary">Gán Thuộc Tính</a>
-                    </div>
-                </li>
-            </c:forEach>
-        </ul>
-
-        
     </body>
 </html>
