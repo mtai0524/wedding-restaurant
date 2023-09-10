@@ -31,4 +31,10 @@ public class BranchServiceImpl implements BranchService{
     public Branches updateBranch(Branches branch) {
         return this.branchRepo.updateBranch(branch);
     }
+
+    @Override
+    public Branches addBranch(Branches branch) {
+        return this.branchRepo.addBranch(branch);
+    }
+
 }

@@ -83,5 +83,28 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/login.jsp" />
     </definition>
+    <definition name="addService" extends="baseLayout">
+        <put-attribute name="title" value="ADD SERVICE " />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/addService.jsp" />
+    </definition>
+    
+    <definition name="addMenu" extends="baseLayout">
+        <put-attribute name="title" value="ADD MENU " />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/addMenu.jsp" />
+    </definition>
+    
+    <definition name="addBranch" extends="baseLayout">
+        <put-attribute name="title" value="ADD BRANCH " />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/addBranch.jsp" />
+    </definition>
+    
+    <definition name="addHall" extends="baseLayout">
+        <put-attribute name="title" value="ADD HALL " />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/addHall.jsp" />
+    </definition>
 </tiles-definitions>
 

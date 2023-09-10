@@ -45,27 +45,36 @@ public class HallRepositoryImpl implements HallRepository{
     @Override
     public EventHalls updateEventHalls(EventHalls hall) {
         try {
-            // Tải lên hình ảnh lên Cloudinary
             Map<String, Object> uploadResult = this.cloudinary.uploader().upload(hall.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
 
-            // Lấy địa chỉ URL của hình ảnh từ kết quả tải lên
             String imageUrl = (String) uploadResult.get("secure_url");
-//            user.setUsername("dashduksh");
-//            user.setRole("ccccc");
-//            user.setPassword("cc");
-//            // Gán địa chỉ URL vào đối tượng Users
             hall.setImgHall(imageUrl);
 
-            // Lưu đối tượng Users vào cơ sở dữ liệu
             Session session = factory.getObject().getCurrentSession();
             session.update(hall);
 
             return hall;
-
         } catch (IOException ex) {
             System.err.println("Có lỗi xảy ra: " + ex.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public EventHalls addHall(EventHalls hall) {
+        try {
+            Map<String, Object> uploadResult = this.cloudinary.uploader().upload(hall.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+            String imageUrl = (String) uploadResult.get("secure_url");
+            hall.setImgHall(imageUrl);
+
+            Session session = factory.getObject().getCurrentSession();
+            session.save(hall);
+
+            return hall;
+        } catch (IOException ex) {
+            System.err.println("Có lỗi xảy ra: " + ex.getMessage());
+            return null;
+        }
     }
     
 }

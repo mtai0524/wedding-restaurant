@@ -14,4 +14,5 @@ import java.util.List;
 public interface ServiceRepository {
     List<Services> getListServices();
     Services updateServices(Services service);
+    Services addService(Services service);
 }

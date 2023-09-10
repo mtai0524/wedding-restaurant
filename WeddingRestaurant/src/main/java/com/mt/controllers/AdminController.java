@@ -7,7 +7,6 @@ package com.mt.controllers;
 import com.mt.pojo.Branches;
 import com.mt.pojo.EventHalls;
 import com.mt.pojo.Menus;
-import com.mt.pojo.Menus_;
 import com.mt.pojo.Services;
 import com.mt.pojo.Users;
 import com.mt.service.BranchService;
@@ -51,6 +50,55 @@ public class AdminController {
     @RequestMapping("/admin")
     public String admin(){
         return "redirect:/admin/manage-branch";
+    }
+    
+    @GetMapping("/admin/manage-service/add")
+    public String addService(Model model) {
+        model.addAttribute("service", new Services());
+        return "addService";
+    }
+    
+    @PostMapping("/admin/manage-service/add")
+    public String postAddService(@ModelAttribute(value = "service") Services service) {
+        serviceService.addService(service);
+        return "redirect:/";
+    }
+    
+    @GetMapping("/admin/manage-menu/add")
+    public String addMenu(Model model) {
+        model.addAttribute("menu", new Menus());
+        return "addMenu";
+    }
+
+    @PostMapping("/admin/manage-menu/add")
+    public String postAddMenu(@ModelAttribute(value = "menu") Menus menu) {
+        menuService.addMenu(menu);
+        return "redirect:/";
+    }
+    
+    @GetMapping("/admin/manage-branch/add")
+    public String addBranch(Model model) { 
+        model.addAttribute("branchpost", new Branches()); // do đã có một branch public ra rồi, nên đổi tên thành branchpost cho khác
+        return "addBranch";
+    }
+
+    @PostMapping("/admin/manage-branch/add")
+    public String postAddBranch(@ModelAttribute(value = "branchpost") Branches branch) {
+        branchService.addBranch(branch);
+        return "redirect:/";
+    }
+  
+    
+    @GetMapping("/admin/manage-hall/add")
+    public String addHall(Model model) {
+        model.addAttribute("hall", new EventHalls());
+        return "addHall";
+    }
+
+    @PostMapping("/admin/manage-hall/add")
+    public String postAddHall(@ModelAttribute(value = "hall") EventHalls hall) {
+        hallService.addHall(hall);
+        return "redirect:/";
     }
     
     @GetMapping("/admin/manage-service")
@@ -167,7 +215,7 @@ public class AdminController {
     
     @GetMapping("/edit/{userId}")
     public String editUser(@PathVariable("userId") Integer userId, Model model) {
-        Users user1 = userService.getProductById(userId);
+        Users user1 = userService.getUserById(userId);
         model.addAttribute("users", user1);
 //        userService.updateUser(user);
         return "userInfo";

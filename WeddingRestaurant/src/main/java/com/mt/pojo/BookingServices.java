@@ -31,6 +31,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BookingServices.findByBookingServiceId", query = "SELECT b FROM BookingServices b WHERE b.bookingServiceId = :bookingServiceId")})
 public class BookingServices implements Serializable {
 
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @ManyToOne
+    private Users userId;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -100,6 +104,14 @@ public class BookingServices implements Serializable {
     @Override
     public String toString() {
         return "com.mt.pojo.BookingServices[ bookingServiceId=" + bookingServiceId + " ]";
+    }
+
+    public Users getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Users userId) {
+        this.userId = userId;
     }
     
 }

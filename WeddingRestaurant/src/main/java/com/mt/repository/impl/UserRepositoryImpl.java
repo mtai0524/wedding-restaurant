@@ -4,7 +4,6 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.mt.pojo.Branches;
 import com.mt.pojo.Users;
-import static com.mt.pojo.Users_.userId;
 import com.mt.repository.UserRepository;
 import java.io.IOException;
 import java.util.List;
@@ -50,28 +49,29 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public String add(Users user) {
+    public Users add(Users user) {
         try {
             // Tải lên hình ảnh lên Cloudinary
             Map<String, Object> uploadResult = this.cloudinary.uploader().upload(user.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
 
             // Lấy địa chỉ URL của hình ảnh từ kết quả tải lên
             String imageUrl = (String) uploadResult.get("secure_url");
-//            user.setUsername("dashduksh");
-//            user.setRole("ccccc");
-//            user.setPassword("cc");
-//            // Gán địa chỉ URL vào đối tượng Users
+
+            // Gán địa chỉ URL vào đối tượng Users
             user.setAvatar(imageUrl);
 
             // Lưu đối tượng Users vào cơ sở dữ liệu
             Session session = factory.getObject().getCurrentSession();
             session.save(user);
 
-            return "redirect:/";
+            // Trả về đối tượng Users sau khi lưu thành công
+            return user;
         } catch (IOException ex) {
             System.err.println("Có lỗi xảy ra: " + ex.getMessage());
+
+            // Trả về null hoặc đối tượng Users rỗng nếu xảy ra lỗi
+            return null;
         }
-        return "user";
     }
 
     @Override
@@ -83,7 +83,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Users getProductById(int id) {
+    public Users getUserById(int id) {
         Session s = this.factory.getObject().getCurrentSession();
         return s.get(Users.class, id);
     }
@@ -133,5 +133,4 @@ public class UserRepositoryImpl implements UserRepository {
                 .uniqueResult();
         return user;
     }
-
 }

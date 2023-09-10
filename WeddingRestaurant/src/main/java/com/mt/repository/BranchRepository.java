@@ -14,4 +14,5 @@ import java.util.List;
 public interface BranchRepository {
     List<Branches> getListBranches();
     Branches updateBranch(Branches branch);
+    Branches addBranch(Branches branch);
 }

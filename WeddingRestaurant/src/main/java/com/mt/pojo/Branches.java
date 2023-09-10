@@ -50,18 +50,15 @@ public class Branches implements Serializable {
     @Column(name = "branch_id")
     private Integer branchId;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "branch_name")
     private String branchName;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "address")
     private String address;
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "phone")
     private String phone;

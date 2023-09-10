@@ -64,6 +64,21 @@ public class ServiceRepositoryImpl implements ServiceRepository{
         }
         return null;
     }
-    
-    
+
+    @Override
+    public Services addService(Services service) {
+        try {
+            Map<String, Object> uploadResult = this.cloudinary.uploader().upload(service.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+            String imageUrl = (String) uploadResult.get("secure_url");
+            service.setServiceImg(imageUrl);
+
+            Session session = factory.getObject().getCurrentSession();
+            session.save(service);
+
+            return service;
+        } catch (IOException ex) {
+            System.err.println("Có lỗi xảy ra: " + ex.getMessage());
+            return null;
+        }
+    }
 }

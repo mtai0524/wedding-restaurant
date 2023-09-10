@@ -32,5 +32,9 @@ public class ServiceServiceImpl implements ServiceService{
     public Services updateServices(Services service) {
         return this.serverRepo.updateServices(service);
     }
-    
+
+    @Override
+    public Services addService(Services service) {
+        return this.serverRepo.addService(service);
+    }
 }

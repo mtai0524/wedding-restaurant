@@ -65,4 +65,30 @@ public class MenuRepositoryImpl implements MenuRepository{
         }
         return null;
     }
+
+    @Override
+    public Menus addMenu(Menus menu) {
+        try {
+            // Tải lên hình ảnh lên Cloudinary
+            Map<String, Object> uploadResult = this.cloudinary.uploader().upload(menu.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+
+            // Lấy địa chỉ URL của hình ảnh từ kết quả tải lên
+            String imageUrl = (String) uploadResult.get("secure_url");
+
+            // Gán địa chỉ URL vào đối tượng Users
+            menu.setImage(imageUrl);
+
+            // Lưu đối tượng Users vào cơ sở dữ liệu
+            Session session = factory.getObject().getCurrentSession();
+            session.save(menu);
+
+            // Trả về đối tượng Users sau khi lưu thành công
+            return menu;
+        } catch (IOException ex) {
+            System.err.println("Có lỗi xảy ra: " + ex.getMessage());
+
+            // Trả về null hoặc đối tượng Users rỗng nếu xảy ra lỗi
+            return null;
+        }
+    }
 }

@@ -191,6 +191,9 @@
             <div class="section-title text-center">
                 <h1 class="display-5 mb-5">${txtMngBranches}</h1>
             </div>
+                <a href="<c:url value='/admin/manage-branch/add'/>">
+                    <i class="fas fa-plus"></i> ADD BRANCH
+                </a>
             <div class="container">
                 <table class="user-table">
                     <thead>
@@ -233,6 +236,9 @@
                 <div class="section-title text-center">
                     <h1 class="display-5 mb-5">${txtMngHalls}</h1>
                 </div>
+                    <a href="<c:url value='/admin/manage-hall/add'/>">
+                        <i class="fas fa-plus"></i> ADD HALL
+                    </a>
                 <div class="container">
                     <table class="user-table">
                         <thead>
@@ -317,6 +323,9 @@
             <div class="section-title text-center">
                 <h1 class="display-5 mb-5">${txtMngServices}</h1>
             </div>
+                <a href="<c:url value='/admin/manage-service/add'/>">
+                    <i class="fas fa-plus"></i> ADD SERVICE
+                </a>
         <div class="container">
             <table class="user-table">
                 <thead>
@@ -359,6 +368,9 @@
             <div class="section-title text-center">
                 <h1 class="display-5 mb-5">${txtMngMenu}</h1>
             </div>
+                <a href="<c:url value='/admin/manage-menu/add'/>">
+                    <i class="fas fa-plus"></i> ADD MENU
+                </a>
             <div class="container">
                 <table class="user-table">
                     <thead>

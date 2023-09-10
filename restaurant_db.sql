@@ -50,12 +50,15 @@ CREATE TABLE `booking_menus` (
   `booking_menu_id` int NOT NULL AUTO_INCREMENT,
   `booking_id` int DEFAULT NULL,
   `menu_id` int DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
   PRIMARY KEY (`booking_menu_id`),
   KEY `booking_menus_ibfk_2` (`menu_id`),
   KEY `booking_menus_ibfk_1` (`booking_id`),
+  KEY `fk_user_id` (`user_id`),
   CONSTRAINT `booking_menus_ibfk_1` FOREIGN KEY (`booking_id`) REFERENCES `bookings` (`booking_id`),
-  CONSTRAINT `booking_menus_ibfk_2` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  CONSTRAINT `booking_menus_ibfk_2` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`menu_id`),
+  CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +67,7 @@ CREATE TABLE `booking_menus` (
 
 LOCK TABLES `booking_menus` WRITE;
 /*!40000 ALTER TABLE `booking_menus` DISABLE KEYS */;
-INSERT INTO `booking_menus` VALUES (2,2,1),(3,2,2),(4,NULL,1),(5,NULL,3),(6,NULL,4),(7,NULL,2),(8,NULL,3),(9,NULL,3),(10,NULL,4),(11,NULL,2),(12,NULL,2),(13,NULL,1),(14,NULL,5);
+INSERT INTO `booking_menus` VALUES (2,2,1,NULL),(3,2,2,NULL),(4,NULL,1,NULL),(5,NULL,3,NULL),(6,NULL,4,NULL),(7,NULL,2,NULL),(8,NULL,3,NULL),(9,NULL,3,NULL),(10,NULL,4,NULL),(11,NULL,2,NULL),(12,NULL,2,NULL),(13,NULL,1,NULL),(14,NULL,5,NULL),(15,NULL,1,NULL),(16,NULL,2,NULL),(17,NULL,3,NULL),(18,NULL,5,NULL),(19,NULL,5,NULL),(20,NULL,1,NULL),(21,NULL,2,NULL),(22,NULL,5,NULL),(23,NULL,2,NULL),(24,NULL,3,NULL),(25,NULL,5,NULL),(26,NULL,1,NULL),(27,NULL,2,NULL),(28,NULL,2,26),(29,NULL,3,26),(30,NULL,1,13),(31,NULL,5,13),(32,NULL,2,26),(33,NULL,5,26);
 /*!40000 ALTER TABLE `booking_menus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,12 +82,15 @@ CREATE TABLE `booking_services` (
   `booking_service_id` int NOT NULL AUTO_INCREMENT,
   `booking_id` int DEFAULT NULL,
   `service_id` int DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
   PRIMARY KEY (`booking_service_id`),
   KEY `booking_services_ibfk_2` (`service_id`),
   KEY `booking_services_ibfk_1` (`booking_id`),
+  KEY `fk_user` (`user_id`),
   CONSTRAINT `booking_services_ibfk_1` FOREIGN KEY (`booking_id`) REFERENCES `bookings` (`booking_id`),
-  CONSTRAINT `booking_services_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `services` (`service_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  CONSTRAINT `booking_services_ibfk_2` FOREIGN KEY (`service_id`) REFERENCES `services` (`service_id`),
+  CONSTRAINT `fk_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,6 +99,7 @@ CREATE TABLE `booking_services` (
 
 LOCK TABLES `booking_services` WRITE;
 /*!40000 ALTER TABLE `booking_services` DISABLE KEYS */;
+INSERT INTO `booking_services` VALUES (1,NULL,2,NULL),(2,NULL,4,NULL),(3,NULL,4,NULL),(4,NULL,2,NULL),(5,NULL,4,NULL),(6,NULL,4,26),(7,NULL,5,26),(8,NULL,1,26),(9,NULL,3,26);
 /*!40000 ALTER TABLE `booking_services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -137,11 +144,11 @@ DROP TABLE IF EXISTS `branches`;
 CREATE TABLE `branches` (
   `branch_id` int NOT NULL AUTO_INCREMENT,
   `branch_name` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `phone` varchar(20) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `phone` varchar(20) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `img` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,8 +157,41 @@ CREATE TABLE `branches` (
 
 LOCK TABLES `branches` WRITE;
 /*!40000 ALTER TABLE `branches` DISABLE KEYS */;
-INSERT INTO `branches` VALUES (1,'Đại Hải Trình','onepiece','111','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575263/nyrk98ptvcng9sl3licq.png'),(2,'Summoner’s Rift','lol','123','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575322/w5scaezcamngtlzvjk6n.png'),(3,'adora gò vấp','371 Nguyễn Kiệm','0123','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693214444/w0hzckepfzv7kjnrfhas.gif');
+INSERT INTO `branches` VALUES (1,'Đại Hải Trình','onepiece','111','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575263/nyrk98ptvcng9sl3licq.png'),(2,'Summoner’s Rift','lol','123','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575322/w5scaezcamngtlzvjk6n.png'),(3,'adora gò vấp','371 Nguyễn Kiệm','0123','https://res.cloudinary.com/dl3hvap4a/image/upload/v1694311942/cnuyunjq0fvqcakbacbo.jpg'),(4,'fsdf','fsd','34324','https://res.cloudinary.com/dl3hvap4a/image/upload/v1694312268/lex0caoqxfkwvo97ev7b.png');
 /*!40000 ALTER TABLE `branches` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `confirmed_order`
+--
+
+DROP TABLE IF EXISTS `confirmed_order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `confirmed_order` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `last_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `phone` varchar(20) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `user_id` int NOT NULL,
+  `booking_menu` int DEFAULT NULL,
+  `booking_service` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `bookings_ibfk_22` (`user_id`),
+  CONSTRAINT `bookings_ibfk_22` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
+  CONSTRAINT `fk_menu_order` FOREIGN KEY (`id`) REFERENCES `menus` (`menu_id`),
+  CONSTRAINT `fk_service_order` FOREIGN KEY (`id`) REFERENCES `services` (`service_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `confirmed_order`
+--
+
+LOCK TABLES `confirmed_order` WRITE;
+/*!40000 ALTER TABLE `confirmed_order` DISABLE KEYS */;
+/*!40000 ALTER TABLE `confirmed_order` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -202,7 +242,7 @@ CREATE TABLE `event_halls` (
   PRIMARY KEY (`hall_id`),
   KEY `event_halls_ibfk_1` (`branch_id`),
   CONSTRAINT `event_halls_ibfk_1` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`branch_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -211,7 +251,7 @@ CREATE TABLE `event_halls` (
 
 LOCK TABLES `event_halls` WRITE;
 /*!40000 ALTER TABLE `event_halls` DISABLE KEYS */;
-INSERT INTO `event_halls` VALUES (1,1,'Justatee',20,NULL,NULL,NULL,NULL,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693557270/scxd7yfonfzcc5vprswo.jpg'),(2,1,'Rhyder',30,NULL,NULL,NULL,NULL,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575469/wkpwmpqi5rkj7dxf92g3.png'),(3,1,'Leesin',100,NULL,NULL,NULL,NULL,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575487/eqoqdptsxutwf2rcm1e9.png'),(4,2,'Hydra',120,NULL,NULL,NULL,NULL,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693557349/zablu51oqsa9eanffucq.jpg'),(5,2,'Mikelodic',200,NULL,NULL,NULL,NULL,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575505/veliz9uaegohehaoly50.png');
+INSERT INTO `event_halls` VALUES (1,2,'Justatee',20,NULL,NULL,NULL,NULL,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1694313864/qyjmjzgevzeulpctzbk7.jpg'),(2,1,'Rhyder',30,NULL,NULL,NULL,NULL,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575469/wkpwmpqi5rkj7dxf92g3.png'),(3,3,'Leesin',100,NULL,NULL,NULL,NULL,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575487/eqoqdptsxutwf2rcm1e9.png'),(4,2,'Hydra',120,NULL,NULL,NULL,NULL,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693557349/zablu51oqsa9eanffucq.jpg'),(5,2,'Mikelodic',200,NULL,NULL,NULL,NULL,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575505/veliz9uaegohehaoly50.png'),(6,NULL,'ldjasijd',32,NULL,NULL,NULL,NULL,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1694311344/fssuqshiue7odne3hny3.webp'),(7,3,'sanh cuoi',200,NULL,NULL,NULL,NULL,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1694313736/glxgsyhvzd7sbdlmnduw.webp');
 /*!40000 ALTER TABLE `event_halls` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -286,7 +326,7 @@ CREATE TABLE `menus` (
   `choose` int DEFAULT NULL,
   `image` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,7 +335,7 @@ CREATE TABLE `menus` (
 
 LOCK TABLES `menus` WRITE;
 /*!40000 ALTER TABLE `menus` DISABLE KEYS */;
-INSERT INTO `menus` VALUES (1,'bánh bao chiên','măm măm',3000.00,0,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693809278/BB-Cham-sua-1024x729_eln30y.jpg'),(2,'cơm chin dương châu','no lắm nha',15000.00,0,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693809512/tu-lam-com-chien-duong-chau_pulufn.jpg'),(3,'rau muốn xào tỏi','cũng ngon',15000.00,0,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693809288/Thanh-pham-1-1-5394-1650361176_wgn6i2.jpg'),(4,'gà luộc nguyên con','không phải để cúng',450000.00,0,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693809283/ava-1517372995-41-width640height480_qo4qyz.jpg'),(5,'gà nướng muối ớt','có nước chấm hết nước chấm',150000.00,0,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693809280/ga-nuong-muoi-ot_r0uftl.jpg');
+INSERT INTO `menus` VALUES (1,'bánh bao chiên','măm măm',3000.00,0,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693809278/BB-Cham-sua-1024x729_eln30y.jpg'),(2,'cơm chin dương châu','no lắm nha',15000.00,0,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693809512/tu-lam-com-chien-duong-chau_pulufn.jpg'),(3,'rau muốn xào tỏi','cũng ngon',15000.00,0,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693809288/Thanh-pham-1-1-5394-1650361176_wgn6i2.jpg'),(4,'gà luộc nguyên con','không phải để cúng',450000.00,0,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693809283/ava-1517372995-41-width640height480_qo4qyz.jpg'),(5,'gà nướng muối ớt','có nước chấm hết nước chấm',150000.00,0,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693809280/ga-nuong-muoi-ot_r0uftl.jpg'),(6,'tai','ehwqehk',213321.00,NULL,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1694309019/ebe28zzmglwokzwg2anz.jpg'),(7,'dasd','dasd',2132.00,NULL,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1694310039/wlyelqqvjxdqpkfvcgxl.png');
 /*!40000 ALTER TABLE `menus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -415,7 +455,7 @@ CREATE TABLE `services` (
   `service_price` decimal(10,2) DEFAULT NULL,
   `service_img` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`service_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -424,7 +464,7 @@ CREATE TABLE `services` (
 
 LOCK TABLES `services` WRITE;
 /*!40000 ALTER TABLE `services` DISABLE KEYS */;
-INSERT INTO `services` VALUES (1,'cắt bánh cưới','bánh kem đặc biệt thơm ngon',100000.00,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693804963/cat-banh-cuoi_s3owcq.png'),(2,'chụp hình full hd','thợ xịn đó nha',111111.00,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693802734/0x0_ekxlqs.webp'),(3,'ảo thuật','ảo ma canada',10000.00,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693804701/Magic-tricks-Revealed-7-Magic-Tricks-That-Simple-But-Amazing_yt0xhn.jpg'),(4,'rái đơ hát việt','lại là di gi hauuu',9999.00,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693802490/RHYDER-x-DUBBIE-4-jpeg-3460-1688873399_efo6av.png'),(5,'mc chuyên nghiệp','dẫn chương trình hơi bị hay luon',1200000.00,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693802485/6-dieu-ban-nhat-dinh-phai-biet-ve-MC-dam_aagn0l.png'),(6,'decor theo yêu cầu','xinh xỉu',10000000.00,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693804843/9f811ee2a74242-1_zeqpzr.jpg');
+INSERT INTO `services` VALUES (1,'cắt bánh cưới','bánh kem đặc biệt thơm ngon',100000.00,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693804963/cat-banh-cuoi_s3owcq.png'),(2,'chụp hình full hd','thợ xịn đó nha',111111.00,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693802734/0x0_ekxlqs.webp'),(3,'ảo thuật','ảo ma canada',10000.00,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693804701/Magic-tricks-Revealed-7-Magic-Tricks-That-Simple-But-Amazing_yt0xhn.jpg'),(4,'rái đơ hát việt','lại là di gi hauuu',9999.00,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693802490/RHYDER-x-DUBBIE-4-jpeg-3460-1688873399_efo6av.png'),(5,'mc chuyên nghiệp','dẫn chương trình hơi bị hay luon',1200000.00,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693802485/6-dieu-ban-nhat-dinh-phai-biet-ve-MC-dam_aagn0l.png'),(6,'decor theo yêu cầu','xinh xỉu',10000000.00,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1693804843/9f811ee2a74242-1_zeqpzr.jpg'),(7,'tai','ijdasl',231.00,'https://res.cloudinary.com/dl3hvap4a/image/upload/v1694308488/sitazlvzkmunhqo1lbhg.jpg');
 /*!40000 ALTER TABLE `services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -443,7 +483,7 @@ CREATE TABLE `users` (
   `avatar` varchar(1000) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -452,7 +492,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (10,'cmm thinh','12344','user','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693214444/w0hzckepfzv7kjnrfhas.gif'),(13,'banh bao chin','213','user','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693402220/izz0zddede2es0nhw3d2.gif'),(14,'crush my friend','123','user','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693406213/m6ivji067vyx5iyjlwhd.webp'),(15,'sảnh pearl','123','admin','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693557270/scxd7yfonfzcc5vprswo.jpg'),(16,'sảnh jasper','123','admin','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693557349/zablu51oqsa9eanffucq.jpg'),(17,'dasd','dasd','admin','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575263/nyrk98ptvcng9sl3licq.png'),(21,'dasddasd','dasddasd','user','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575322/w5scaezcamngtlzvjk6n.png'),(22,'dasdasd','dasdasd','user','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575469/wkpwmpqi5rkj7dxf92g3.png'),(23,'dsadasd','dasdasdasd','admin','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575487/eqoqdptsxutwf2rcm1e9.png'),(24,'adsdasd','dasdasd','admin','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575505/veliz9uaegohehaoly50.png'),(25,'dhasjkhdjkashdjkshdjhsjhasldh,ábdsadasdasdasdasddasjdhsahdlshdl','3123213','user','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693725833/mmg5ywpry1titbcxynv1.jpg');
+INSERT INTO `users` VALUES (10,'cmm thinh','12344','user','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693922485/ycjl6zcr9fczbfn4esks.jpg'),(13,'banh bao chin','213','user','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693892931/n2frzzjzll39fzzskaih.jpg'),(14,'crush my friend','123','user','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693406213/m6ivji067vyx5iyjlwhd.webp'),(15,'sảnh pearl','123','admin','https://res.cloudinary.com/dl3hvap4a/image/upload/v1694148355/tjysrhtc0ukbxk3wfqch.webp'),(16,'sảnh jasper','123','admin','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693557349/zablu51oqsa9eanffucq.jpg'),(17,'dasd','dasd','admin','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575263/nyrk98ptvcng9sl3licq.png'),(21,'dasddasd','dasddasd','user','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575322/w5scaezcamngtlzvjk6n.png'),(22,'dasdasd','dasdasd','user','https://res.cloudinary.com/dl3hvap4a/image/upload/v1693575469/wkpwmpqi5rkj7dxf92g3.png'),(26,'tai','1','admin','https://res.cloudinary.com/dl3hvap4a/image/upload/v1694181567/k9d5dxaycp9z52smn0y3.png'),(27,'cmm','clm','admin','https://res.cloudinary.com/dl3hvap4a/image/upload/v1694308145/lulkbet09ehmhdzcop8e.png');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -465,4 +505,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-04 13:54:11
+-- Dump completed on 2023-09-10  9:46:24

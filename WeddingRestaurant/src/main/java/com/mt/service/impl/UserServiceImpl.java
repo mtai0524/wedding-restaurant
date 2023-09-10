@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public String add(Users user) {
+    public Users add(Users user) {
         return this.userRepo.add(user);
     }
 
@@ -36,8 +36,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Users getProductById(int id) {
-        return this.userRepo.getProductById(id);
+    public Users getUserById(int id) {
+        return this.userRepo.getUserById(id);
     }
 
     @Override

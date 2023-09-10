@@ -5,6 +5,7 @@
 package com.mt.controllers;
 
 import com.mt.component.MyEnvironment;
+import com.mt.service.BranchService;
 import com.mt.service.ServiceService;
 import com.mt.service.UserService;
 import javax.persistence.Query;
@@ -39,12 +40,13 @@ public class IndexController {
     @Autowired
     UserService userService;
     
-//    @Autowired
-//    UserService userService;
+    @Autowired
+    BranchService branchService;
+
     @ModelAttribute
     public void commAttr(Model model) {
-        model.addAttribute("branch", serviceService.getListServices());
         model.addAttribute("usernameCurrent", usernameCurrent);
+        model.addAttribute("listBranchForHall", branchService.getListBranches());
     }
     
     @Transactional
@@ -56,7 +58,7 @@ public class IndexController {
         }
         if (userId != null) {
             myEnvironment.setUserIdCurrent(userId);
-            usernameCurrent = userService.getProductById(userId).getUsername();
+            usernameCurrent = userService.getUserById(userId).getUsername();
         }
 
         Session s = factory.getObject().getCurrentSession();

@@ -6,6 +6,7 @@ package com.mt.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.mt.formatters.BranchFormatter;
 import com.mt.formatters.MenusFormatter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -55,6 +56,7 @@ public class WebAppContextConfig implements WebMvcConfigurer{
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new MenusFormatter());
+        registry.addFormatter(new BranchFormatter());
     }
 
     

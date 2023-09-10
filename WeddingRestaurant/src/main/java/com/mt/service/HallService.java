@@ -15,4 +15,5 @@ import java.util.List;
 public interface HallService {
     List<EventHalls> getListHalls();
     EventHalls updateEventHalls(EventHalls hall);
+    EventHalls addHall(EventHalls hall);
 }

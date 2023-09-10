@@ -35,4 +35,9 @@ public class MenuServiceImpl implements MenuService{
     public Menus updateMenus(Menus menu) {
         return this.menuRepo.updateMenus(menu);
     }
+
+    @Override
+    public Menus addMenu(Menus menu) {
+        return this.menuRepo.addMenu(menu);
+    }
 }

@@ -190,7 +190,7 @@ public class OrderController {
 
             BookingMenus bookingMenu = new BookingMenus();
             bookingMenu.setMenuId(menu);
-            bookingMenu.setUserId(userService.getProductById(myEnvironment.getUserIdCurrent()));
+            bookingMenu.setUserId(userService.getUserById(myEnvironment.getUserIdCurrent()));
             Session session = factory.getObject().getCurrentSession();
             session.save(bookingMenu);
         }
@@ -211,7 +211,7 @@ public class OrderController {
 
             BookingServices bookingServices = new BookingServices();
             bookingServices.setServiceId(service);
-//            bookingServices.setUserId(userService.getProductById(myEnvironment.getUserIdCurrent()));
+            bookingServices.setUserId(userService.getUserById(myEnvironment.getUserIdCurrent()));
             Session session = factory.getObject().getCurrentSession();
             session.save(bookingServices);
         }
@@ -295,12 +295,21 @@ public class OrderController {
     @GetMapping("/export/pdf")
     public ModelAndView exportPdf(HttpServletRequest request, HttpServletResponse response) throws DocumentException {
         // Lấy danh sách menu từ dịch vụ của bạn
-        Session currentSession = factory.getObject().getCurrentSession();
-        String hql = "SELECT m FROM Menus m";
-        List<Menus> menuList = currentSession.createQuery(hql, Menus.class).getResultList();
+//        Session currentSession = factory.getObject().getCurrentSession();
+//        String hql = "SELECT m FROM Menus m";
+//        List<Menus> menuList = currentSession.createQuery(hql, Menus.class).getResultList();
 
-        hql = "SELECT m FROM Services m";
-        List<Services> serviceList = currentSession.createQuery(hql, Services.class).getResultList();
+        Session currentSession = factory.getObject().getCurrentSession();
+        String hql = "SELECT bm.menuId FROM BookingMenus bm WHERE bm.userId.userId = :userId";
+        List<Menus> menuList = currentSession.createQuery(hql, Menus.class)
+                .setParameter("userId", myEnvironment.getUserIdCurrent()) // Đặt tham số userId vào truy vấn
+                .getResultList();
+        
+        
+        hql = "SELECT bm.serviceId FROM BookingServices bm WHERE bm.userId.userId = :userId";
+        List<Services> serviceList = currentSession.createQuery(hql, Services.class)
+                .setParameter("userId", myEnvironment.getUserIdCurrent()) // Đặt tham số userId vào truy vấn
+                .getResultList();
 
         // Tạo một Document
         Document document = new Document();
@@ -459,11 +468,25 @@ public class OrderController {
             table.addCell(blankCell);
 
             // Thêm dòng "Cam on quý khach"
-            PdfPCell thankYouCell = new PdfPCell(new Paragraph("Cam on " + userService.getProductById(myEnvironment.getUserIdCurrent()).getUsername() + " da tin tuong nha hang chung toi nhen :>", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
+            PdfPCell thankYouCell = new PdfPCell(new Paragraph("Cam on " + userService.getUserById(myEnvironment.getUserIdCurrent()).getUsername() + " da chon nha hang chung toi nghen :>", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
             thankYouCell.setColspan(4);
             thankYouCell.setHorizontalAlignment(Element.ALIGN_CENTER);
             thankYouCell.setBorder(Rectangle.NO_BORDER);
             table.addCell(thankYouCell);
+            
+            // Thêm dòng trắng
+            PdfPCell blankCell2 = new PdfPCell();
+            blankCell2.setColspan(4);
+            blankCell2.setFixedHeight(20f); // Độ cao của dòng trắng (20f là ví dụ)
+            blankCell2.setBorder(Rectangle.NO_BORDER);
+            table.addCell(blankCell2);
+
+            // Thêm dòng "Cam on quý khach"
+            PdfPCell gbCell = new PdfPCell(new Paragraph("~ XIN HEN GAP LAI ~", new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD)));
+            gbCell.setColspan(4);
+            gbCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            gbCell.setBorder(Rectangle.NO_BORDER);
+            table.addCell(gbCell);
 
             // Thêm các bảng vào tài liệu
             document.add(table);

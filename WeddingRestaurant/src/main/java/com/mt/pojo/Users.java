@@ -40,6 +40,9 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Users.findByAvatar", query = "SELECT u FROM Users u WHERE u.avatar = :avatar")})
 public class Users implements Serializable {
 
+    @OneToMany(mappedBy = "userId")
+    private Set<BookingServices> bookingServicesSet;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -177,6 +180,15 @@ public class Users implements Serializable {
     @Override
     public String toString() {
         return "com.mt.pojo.Users[ userId=" + userId + " ]";
+    }
+
+    @XmlTransient
+    public Set<BookingServices> getBookingServicesSet() {
+        return bookingServicesSet;
+    }
+
+    public void setBookingServicesSet(Set<BookingServices> bookingServicesSet) {
+        this.bookingServicesSet = bookingServicesSet;
     }
 
 }

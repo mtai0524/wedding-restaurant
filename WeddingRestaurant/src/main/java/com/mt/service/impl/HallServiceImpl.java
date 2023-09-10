@@ -35,6 +35,9 @@ public class HallServiceImpl implements HallService{
     public EventHalls updateEventHalls(EventHalls hall) {
         return this.hallRepo.updateEventHalls(hall);
     }
-    
-    
+
+    @Override
+    public EventHalls addHall(EventHalls hall) {
+        return this.hallRepo.addHall(hall);
+    }
 }

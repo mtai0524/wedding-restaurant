@@ -46,6 +46,7 @@ com\mt\repository\MenuRepository.class
 com\mt\configs\HibernateConfig.class
 com\mt\pojo\Branches_.class
 com\mt\pojo\RevenueQuarterly.class
+com\mt\formatters\BranchFormatter.class
 com\mt\repository\ServiceRepository.class
 com\mt\service\impl\OrderServiceImpl.class
 com\mt\controllers\OrderController.class

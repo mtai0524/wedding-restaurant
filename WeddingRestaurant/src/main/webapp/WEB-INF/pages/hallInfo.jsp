@@ -29,10 +29,13 @@
                             <label for="capacity">Capacity:</label>
                             <form:input path="capacity" id="capacity" class="form-control" />
                         </div>
-<!--                            <div class="form-group">
-                                <label for="branchId">Branch:</label>
-                                <form:input path="branchId.branchName" id="branchId" class="form-control" />
-                            </div> Ty ve chinh lai-->
+
+                            <label for="branch">Chọn chi nhánh</label>
+                            <form:select class = "form-select" id = "branch" name = "branch" path = "branchId">
+                                <c:forEach items="${listBranchForHall}" var = "b">
+                                    <option value="${b.branchId}">${b.branchName}</option>
+                                </c:forEach>
+                            </form:select>
                     <div class="form-group">
                         <label for="priceMorning">Price Morning:</label>
                         <form:input path="priceMorning" id="priceMorning" class="form-control" />

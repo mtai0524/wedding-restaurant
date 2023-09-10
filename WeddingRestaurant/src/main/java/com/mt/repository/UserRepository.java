@@ -14,9 +14,9 @@ import org.springframework.stereotype.Repository;
  */
 public interface UserRepository {
     List<Users> getUsers();
-    String add(Users user);
+    Users add(Users user);
     void delete(Integer userId);
-    public Users getProductById(int id);
+    public Users getUserById(int id);
     public void deleteProduct(int id);
     public Users updateUser(Users user);
     public Users findUserNameById(int userId);
