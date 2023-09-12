@@ -9,7 +9,37 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <link href="<c:url value = "/css/usercss.css"/>" rel="stylesheet">
+<style>
+    #successMessage {
+        position: fixed;
+        top: 50px;
+        right: 20px; 
+        z-index: 9999;
+    }
+</style>
+<c:if test="${isNotUser}">
+    <div class="alert alert-danger" id="successMessage">
+        Sai thông tin tài khoản hoặc mật khẩu
+    </div>
 
+    <script>
+        // Lấy thẻ div chứa thông báo thành công
+        var successDiv = document.getElementById("successMessage");
+
+        // Ẩn div ban đầu
+        successDiv.style.display = "none";
+
+        // Hiển thị div trong 5 giây sau khi trang đã được tải
+        setTimeout(function () {
+            successDiv.style.display = "block";
+        }, 100); // Thời gian hiển thị là 1000 miliseconds (1 giây)
+
+        // Ẩn div sau 5 giây
+        setTimeout(function () {
+            successDiv.style.display = "none";
+        }, 5000);
+    </script>
+</c:if>
 <div class="container" style="margin-top: 60px">
     <div class="section-title text-center">
         <h1 class="display-5 mb-5" style="color: black">Đăng nhập</h1>

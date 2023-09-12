@@ -42,4 +42,9 @@ public class ServiceServiceImpl implements ServiceService{
     public List<Services> getListServiceByUserId(int userId) {
         return this.serverRepo.getListServiceByUserId(userId);
     }
+
+    @Override
+    public Services getServiceById(int id) {
+        return this.serverRepo.getServiceById(id);
+    }
 }

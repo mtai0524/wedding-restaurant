@@ -24,6 +24,8 @@
                         <div class="form-group" style="display: none;">
                             <label for="username">Username:</label>
                             <form:input path="username" id="username" class="form-control" />
+                            <form:errors path = "username" cssClass = "alert alert-danger" element ="div" ></form:errors>
+
                         </div>
                         <div class="form-group" style="display: none;">
                             <label for="password">Password:</label>

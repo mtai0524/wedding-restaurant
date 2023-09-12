@@ -4,6 +4,7 @@
  */
 package com.mt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -64,6 +65,7 @@ public class Menus implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "menu_price")
     private BigDecimal menuPrice;
+    @JsonIgnore
     @OneToMany(mappedBy = "menuId")
     private Set<BookingMenus> bookingMenusSet;
     @Transient

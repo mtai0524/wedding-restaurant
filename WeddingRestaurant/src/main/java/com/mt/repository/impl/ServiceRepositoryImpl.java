@@ -26,7 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Repository
 public class ServiceRepositoryImpl implements ServiceRepository{
-
     @Autowired
     MyEnvironment myEnvironment;
     
@@ -51,10 +50,6 @@ public class ServiceRepositoryImpl implements ServiceRepository{
 
             // Lấy địa chỉ URL của hình ảnh từ kết quả tải lên
             String imageUrl = (String) uploadResult.get("secure_url");
-//            user.setUsername("dashduksh");
-//            user.setRole("ccccc");
-//            user.setPassword("cc");
-//            // Gán địa chỉ URL vào đối tượng Users
             service.setServiceImg(imageUrl);
 
             // Lưu đối tượng Users vào cơ sở dữ liệu
@@ -94,5 +89,15 @@ public class ServiceRepositoryImpl implements ServiceRepository{
                 .setParameter("userId", myEnvironment.getUserIdCurrent()) // Đặt tham số userId vào truy vấn
                 .getResultList();
         return serviceList;
+    }
+
+    @Override
+    public Services getServiceById(int id) {
+        String hql = "FROM Services s WHERE s.serviceId = :serviceId";
+        Services service = factory.getObject().getCurrentSession()
+                .createQuery(hql, Services.class)
+                .setParameter("serviceId", id)
+                .uniqueResult();
+        return service;
     }
 }

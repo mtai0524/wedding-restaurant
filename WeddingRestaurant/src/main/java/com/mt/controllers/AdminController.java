@@ -15,12 +15,14 @@ import com.mt.service.HallService;
 import com.mt.service.MenuService;
 import com.mt.service.ServiceService;
 import com.mt.service.UserService;
+import javax.validation.Valid;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -95,9 +97,13 @@ public class AdminController {
     }
 
     @PostMapping("/admin/manage-branch/add")
-    public String postAddBranch(@ModelAttribute(value = "branchpost") Branches branch) {
-        branchService.addBranch(branch);
-        return "redirect:/";
+    public String postAddBranch(@ModelAttribute(value = "branchpost") @Valid Branches branch,
+            BindingResult result) {
+        if(!result.hasErrors()){
+            branchService.addBranch(branch);
+            return "redirect:/";
+        }
+        return "addBranch";
     }
   
     
@@ -189,8 +195,8 @@ public class AdminController {
     @GetMapping("/edit/hall/{hallId}")
     public String getEditHall(@PathVariable("hallId") Integer hallId, Model model) {
         Session s = this.factory.getObject().getCurrentSession();
-
         model.addAttribute("hall", s.get(EventHalls.class, hallId));
+        
         return "hallInfo";
     }
 

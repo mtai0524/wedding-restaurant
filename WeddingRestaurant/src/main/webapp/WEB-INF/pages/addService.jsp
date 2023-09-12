@@ -20,18 +20,16 @@
             <form:form method="post" action="${action}" modelAttribute="service" enctype="multipart/form-data" class="my-form">
                 <div class="form-group">
                     <label for="serviceName">Service name</label>
-                    <input type="text" id="serviceName" name="serviceName" class="form-control" required="true" />
+                    <form:input type="text" id="serviceName" path="serviceName" class="form-control"/>
 
                     <label for="description">Description</label>
-                    <input type="text" id="description" name="description" class="form-control" required="true"/>
-
+                    <form:input type="text" id="description" path="description" class="form-control"/>
                     
                     <label for="servicePrice">Price</label>
-                    <input type="text" id="servicePrice" name="servicePrice" class="form-control" required="true"/>
-                    
+                    <form:input type="text" id="servicePrice" path="servicePrice" class="form-control"/>
 
                     <label for="file">Hình ảnh:</label>
-                    <input type="file" id="file" name="file" class="form-control" required="true"/>
+                    <form:input type="file" id="file" path="file" class="form-control"/>
                 </div>
 
                 <div class="form-group">

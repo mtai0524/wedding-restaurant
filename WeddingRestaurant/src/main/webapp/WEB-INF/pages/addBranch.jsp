@@ -20,18 +20,22 @@
             <form:form method="post" action="${action}" modelAttribute="branchpost" enctype="multipart/form-data" class="my-form">
                 <div class="form-group">
                     <label for="branchName">Branch name</label>
-                    <input type="text" id="branchName" name="branchName" class="form-control" required="true" />
+                    <%--<form:errors path = "*" cssClass = "alert alert-danger" element ="div" ></form:errors>--%>
+                    <form:input type="text" id="branchName" path="branchName" class="form-control"/>
+                    <form:errors path = "branchName" cssClass = "alert alert-danger" element ="div" ></form:errors>
 
                     <label for="address">Address</label>
-                    <input type="text" id="address" name="address" class="form-control" required="true"/>
+                    <form:textarea type="text" id="address" path="address" class="form-control"/>
+                    <form:errors path = "address" cssClass = "alert alert-danger" element ="div" ></form:errors>
 
 
                     <label for="phone">phone</label>
-                    <input type="text" id="phone" name="phone" class="form-control" required="true"/>
+                    <form:input type="text" id="phone" path="phone" class="form-control"/>
+                    <form:errors path = "phone" cssClass = "alert alert-danger" element ="div" ></form:errors>
 
-
+                    <form:errors path = "file" cssClass = "alert alert-danger" element ="div" ></form:errors>
                     <label for="file">Hình ảnh:</label>
-                    <input type="file" id="file" name="file" class="form-control" required="true"/>
+                    <form:input type="file" id="file" path="file" class="form-control"/>
                 </div>
 
                 <div class="form-group">

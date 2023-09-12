@@ -40,6 +40,7 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Users.findByAvatar", query = "SELECT u FROM Users u WHERE u.avatar = :avatar")})
 public class Users implements Serializable {
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userId")
     private Set<BookingServices> bookingServicesSet;
 
@@ -49,14 +50,12 @@ public class Users implements Serializable {
     @Basic(optional = false)
     @Column(name = "user_id")
     private Integer userId;
-    @Basic(optional = false)
 //    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 5, max = 255, message = "{user.username.lengthError}")
     @Column(name = "username")
     private String username;
-    @Basic(optional = false)
 //    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 6, max = 20, message = "{user.password.lengthError}")
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
@@ -74,6 +73,16 @@ public class Users implements Serializable {
     @OneToMany(mappedBy = "userId")
     private Set<Bookings> bookingsSet;
 
+    @Transient
+    private String confirmPassword;
+   
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+   
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
     @Transient
     private MultipartFile file;
 

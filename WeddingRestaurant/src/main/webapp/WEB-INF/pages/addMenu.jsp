@@ -20,18 +20,19 @@
             <form:form method="post" action="${action}" modelAttribute="menu" enctype="multipart/form-data" class="my-form">
                 <div class="form-group">
                     <label for="menuName">Menu name</label>
-                    <input type="text" id="menuName" name="menuName" class="form-control" required="true" />
+                    <form:input type="text" id="menuName" path="menuName" class="form-control"/>
 
                     <label for="description">Description</label>
                     <input type="text" id="description" name="description" class="form-control" required="true"/>
+                    <form:input type="text" id="description" path="description" class="form-control"/>
 
 
                     <label for="menuPrice">Price</label>
-                    <input type="text" id="menuPrice" name="menuPrice" class="form-control" required="true"/>
+                    <form:input type="text" id="menuPrice" path="menuPrice" class="form-control"/>
 
 
                     <label for="file">Hình ảnh:</label>
-                    <input type="file" id="file" name="file" class="form-control" required="true"/>
+                    <form:input type="file" id="file" path="file" class="form-control"/>
                 </div>
 
                 <div class="form-group">

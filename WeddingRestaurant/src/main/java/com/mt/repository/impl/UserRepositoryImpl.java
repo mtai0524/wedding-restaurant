@@ -144,4 +144,24 @@ public class UserRepositoryImpl implements UserRepository {
         session.update(user);
         return user;
     }
+    
+    public Users addUser(Users user) {
+        Session s = this.factory.getObject().getCurrentSession();
+//        u.setUserId(UUID.randomUUID().toString());
+//        u.setCreatedAt(new Date());
+        s.save(user);
+        return user;
+    }
+
+    @Override
+    public Users getUsersByName(String username) {
+        String hql = "FROM Users WHERE username = :username";
+
+        Users user = factory.getObject().getCurrentSession()
+                .createQuery(hql, Users.class)
+                .setParameter("username", username)
+                .uniqueResult();
+
+        return user;
+    }
 }

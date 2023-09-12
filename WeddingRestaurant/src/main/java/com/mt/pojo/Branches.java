@@ -4,6 +4,7 @@
  */
 package com.mt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -50,23 +51,24 @@ public class Branches implements Serializable {
     @Column(name = "branch_id")
     private Integer branchId;
     @Basic(optional = false)
-    @Size(min = 1, max = 255)
+    @Size(min = 5, max = 50, message = "{branch.branchName.lengthError}")
     @Column(name = "branch_name")
     private String branchName;
-    @Basic(optional = false)
-    @Size(min = 1, max = 255)
+    @Size(min = 10, max = 50, message = "{branch.address.lengthError}")
     @Column(name = "address")
     private String address;
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @Size(min = 1, max = 20)
+    @Size(min = 1, max = 10, message = "{branch.phone.lengthError}")
     @Column(name = "phone")
     private String phone;
+    @JsonIgnore
     @OneToMany(mappedBy = "branchId")
     private Set<EventHalls> eventHallsSet;
     @OneToMany(mappedBy = "branchId")
+    @JsonIgnore
     private Set<Employees> employeesSet;
     
+    @NotNull(message = "{branch.file.nullError}")
     @Transient
     private MultipartFile file;
 

@@ -20,11 +20,11 @@
             <form:form method="post" action="${action}" modelAttribute="hall" enctype="multipart/form-data" class="my-form">
                 <div class="form-group">
                     <label for="hallName">Hall name</label>
-                    <input type="text" id="hallName" name="hallName" class="form-control" required="true" />
+                    <form:input type="text" id="hallName" path="hallName" class="form-control"/>
 
                     <label for="capacity">capacity</label>
-                    <input type="text" id="capacity" name="capacity" class="form-control" required="true"/>
-                        
+                    <form:input type="text" id="capacity" path="capacity" class="form-control"/>
+
                     <label for="branch">Chọn chi nhánh</label>
                     <form:select class = "form-select" id = "branch" name = "branch" path = "branchId">
                         <c:forEach items="${listBranchForHall}" var = "b">
@@ -45,7 +45,8 @@
                     <input type="text" id="priceWeekend" name="priceWeekend" class="form-control" required="true"/>-->
 
                     <label for="file">Image:</label>
-                    <input type="file" id="file" name="file" class="form-control" required="true"/>
+                    <form:input type="file" id="file" path="file" class="form-control"/>
+
                 </div>
 
                 <div class="form-group">

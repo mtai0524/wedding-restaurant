@@ -38,7 +38,7 @@ public class BookingMenus implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Column(name = "booking_menu_id")
     private Integer bookingMenuId;
     @JoinColumn(name = "booking_id", referencedColumnName = "booking_id")
@@ -47,7 +47,7 @@ public class BookingMenus implements Serializable {
     @JoinColumn(name = "menu_id", referencedColumnName = "menu_id")
     @ManyToOne
     private Menus menuId;
-   
+
     public BookingMenus() {
     }
 
@@ -111,5 +111,5 @@ public class BookingMenus implements Serializable {
     public void setUserId(Users userId) {
         this.userId = userId;
     }
-    
+
 }

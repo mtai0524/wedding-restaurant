@@ -21,4 +21,6 @@ public interface UserRepository {
     public Users updateUser(Users user);
     public Users findUserNameById(int userId);
     public Users changeRole(Users user);
+    public Users addUser(Users user);
+    Users getUsersByName(String username);
 }

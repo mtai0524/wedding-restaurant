@@ -16,4 +16,5 @@ public interface ServiceRepository {
     Services updateServices(Services service);
     Services addService(Services service);
     List<Services> getListServiceByUserId(int userId);
+    Services getServiceById(int id);
 }

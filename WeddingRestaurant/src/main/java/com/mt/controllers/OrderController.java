@@ -151,38 +151,6 @@ public class OrderController {
         return "order";
     }
 
-//    @PostMapping("/search")
-//    public String search(@ModelAttribute("searchForm") SearchForm searchForm, Model model) {
-//        String searchType = searchForm.getSearchType();
-//        String searchKeyword = searchForm.getKeyword(); // Từ khóa tìm kiếm
-//
-//        if ("branch".equals(searchType)) {
-//            String hql = "FROM Branches b WHERE b.branchName LIKE :keyword";
-//
-//            List<Branches> branches = factory.getObject().getCurrentSession()
-//                    .createQuery(hql, Branches.class)
-//                    .setParameter("keyword", "%" + searchKeyword + "%")
-//                    .getResultList();
-//
-//            model.addAttribute("results", branches);
-//
-//            return "searchResults";
-//        } else if ("hall".equals(searchType)) {
-//            String hql = "FROM EventHalls h WHERE h.hallName LIKE :keyword";
-//
-//            List<EventHalls> halls = factory.getObject().getCurrentSession()
-//                    .createQuery(hql, EventHalls.class)
-//                    .setParameter("keyword", "%" + searchKeyword + "%")
-//                    .getResultList();
-//
-//            model.addAttribute("results", halls);
-//
-//            return "searchResults";
-//        }
-//        // ... Xử lý tìm kiếm cho các loại khác
-//
-//        return "searchResults";
-//    }
     @Autowired
     MyEnvironment myEnvironment;
 
@@ -191,6 +159,7 @@ public class OrderController {
         Integer[] selectedMenuIds = menuSelectionForm.getSelectedMenuIds();
 
         String hql = "FROM Menus m WHERE m.menuId = :menuId";
+        
         for (Integer id : selectedMenuIds) {
             Menus menu = factory.getObject().getCurrentSession()
                     .createQuery(hql, Menus.class)
@@ -211,12 +180,9 @@ public class OrderController {
     public String selectService(@ModelAttribute("serviceSelectionForm") ServiceSelectionForm serviceSelectionForm, Model model) {
         Integer[] selectedServiceIds = serviceSelectionForm.getSelectedServiceIds();
 
-        String hql = "FROM Services s WHERE s.serviceId = :serviceId";
+        
         for (Integer id : selectedServiceIds) {
-            Services service = factory.getObject().getCurrentSession()
-                    .createQuery(hql, Services.class)
-                    .setParameter("serviceId", id)
-                    .uniqueResult();
+            Services service = serviceService.getServiceById(id);
 
             BookingServices bookingServices = new BookingServices();
             bookingServices.setServiceId(service);
@@ -235,38 +201,6 @@ public class OrderController {
     @ModelAttribute("serviceSelectionForm")
     public ServiceSelectionForm getServiceSelectionForm() {
         return new ServiceSelectionForm();
-    }
-
-//    @PostMapping("/order/{branchId}/hall/{hallId}")
-//    public String selectMenus(@RequestParam(value = "selectedMenuIds", required = false) Integer[] selectedMenuIds) {
-//        if (selectedMenuIds != null) {
-//            for (Integer menuId : selectedMenuIds) {
-//                String hql = "FROM Menus m WHERE m.menuId = :menuId";
-//                Menus menu=  factory.getObject().getCurrentSession()
-//                        .createQuery(hql, Menus.class)
-//                        .setParameter("menuId", menuId)
-//                        .uniqueResult();
-//                if (menu != null) { 
-//                    
-//                    hql = "UPDATE Menus m SET m.choose = :choose WHERE m.menuId = :menuId";
-//                    factory.getObject().getCurrentSession()
-//                            .createQuery(hql)
-//                            .setParameter("choose", 1)
-//                            .setParameter("menuId", menuId)
-//                            .executeUpdate();
-//                }
-//            }
-//        }
-//        return "order"; // Chuyển hướng về trang danh sách món ăn
-//    }
-    @GetMapping("/order/{branchId}/hall/{hallId}/menu/service/bill")
-    public String handleBill(@PathVariable("branchId") Integer branchId, @PathVariable("hallId") Integer hallId, Model model) {
-        
-        boolean showBtnExportPdf = true;
-        model.addAttribute("showBtnExportPdf", showBtnExportPdf);
-
-        
-        return "order";
     }
 
     @GetMapping("/order/{branchId}/hall/{hallId}/menu/service")
@@ -289,20 +223,17 @@ public class OrderController {
         model.addAttribute("showTxtListService", showTextListService);
         return "order";
     }
-
-//    @PostMapping("/order/{branchId}/hall/{hallId}/menu/service")
-//    public String postOrderWithServices(@PathVariable("branchId") Integer branchId, @PathVariable("hallId") Integer hallId, Model model) {
-//        
-//        return "redirect:/order/{branchId}/hall/{hallId}/menu/service/bill";
-//    }
+    
+    
+    @GetMapping("/order/{branchId}/hall/{hallId}/menu/service/bill")
+    public String handleBill(@PathVariable("branchId") Integer branchId, @PathVariable("hallId") Integer hallId, Model model) {
+        boolean showBtnExportPdf = true;
+        model.addAttribute("showBtnExportPdf", showBtnExportPdf);
+        return "order";
+    }
+    
     @GetMapping("/export/pdf")
     public ModelAndView exportPdf(HttpServletRequest request, HttpServletResponse response) throws DocumentException {
-
-//        String hql = "SELECT bm.menuId FROM BookingMenus bm WHERE bm.userId.userId = :userId";
-//        List<Menus> menuList = currentSession.createQuery(hql, Menus.class)
-//                .setParameter("userId", myEnvironment.getUserIdCurrent()) // Đặt tham số userId vào truy vấn
-//                .getResultList();
-        
         List<Menus> menuList = menuService.getListMenuById(myEnvironment.getUserIdCurrent());
         
         List<Services> serviceList = serviceService.getListServiceByUserId(myEnvironment.getUserIdCurrent());
@@ -438,8 +369,6 @@ public class OrderController {
             // Tính tổng tiền của cả hai bảng
             BigDecimal totalAmount = totalMenuAmount.add(totalServiceAmount);
 
-        
-
             // Hiển thị tổng tiền cho Services
             String totalServiceAmountText = "Tong tien dich vu: " + totalServiceAmount.toString() + " VND";
             PdfPCell totalServiceAmountCell = new PdfPCell(new Phrase(totalServiceAmountText, new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)));
@@ -502,7 +431,6 @@ public class OrderController {
         return null;
     }
 
-
     private String getCurrentDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(new Date());
@@ -532,5 +460,4 @@ public class OrderController {
                 .uniqueResult();
         return totalAmount;
     }
-
 }

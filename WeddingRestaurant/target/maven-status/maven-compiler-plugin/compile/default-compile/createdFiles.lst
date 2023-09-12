@@ -1,6 +1,8 @@
 com\mt\pojo\Invoices_.class
 com\mt\pojo\RevenueMonthly_.class
+com\mt\controllers\ApiBranchController.class
 com\mt\pojo\BookingMenus_.class
+com\mt\controllers\ApiServiceController.class
 com\mt\service\MenuService.class
 com\mt\pojo\Bookings_.class
 com\mt\configs\DispatcherServletInit.class
@@ -64,6 +66,7 @@ com\mt\pojo\Employees_.class
 com\mt\pojo\RevenueMonthly.class
 com\mt\repository\impl\HallRepositoryImpl.class
 com\mt\controllers\AdminController.class
+com\mt\controllers\ApiHallController.class
 com\mt\pojo\RevenueYearly.class
 com\mt\pojo\BookingMenus.class
 com\mt\controllers\ServiceController.class

@@ -4,6 +4,7 @@
  */
 package com.mt.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -76,6 +77,7 @@ public class EventHalls implements Serializable {
     @ManyToOne
     private Branches branchId;
     @OneToMany(mappedBy = "hallId")
+    @JsonIgnore
     private Set<Bookings> bookingsSet;
     @Transient
     private MultipartFile file;

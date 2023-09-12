@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "BookingServices.findAll", query = "SELECT b FROM BookingServices b"),
     @NamedQuery(name = "BookingServices.findByBookingServiceId", query = "SELECT b FROM BookingServices b WHERE b.bookingServiceId = :bookingServiceId")})
 public class BookingServices implements Serializable {
-
+    @NotNull
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @ManyToOne
     private Users userId;
@@ -38,7 +38,7 @@ public class BookingServices implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Column(name = "booking_service_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 

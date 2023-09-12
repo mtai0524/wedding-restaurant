@@ -1,0 +1,172 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Sep 12, 2023, 11:43:22 AM
+    Author     : minh tai
+*/
+.container {
+    display: flex;
+    justify-content: center; /* Canh giữa theo chiều ngang */
+    align-items: center; /* Canh giữa theo chiều dọc */
+}
+.user-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.user-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 0 10px 20px 10px;
+    width: 350px; /* Tăng độ rộng lên 400px */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.user-info {
+    text-align: center;
+}
+
+.user-info h3 {
+    margin: 0;
+}
+
+.user-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.wrapper {
+    display: flex;
+    height: 100%;
+    min-height: 100%;
+    flex-grow: 1;
+}
+
+.sidebar {
+    width: 250px; /* Độ rộng của menu dọc */
+    background-color: #303030; /* Màu nền của menu dọc */
+    color: #303030; /* Màu văn bản của menu dọc */
+    padding:20px;
+    margin-bottom: -200px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.content {
+    flex: 1; /* Phần còn lại của trang */
+    padding: 20px;
+}
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-table th,
+.user-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ccc; /* Add border around each cell */
+}
+
+.user-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.user-card td {
+    vertical-align: top;
+}
+
+/* Style for Edit and Delete buttons */
+.user-table .delete-button,
+.user-table .edit-button {
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer;
+    display: flex; /* Use flexbox to center vertically */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    text-align: center;
+    transition: background-color 0.3s, border-color 0.3s;
+    font-weight: bold;
+}
+
+.user-table .delete-button {
+    background-color: red;
+    color: white;
+    border-color: red;
+}
+
+.user-table .edit-button {
+    background-color: green;
+    color: white;
+    border-color: green;
+}
+
+/* Center the text and icons */
+.user-table .delete-button i,
+.user-table .edit-button i {
+    margin-right: 5px;
+}
+
+/* Vertical alignment for table cells */
+.user-table th,
+.user-table td {
+    vertical-align: middle; /* Center content vertically */
+}
+
+/* Style for Edit and Delete buttons */
+.user-table .delete-button,
+.user-table .edit-button {
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer;
+    display: inline-block;
+    padding: 8px 16px;
+    text-align: center;
+    transition: background-color 0.3s, border-color 0.3s;
+    margin: 5px; /* Equal spacing */
+    font-weight: bold;
+}
+
+.user-table .delete-button {
+    background-color: red;
+    color: white;
+    border-color: red;
+}
+
+.user-table .edit-button {
+    background-color: green;
+    color: white;
+    border-color: green;
+}
+
+/* Center the text and icons */
+.user-table .delete-button i,
+.user-table .edit-button i {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
